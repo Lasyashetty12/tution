@@ -33,7 +33,9 @@
   $("#year").textContent = new Date().getFullYear();
 
   // Opening sequence and motion effects. All effects respect reduced-motion settings.
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Motion is an explicit part of this site experience. Keep the effects
+  // gentle, but do not silently disable them because of browser media detection.
+  const reduceMotion = false;
   const intro = $("#intro");
   document.documentElement.classList.add("motion-ready");
 
@@ -154,7 +156,7 @@
   }, { passive: true });
   updateScrollMotion();
 
-  if (window.matchMedia("(any-pointer: fine)").matches) {
+  if ("PointerEvent" in window) {
     const cursorGlow = $("#cursorGlow");
     const target = { x: -60, y: -60 };
     const current = { x: -60, y: -60 };
@@ -176,6 +178,9 @@
     };
 
     window.addEventListener("pointermove", (event) => {
+      if (event.pointerType === "touch") return;
+      document.documentElement.classList.add("mouse-follower-active");
+      if (cursorGlow) cursorGlow.style.display = "block";
       target.x = event.clientX;
       target.y = event.clientY;
       const mouseX = event.clientX / innerWidth - .5;
