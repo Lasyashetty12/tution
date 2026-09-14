@@ -48,29 +48,28 @@
     intro?.remove();
   }
 
+  // Each content group gets its own calm entrance. Reveals happen once so
+  // scrolling never repeatedly flashes or moves content the user has already read.
   const revealGroups = [
-    { selector: ".hero .eyebrow, .hero h1, .hero-text, .hero-actions, .hero-proof", direction: "left" },
-    { selector: ".hero-panel", direction: "right" },
-    { selector: ".about > :first-child", direction: "left" },
-    { selector: ".about > :last-child", direction: "right" },
-    { selector: ".section-heading", direction: "up" },
-    { selector: ".class-card", direction: "alternate" },
-    { selector: ".steps article", direction: "alternate" },
-    { selector: ".achievements > :first-child", direction: "left" },
-    { selector: ".achievements > :last-child", direction: "right" },
-    { selector: ".registration > :first-child", direction: "left" },
-    { selector: ".registration > :last-child", direction: "right" },
-    { selector: ".footer > *", direction: "up" }
+    { selector: ".hero .eyebrow, .hero h1, .hero-text, .hero-actions, .hero-proof", motion: "rise" },
+    { selector: ".hero-panel", motion: "scale-soft" },
+    { selector: ".about > :first-child", motion: "left-soft" },
+    { selector: ".about > :last-child", motion: "fade" },
+    { selector: ".section-heading", motion: "fade" },
+    { selector: ".class-card", motion: "scale-soft" },
+    { selector: ".steps article", motion: "rise" },
+    { selector: ".achievements > :first-child", motion: "right-soft" },
+    { selector: ".achievements > :last-child", motion: "scale-soft" },
+    { selector: ".registration > :first-child", motion: "fade" },
+    { selector: ".registration > :last-child", motion: "rise" },
+    { selector: ".footer > *", motion: "fade" }
   ];
 
   const animatedElements = [];
   revealGroups.forEach((group) => {
-    $$(group.selector).forEach((element, index) => {
-      const direction = group.direction === "alternate"
-        ? (index % 2 === 0 ? "left" : "right")
-        : group.direction;
-      element.dataset.reveal = direction;
-      element.style.setProperty("--reveal-delay", (index % 4) * 95 + "ms");
+    $(group.selector).forEach((element, index) => {
+      element.dataset.reveal = group.motion;
+      element.style.setProperty("--reveal-delay", (index % 4) * 70 + "ms");
       animatedElements.push(element);
     });
   });
@@ -78,15 +77,11 @@
   if (!reduceMotion && "IntersectionObserver" in window) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("revealed");
-        } else {
-          // Reset only after the element fully leaves the view so the entrance
-          // replays naturally when scrolling down or back up.
-          entry.target.classList.remove("revealed");
-        }
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("revealed");
+        observer.unobserve(entry.target);
       });
-    }, { threshold: 0.16, rootMargin: "-4% 0px -8% 0px" });
+    }, { threshold: 0.12, rootMargin: "0px 0px -7% 0px" });
     animatedElements.forEach((element) => observer.observe(element));
   } else {
     animatedElements.forEach((element) => element.classList.add("revealed"));
@@ -97,10 +92,10 @@
     $(".site-header")?.classList.toggle("scrolled", scrollY > 24);
 
     if (!reduceMotion) {
-      $("#heroPanel")?.style.setProperty("--panel-y", Math.min(scrollY * .08, 32) + "px");
+      $("#heroPanel")?.style.setProperty("--panel-y", Math.min(scrollY * .025, 10) + "px");
       $$(".section").forEach((section) => {
         const rect = section.getBoundingClientRect();
-        const offset = Math.max(-45, Math.min(45, (innerHeight / 2 - rect.top) * .045));
+        const offset = Math.max(-10, Math.min(10, (innerHeight / 2 - rect.top) * .012));
         section.style.setProperty("--section-parallax", offset + "px");
       });
     }
@@ -117,50 +112,39 @@
   updateScrollMotion();
 
   if (!reduceMotion && window.matchMedia("(pointer:fine)").matches) {
+    const cursorGlow = $("#cursorGlow");
+    const target = { x: -60, y: -60 };
+    const current = { x: -60, y: -60 };
+    let cursorFrame = 0;
+
+    const drawCursor = () => {
+      current.x += (target.x - current.x) * .18;
+      current.y += (target.y - current.y) * .18;
+      cursorGlow?.style.setProperty(
+        "transform",
+        `translate3d(${current.x - 16}px, ${current.y - 16}px, 0)`
+      );
+
+      if (Math.abs(target.x - current.x) > .08 || Math.abs(target.y - current.y) > .08) {
+        cursorFrame = requestAnimationFrame(drawCursor);
+      } else {
+        cursorFrame = 0;
+      }
+    };
+
     window.addEventListener("pointermove", (event) => {
-      document.documentElement.style.setProperty("--cursor-x", event.clientX + "px");
-      document.documentElement.style.setProperty("--cursor-y", event.clientY + "px");
+      target.x = event.clientX;
+      target.y = event.clientY;
+      cursorGlow?.classList.add("active");
+      if (!cursorFrame) cursorFrame = requestAnimationFrame(drawCursor);
     }, { passive: true });
 
-    const panel = $("#heroPanel");
-    panel?.addEventListener("pointermove", (event) => {
-      const box = panel.getBoundingClientRect();
-      const x = (event.clientX - box.left) / box.width - .5;
-      const y = (event.clientY - box.top) / box.height - .5;
-      panel.style.setProperty("--panel-ry", x * 5 + "deg");
-      panel.style.setProperty("--panel-rx", y * -5 + "deg");
-    });
-    panel?.addEventListener("pointerleave", () => {
-      panel.style.setProperty("--panel-ry", "0deg");
-      panel.style.setProperty("--panel-rx", "0deg");
-    });
+    document.documentElement.addEventListener("mouseleave", () => cursorGlow?.classList.remove("active"));
+    window.addEventListener("blur", () => cursorGlow?.classList.remove("active"));
 
-    $(".button, .text-link").forEach((element) => {
-      element.classList.add("magnetic");
-      element.addEventListener("pointermove", (event) => {
-        const box = element.getBoundingClientRect();
-        element.style.setProperty("--magnetic-x", (event.clientX - box.left - box.width / 2) * .12 + "px");
-        element.style.setProperty("--magnetic-y", (event.clientY - box.top - box.height / 2) * .16 + "px");
-      });
-      element.addEventListener("pointerleave", () => {
-        element.style.setProperty("--magnetic-x", "0px");
-        element.style.setProperty("--magnetic-y", "0px");
-      });
-    });
-
-    $(".class-card").forEach((card) => {
-      card.classList.add("motion-card");
-      card.addEventListener("pointermove", (event) => {
-        if (!card.classList.contains("revealed")) return;
-        const box = card.getBoundingClientRect();
-        const x = (event.clientX - box.left) / box.width - .5;
-        const y = (event.clientY - box.top) / box.height - .5;
-        const lift = card.classList.contains("featured") ? -12 : -6;
-        card.style.transform = `perspective(900px) translateY(${lift}px) rotateX(${y * -7}deg) rotateY(${x * 8}deg)`;
-      });
-      card.addEventListener("pointerleave", () => {
-        card.style.removeProperty("transform");
-      });
+    $$("a, button, .class-card, .form-card").forEach((element) => {
+      element.addEventListener("pointerenter", () => cursorGlow?.classList.add("cursor-action"));
+      element.addEventListener("pointerleave", () => cursorGlow?.classList.remove("cursor-action"));
     });
   }
 
