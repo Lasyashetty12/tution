@@ -100,7 +100,7 @@
     element.classList.add(element.matches("h1, h2, h3, .eyebrow") ? "text-reveal" : "copy-reveal");
   });
 
-  if (!reduceMotion && "IntersectionObserver" in window) {
+  if ("IntersectionObserver" in window) {
     const revealVisibleElements = () => {
       animatedElements.forEach((element) => {
         const box = element.getBoundingClientRect();
@@ -135,15 +135,13 @@
   const updateScrollMotion = () => {
     $(".site-header")?.classList.toggle("scrolled", scrollY > 24);
 
-    if (!reduceMotion) {
-      $("#heroPanel")?.style.setProperty("--panel-y", Math.min(scrollY * .025, 10) + "px");
-      $(".hero")?.style.setProperty("--hero-scroll-y", Math.min(scrollY * .018, 12) + "px");
-      $(".section").forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        const offset = Math.max(-10, Math.min(10, (innerHeight / 2 - rect.top) * .012));
-        section.style.setProperty("--section-parallax", offset + "px");
-      });
-    }
+    $("#heroPanel")?.style.setProperty("--panel-y", Math.min(scrollY * .035, 14) + "px");
+    $(".hero")?.style.setProperty("--hero-scroll-y", Math.min(scrollY * .024, 16) + "px");
+    $$(".section").forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      const offset = Math.max(-14, Math.min(14, (innerHeight / 2 - rect.top) * .016));
+      section.style.setProperty("--section-parallax", offset + "px");
+    });
   };
 
   window.addEventListener("scroll", () => {
@@ -156,7 +154,7 @@
   }, { passive: true });
   updateScrollMotion();
 
-  if (!reduceMotion && window.matchMedia("(pointer:fine)").matches) {
+  if (window.matchMedia("(any-pointer: fine)").matches) {
     const cursorGlow = $("#cursorGlow");
     const target = { x: -60, y: -60 };
     const current = { x: -60, y: -60 };
