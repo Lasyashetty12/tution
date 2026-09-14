@@ -264,7 +264,7 @@
 
   function renderStudents(students, target, compact) {
     if (!students.length) {
-      target.innerHTML = '<tr><td colspan="6">No student records yet.</td></tr>';
+      target.innerHTML = '<tr><td colspan="7">No student records yet.</td></tr>';
       return;
     }
 
@@ -282,7 +282,7 @@
           <td>${escapeHtml(student.parent_name)}</td>
           <td><strong>${escapeHtml(student.phone)}</strong><small>${escapeHtml(student.email || "")}</small></td>
           <td>${escapeHtml((student.subjects || []).join(", "))}</td>
-          <td><strong>${escapeHtml(student.previous_percentage)}%</strong><small>${escapeHtml(student.previous_exam)} · Class ${escapeHtml(student.previous_class)}</small></td>
+          <td>${student.previous_percentage == null ? "Not provided" : `<strong>${escapeHtml(student.previous_percentage)}%</strong><small>${escapeHtml(student.previous_exam || "")} · Class ${escapeHtml(student.previous_class || "")}</small>`}</td>
           <td><select class="status-select" data-student-id="${student.id}" aria-label="Status for ${escapeHtml(student.student_name)}">
             <option value="pending" ${student.status === "pending" ? "selected" : ""}>Pending</option>
             <option value="active" ${student.status === "active" ? "selected" : ""}>Active</option>
