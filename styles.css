@@ -497,3 +497,20 @@ body.intro-active #publicApp {
     animation:none;
   }
 }
+
+
+/* Runtime motion fix v13 — cross-device follower and reliable scroll effects */
+html.motion-ready .cursor-glow {
+  z-index:999;
+  visibility:visible;
+}
+@media (hover:hover), (any-pointer:fine) {
+  html.motion-ready .cursor-glow {
+    display:block;
+  }
+}
+@media (pointer:coarse) and (any-pointer:fine) {
+  html.motion-ready .cursor-glow {
+    display:block;
+  }
+}
