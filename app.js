@@ -1,0 +1,387 @@
+(() => {
+  "use strict";
+
+  const config = window.VISION_CONFIG || {};
+  const configured =
+    /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(config.supabaseUrl || "") &&
+    !String(config.supabaseUrl).includes("YOUR_PROJECT") &&
+    config.supabaseAnonKey &&
+    !String(config.supabaseAnonKey).includes("YOUR_");
+
+  const db = configured && window.supabase
+    ? window.supabase.createClient(config.supabaseUrl, config.supabaseAnonKey)
+    : null;
+
+  const state = { students: [], performance: [], charts: {} };
+  const $ = (selector) => document.querySelector(selector);
+  const $$ = (selector) => [...document.querySelectorAll(selector)];
+  const escapeHtml = (value = "") => String(value).replace(/[&<>"']/g, (character) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+  })[character]);
+
+  $("#year").textContent = new Date().getFullYear();
+
+  $("#menuToggle").addEventListener("click", () => {
+    const nav = $("#mainNav");
+    const open = nav.classList.toggle("open");
+    $("#menuToggle").setAttribute("aria-expanded", String(open));
+  });
+  $$("#mainNav a").forEach((link) => link.addEventListener("click", () => {
+    $("#mainNav").classList.remove("open");
+    $("#menuToggle").setAttribute("aria-expanded", "false");
+  }));
+
+  function setStatus(element, message, isError = false) {
+    element.textContent = message;
+    element.classList.toggle("error", isError);
+  }
+
+  $("#registrationForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const status = $("#registrationStatus");
+    if (!db) {
+      setStatus(status, "Online registration is being configured. Please call +91 98765 43210.", true);
+      return;
+    }
+
+    const button = event.submitter;
+    button.disabled = true;
+    button.textContent = "Submitting…";
+    setStatus(status, "");
+    const values = Object.fromEntries(new FormData(event.currentTarget));
+
+    const { error } = await db.from("students").insert({
+      student_name: values.student_name.trim(),
+      class_level: Number(values.class_level),
+      parent_name: values.parent_name.trim(),
+      phone: values.phone.trim(),
+      email: values.email.trim() || null,
+      school: values.school.trim() || null,
+      subjects: values.subjects.split(",").map((item) => item.trim()).filter(Boolean),
+      preferred_batch: values.preferred_batch || null,
+      message: values.message.trim() || null
+    });
+
+    button.disabled = false;
+    button.textContent = "Submit registration";
+    if (error) {
+      console.error("Registration error:", error.message);
+      setStatus(status, "We could not submit the form. Please call us for assistance.", true);
+      return;
+    }
+
+    event.currentTarget.reset();
+    setStatus(status, "Registration received. Our team will contact you shortly.");
+  });
+
+  const closeLogin = () => $("#adminLogin").classList.add("hidden");
+  $("#openAdmin").addEventListener("click", () => {
+    $("#adminLogin").classList.remove("hidden");
+    $("#loginForm input").focus();
+  });
+  $("#closeAdmin").addEventListener("click", closeLogin);
+  $("#adminLogin").addEventListener("click", (event) => {
+    if (event.target === $("#adminLogin")) closeLogin();
+  });
+
+  async function verifyAdmin() {
+    if (!db) return false;
+    const { data, error } = await db.rpc("is_admin");
+    return !error && data === true;
+  }
+
+  $("#loginForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const status = $("#loginStatus");
+    if (!db) {
+      setStatus(status, "Secure admin access is not configured yet.", true);
+      return;
+    }
+
+    const values = Object.fromEntries(new FormData(event.currentTarget));
+    const button = event.submitter;
+    button.disabled = true;
+    button.textContent = "Signing in…";
+    setStatus(status, "");
+
+    const { data, error } = await db.auth.signInWithPassword({
+      email: values.email.trim(),
+      password: values.password
+    });
+    const authorised = !error && data.session && await verifyAdmin();
+
+    button.disabled = false;
+    button.textContent = "Sign in securely";
+    if (!authorised) {
+      if (data?.session) await db.auth.signOut();
+      setStatus(status, "Invalid credentials or this account is not authorised.", true);
+      return;
+    }
+
+    event.currentTarget.reset();
+    closeLogin();
+    await showAdmin(data.user);
+  });
+
+  async function showAdmin(user) {
+    $("#publicApp").classList.add("hidden");
+    $("#adminApp").classList.remove("hidden");
+    $("#adminEmail").textContent = user.email || "Admin";
+    await loadDashboard();
+  }
+
+  async function restoreSession() {
+    if (!db) return;
+    const { data } = await db.auth.getSession();
+    if (data.session && await verifyAdmin()) await showAdmin(data.session.user);
+  }
+
+  $("#logoutButton").addEventListener("click", async () => {
+    if (db) await db.auth.signOut();
+    $("#adminApp").classList.add("hidden");
+    $("#publicApp").classList.remove("hidden");
+    location.hash = "home";
+  });
+
+  async function loadDashboard() {
+    const [studentResult, performanceResult] = await Promise.all([
+      db.from("students").select("*").order("created_at", { ascending: false }),
+      db.from("performance").select("*, students(student_name, class_level)").order("test_date", { ascending: false })
+    ]);
+
+    if (studentResult.error || performanceResult.error) {
+      console.error("Dashboard error:", studentResult.error || performanceResult.error);
+      alert("The dashboard data could not be loaded.");
+      return;
+    }
+
+    state.students = studentResult.data || [];
+    state.performance = performanceResult.data || [];
+    renderAll();
+  }
+
+  function renderAll() {
+    const active = state.students.filter((student) => student.status !== "inactive");
+    const pending = state.students.filter((student) => student.status === "pending");
+    const scores = state.performance
+      .filter((row) => Number(row.max_score) > 0)
+      .map((row) => Number(row.score) / Number(row.max_score) * 100);
+    const attendance = state.performance
+      .map((row) => Number(row.attendance))
+      .filter(Number.isFinite);
+
+    $("#totalStudents").textContent = active.length;
+    $("#pendingStudents").textContent = pending.length;
+    $("#averageScore").textContent = scores.length
+      ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) + "%"
+      : "—";
+    $("#averageAttendance").textContent = attendance.length
+      ? Math.round(attendance.reduce((a, b) => a + b, 0) / attendance.length) + "%"
+      : "—";
+
+    renderStudents(state.students.slice(0, 5), $("#recentStudents"), true);
+    renderStudents(state.students, $("#studentsTable"), false);
+    renderStudentOptions();
+    renderPerformance();
+    renderCharts();
+  }
+
+  function renderStudents(students, target, compact) {
+    if (!students.length) {
+      target.innerHTML = '<tr><td colspan="6">No student records yet.</td></tr>';
+      return;
+    }
+
+    target.innerHTML = students.map((student) => compact
+      ? `<tr>
+          <td><strong>${escapeHtml(student.student_name)}</strong><small>${new Date(student.created_at).toLocaleDateString()}</small></td>
+          <td>Class ${escapeHtml(student.class_level)}</td>
+          <td>${escapeHtml(student.parent_name)}</td>
+          <td>${escapeHtml(student.phone)}</td>
+          <td><span class="status-pill ${student.status === "active" ? "active" : ""}">${escapeHtml(student.status)}</span></td>
+        </tr>`
+      : `<tr>
+          <td><strong>${escapeHtml(student.student_name)}</strong><small>${escapeHtml(student.school || "School not provided")}</small></td>
+          <td>Class ${escapeHtml(student.class_level)}</td>
+          <td>${escapeHtml(student.parent_name)}</td>
+          <td><strong>${escapeHtml(student.phone)}</strong><small>${escapeHtml(student.email || "")}</small></td>
+          <td>${escapeHtml((student.subjects || []).join(", "))}</td>
+          <td><select class="status-select" data-student-id="${student.id}" aria-label="Status for ${escapeHtml(student.student_name)}">
+            <option value="pending" ${student.status === "pending" ? "selected" : ""}>Pending</option>
+            <option value="active" ${student.status === "active" ? "selected" : ""}>Active</option>
+            <option value="inactive" ${student.status === "inactive" ? "selected" : ""}>Inactive</option>
+          </select></td>
+        </tr>`
+    ).join("");
+
+    if (!compact) {
+      target.querySelectorAll(".status-select").forEach((select) => {
+        select.addEventListener("change", updateStudentStatus);
+      });
+    }
+  }
+
+  async function updateStudentStatus(event) {
+    const select = event.currentTarget;
+    select.disabled = true;
+    const { error } = await db.from("students")
+      .update({ status: select.value })
+      .eq("id", select.dataset.studentId);
+    select.disabled = false;
+
+    if (error) {
+      alert("The student status could not be updated.");
+      await loadDashboard();
+      return;
+    }
+    const student = state.students.find((item) => item.id === select.dataset.studentId);
+    if (student) student.status = select.value;
+    renderAll();
+  }
+
+  function renderStudentOptions() {
+    $("#performanceStudent").innerHTML = '<option value="">Select student</option>' +
+      state.students
+        .filter((student) => student.status !== "inactive")
+        .map((student) => `<option value="${student.id}">${escapeHtml(student.student_name)} — Class ${student.class_level}</option>`)
+        .join("");
+  }
+
+  function renderPerformance() {
+    const target = $("#performanceTable");
+    if (!state.performance.length) {
+      target.innerHTML = '<tr><td colspan="5">No performance records yet.</td></tr>';
+      return;
+    }
+
+    target.innerHTML = state.performance.slice(0, 20).map((row) => {
+      const percentage = Number(row.max_score)
+        ? Math.round(Number(row.score) / Number(row.max_score) * 100)
+        : 0;
+      return `<tr>
+        <td>${escapeHtml(row.students?.student_name || "Student")}</td>
+        <td>${escapeHtml(row.subject)}</td>
+        <td><strong>${escapeHtml(row.test_name)}</strong><small>${new Date(row.test_date).toLocaleDateString()}</small></td>
+        <td>${escapeHtml(row.score)}/${escapeHtml(row.max_score)} (${percentage}%)</td>
+        <td>${escapeHtml(row.attendance)}%</td>
+      </tr>`;
+    }).join("");
+  }
+
+  $("#performanceForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const values = Object.fromEntries(new FormData(event.currentTarget));
+    const status = $("#performanceStatus");
+    const score = Number(values.score);
+    const maximum = Number(values.max_score);
+
+    if (score > maximum) {
+      setStatus(status, "Score cannot be greater than maximum score.", true);
+      return;
+    }
+
+    const { error } = await db.from("performance").insert({
+      student_id: values.student_id,
+      subject: values.subject.trim(),
+      test_name: values.test_name.trim(),
+      score,
+      max_score: maximum,
+      attendance: Number(values.attendance),
+      test_date: values.test_date
+    });
+
+    if (error) {
+      setStatus(status, "Performance could not be saved.", true);
+      return;
+    }
+    event.currentTarget.reset();
+    setStatus(status, "Performance saved successfully.");
+    await loadDashboard();
+  });
+
+  function renderCharts() {
+    if (!window.Chart) return;
+    const levels = ["9", "10", "11", "12"];
+    const classValues = levels.map((level) =>
+      state.students.filter((student) => String(student.class_level) === level).length
+    );
+
+    const subjects = {};
+    state.performance.forEach((row) => {
+      if (!Number(row.max_score)) return;
+      const name = row.subject.trim();
+      subjects[name] ||= [];
+      subjects[name].push(Number(row.score) / Number(row.max_score) * 100);
+    });
+    const subjectLabels = Object.keys(subjects).slice(0, 7);
+    const subjectValues = subjectLabels.map((subject) =>
+      Math.round(subjects[subject].reduce((a, b) => a + b, 0) / subjects[subject].length)
+    );
+
+    state.charts.class?.destroy();
+    state.charts.subject?.destroy();
+
+    state.charts.class = new Chart($("#classChart"), {
+      type: "bar",
+      data: {
+        labels: levels.map((level) => "Class " + level),
+        datasets: [{ data: classValues, backgroundColor: "#f2bd40", borderRadius: 7 }]
+      },
+      options: chartOptions(false)
+    });
+    state.charts.subject = new Chart($("#subjectChart"), {
+      type: "line",
+      data: {
+        labels: subjectLabels.length ? subjectLabels : ["No results"],
+        datasets: [{
+          data: subjectValues.length ? subjectValues : [0],
+          borderColor: "#1b3b68",
+          backgroundColor: "rgba(27,59,104,.1)",
+          fill: true,
+          tension: .35
+        }]
+      },
+      options: chartOptions(true)
+    });
+  }
+
+  function chartOptions(isPercentage) {
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, suggestedMax: isPercentage ? 100 : undefined, grid: { color: "#edf0f5" } },
+        x: { grid: { display: false } }
+      }
+    };
+  }
+
+  function switchAdminView(view) {
+    $$(".admin-view").forEach((section) => section.classList.add("hidden"));
+    $("#" + view + "View").classList.remove("hidden");
+    $$(".admin-sidebar nav button").forEach((button) => {
+      button.classList.toggle("active", button.dataset.adminView === view);
+    });
+    $("#adminPageTitle").textContent = view[0].toUpperCase() + view.slice(1);
+  }
+
+  $$(".admin-sidebar nav button").forEach((button) => {
+    button.addEventListener("click", () => switchAdminView(button.dataset.adminView));
+  });
+  $$("[data-jump]").forEach((button) => {
+    button.addEventListener("click", () => switchAdminView(button.dataset.jump));
+  });
+  $("#classFilter").addEventListener("change", (event) => {
+    const selected = event.target.value;
+    renderStudents(
+      selected
+        ? state.students.filter((student) => String(student.class_level) === selected)
+        : state.students,
+      $("#studentsTable"),
+      false
+    );
+  });
+
+  restoreSession();
+})();
