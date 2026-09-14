@@ -198,54 +198,21 @@
   updateScrollMotion();
 
   if ("PointerEvent" in window) {
-    const cursorGlow = $("#cursorGlow");
-    const target = { x: -60, y: -60 };
-    const current = { x: -60, y: -60 };
-    let cursorFrame = 0;
-
-    const drawCursor = () => {
-      current.x += (target.x - current.x) * .18;
-      current.y += (target.y - current.y) * .18;
-      cursorGlow?.style.setProperty(
-        "transform",
-        `translate3d(${current.x - 16}px, ${current.y - 16}px, 0)`
-      );
-
-      if (Math.abs(target.x - current.x) > .08 || Math.abs(target.y - current.y) > .08) {
-        cursorFrame = requestAnimationFrame(drawCursor);
-      } else {
-        cursorFrame = 0;
-      }
-    };
-
     window.addEventListener("pointermove", (event) => {
       if (event.pointerType === "touch") return;
-      document.documentElement.classList.add("mouse-follower-active");
-      if (cursorGlow) cursorGlow.style.display = "block";
-      target.x = event.clientX;
-      target.y = event.clientY;
       const mouseX = event.clientX / innerWidth - .5;
       const mouseY = event.clientY / innerHeight - .5;
       document.documentElement.style.setProperty("--mouse-ambient-x", mouseX * 10 + "px");
       document.documentElement.style.setProperty("--mouse-ambient-y", mouseY * 8 + "px");
       document.documentElement.style.setProperty("--mouse-panel-x", mouseX * 7 + "px");
       document.documentElement.style.setProperty("--mouse-panel-y", mouseY * 5 + "px");
-      cursorGlow?.classList.add("active");
-      if (!cursorFrame) cursorFrame = requestAnimationFrame(drawCursor);
     }, { passive: true });
 
     document.documentElement.addEventListener("mouseleave", () => {
-      cursorGlow?.classList.remove("active");
       document.documentElement.style.setProperty("--mouse-ambient-x", "0px");
       document.documentElement.style.setProperty("--mouse-ambient-y", "0px");
       document.documentElement.style.setProperty("--mouse-panel-x", "0px");
       document.documentElement.style.setProperty("--mouse-panel-y", "0px");
-    });
-    window.addEventListener("blur", () => cursorGlow?.classList.remove("active"));
-
-    $$("a, button, .class-card, .form-card").forEach((element) => {
-      element.addEventListener("pointerenter", () => cursorGlow?.classList.add("cursor-action"));
-      element.addEventListener("pointerleave", () => cursorGlow?.classList.remove("cursor-action"));
     });
   }
 
