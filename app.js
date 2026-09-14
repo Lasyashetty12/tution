@@ -80,15 +80,19 @@
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("revealed");
-          observer.unobserve(entry.target);
+        } else {
+          // Reset only after the element fully leaves the view so the entrance
+          // replays naturally when scrolling down or back up.
+          entry.target.classList.remove("revealed");
         }
       });
-    }, { threshold: 0.12, rootMargin: "0px 0px -7% 0px" });
+    }, { threshold: 0.16, rootMargin: "-4% 0px -8% 0px" });
     animatedElements.forEach((element) => observer.observe(element));
   } else {
     animatedElements.forEach((element) => element.classList.add("revealed"));
   }
 
+  let scrollEndTimer;
   let ticking = false;
   const updateScrollMotion = () => {
     const scrollable = Math.max(document.documentElement.scrollHeight - innerHeight, 1);
@@ -106,6 +110,11 @@
   };
 
   window.addEventListener("scroll", () => {
+    if (!reduceMotion) {
+      document.body.classList.add("is-scrolling");
+      clearTimeout(scrollEndTimer);
+      scrollEndTimer = setTimeout(() => document.body.classList.remove("is-scrolling"), 150);
+    }
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
