@@ -80,13 +80,9 @@ body.intro-active #publicApp{opacity:0;transform:scale(.975) translateY(16px)}
 @media(max-width:760px){.hero-ambient i:nth-child(2){display:none}.section:after{width:130px;height:130px}.motion-card{transform:none!important}}
 @media(prefers-reduced-motion:reduce){.motion-word i,.intro-sparks i,.hero-ambient i,.hero-ambient span,.hero-panel:before{animation:none!important}.hero-ambient,.section:after{display:none}.magnetic,.motion-card{transform:none!important}}
 
-/* Motion v7 — visible feedback throughout every scroll session */
-
-
-body.is-scrolling 
+/* Reveal interaction safety */
 [data-reveal]:not(.revealed){pointer-events:none}
-@keyframes logoScrollAlive{from{transform:translateY(0) rotate(-2deg);box-shadow:0 4px 12px rgba(19,43,79,.12)}to{transform:translateY(-3px) rotate(2deg) scale(1.035);box-shadow:0 9px 24px rgba(19,43,79,.25)}}
-@media(prefers-reduced-motion:reduce){body.is-scrolling .site-header .brand-mark,[data-reveal]:not(.revealed){pointer-events:auto}}
+@media(prefers-reduced-motion:reduce){[data-reveal]:not(.revealed){pointer-events:auto}}
 
 /* Responsive v8 — permanent logo visibility and overflow-safe navigation */
 #publicApp{width:100%;max-width:100%;overflow-x:clip}
