@@ -90,17 +90,30 @@
   }
 
   let ticking = false;
+  const updateScrollMotion = () => {
+    const scrollable = Math.max(document.documentElement.scrollHeight - innerHeight, 1);
+    document.documentElement.style.setProperty("--scroll-progress", Math.min(scrollY / scrollable, 1));
+    $(".site-header")?.classList.toggle("scrolled", scrollY > 24);
+
+    if (!reduceMotion) {
+      $("#heroPanel")?.style.setProperty("--panel-y", Math.min(scrollY * .08, 32) + "px");
+      $(".section").forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const offset = Math.max(-45, Math.min(45, (innerHeight / 2 - rect.top) * .045));
+        section.style.setProperty("--section-parallax", offset + "px");
+      });
+    }
+  };
+
   window.addEventListener("scroll", () => {
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
-      $(".site-header")?.classList.toggle("scrolled", window.scrollY > 24);
-      if (!reduceMotion && $("#heroPanel")) {
-        $("#heroPanel").style.setProperty("--panel-y", Math.min(window.scrollY * .08, 32) + "px");
-      }
+      updateScrollMotion();
       ticking = false;
     });
   }, { passive: true });
+  updateScrollMotion();
 
   if (!reduceMotion && window.matchMedia("(pointer:fine)").matches) {
     window.addEventListener("pointermove", (event) => {
@@ -120,6 +133,68 @@
       panel.style.setProperty("--panel-ry", "0deg");
       panel.style.setProperty("--panel-rx", "0deg");
     });
+
+    $(".button, .text-link").forEach((element) => {
+      element.classList.add("magnetic");
+      element.addEventListener("pointermove", (event) => {
+        const box = element.getBoundingClientRect();
+        element.style.setProperty("--magnetic-x", (event.clientX - box.left - box.width / 2) * .12 + "px");
+        element.style.setProperty("--magnetic-y", (event.clientY - box.top - box.height / 2) * .16 + "px");
+      });
+      element.addEventListener("pointerleave", () => {
+        element.style.setProperty("--magnetic-x", "0px");
+        element.style.setProperty("--magnetic-y", "0px");
+      });
+    });
+
+    $(".class-card").forEach((card) => {
+      card.classList.add("motion-card");
+      card.addEventListener("pointermove", (event) => {
+        if (!card.classList.contains("revealed")) return;
+        const box = card.getBoundingClientRect();
+        const x = (event.clientX - box.left) / box.width - .5;
+        const y = (event.clientY - box.top) / box.height - .5;
+        const lift = card.classList.contains("featured") ? -12 : -6;
+        card.style.transform = `perspective(900px) translateY(${lift}px) rotateX(${y * -7}deg) rotateY(${x * 8}deg)`;
+      });
+      card.addEventListener("pointerleave", () => {
+        card.style.removeProperty("transform");
+      });
+    });
+  }
+
+  const counterElements = $(".hero-proof strong, .achievement-stats strong");
+  const animateCounter = (element) => {
+    if (element.dataset.counted) return;
+    element.dataset.counted = "true";
+    const original = element.textContent.trim();
+    const target = Number.parseInt(original.replace(/\D/g, ""), 10);
+    if (!Number.isFinite(target)) return;
+    const suffix = original.replace(/[\d,.]/g, "");
+    const started = performance.now();
+    const duration = 1100;
+    element.classList.add("counter-active");
+
+    const frame = (now) => {
+      const progress = Math.min((now - started) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      element.textContent = Math.round(target * eased).toLocaleString() + suffix;
+      if (progress < 1) requestAnimationFrame(frame);
+      else element.textContent = original;
+    };
+    requestAnimationFrame(frame);
+  };
+
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .65 });
+    counterElements.forEach((element) => counterObserver.observe(element));
   }
 
   $("#menuToggle").addEventListener("click", () => {
