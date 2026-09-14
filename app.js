@@ -21,6 +21,78 @@
 
   $("#year").textContent = new Date().getFullYear();
 
+  // Opening sequence and motion effects. All effects respect reduced-motion settings.
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const intro = $("#intro");
+  if (!reduceMotion && intro) {
+    document.body.classList.add("intro-active");
+    window.setTimeout(() => {
+      intro.classList.add("exit");
+      document.body.classList.remove("intro-active");
+    }, 1750);
+    window.setTimeout(() => intro.remove(), 2600);
+  } else {
+    intro?.remove();
+  }
+
+  const revealTargets = [
+    ".hero .eyebrow", ".hero h1", ".hero-text", ".hero-actions", ".hero-proof",
+    ".hero-panel", ".about > *", ".section-heading > *", ".class-card",
+    ".steps article", ".achievements > *", ".registration > *", ".footer > *"
+  ];
+  const animatedElements = $(revealTargets.join(","));
+  animatedElements.forEach((element, index) => {
+    element.dataset.reveal = "";
+    element.style.setProperty("--reveal-delay", (index % 4) * 70 + "ms");
+  });
+
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("revealed");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -7% 0px" });
+    animatedElements.forEach((element) => observer.observe(element));
+  } else {
+    animatedElements.forEach((element) => element.classList.add("revealed"));
+  }
+
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      $(".site-header")?.classList.toggle("scrolled", window.scrollY > 24);
+      if (!reduceMotion && $("#heroPanel")) {
+        $("#heroPanel").style.setProperty("--panel-y", Math.min(window.scrollY * .08, 32) + "px");
+      }
+      ticking = false;
+    });
+  }, { passive: true });
+
+  if (!reduceMotion && window.matchMedia("(pointer:fine)").matches) {
+    window.addEventListener("pointermove", (event) => {
+      document.documentElement.style.setProperty("--cursor-x", event.clientX + "px");
+      document.documentElement.style.setProperty("--cursor-y", event.clientY + "px");
+    }, { passive: true });
+
+    const panel = $("#heroPanel");
+    panel?.addEventListener("pointermove", (event) => {
+      const box = panel.getBoundingClientRect();
+      const x = (event.clientX - box.left) / box.width - .5;
+      const y = (event.clientY - box.top) / box.height - .5;
+      panel.style.setProperty("--panel-ry", x * 5 + "deg");
+      panel.style.setProperty("--panel-rx", y * -5 + "deg");
+    });
+    panel?.addEventListener("pointerleave", () => {
+      panel.style.setProperty("--panel-ry", "0deg");
+      panel.style.setProperty("--panel-rx", "0deg");
+    });
+  }
+
   $("#menuToggle").addEventListener("click", () => {
     const nav = $("#mainNav");
     const open = nav.classList.toggle("open");
@@ -57,6 +129,10 @@
       phone: values.phone.trim(),
       email: values.email.trim() || null,
       school: values.school.trim() || null,
+      previous_class: Number(values.previous_class),
+      board: values.board,
+      previous_exam: values.previous_exam.trim(),
+      previous_percentage: Number(values.previous_percentage),
       subjects: values.subjects.split(",").map((item) => item.trim()).filter(Boolean),
       preferred_batch: values.preferred_batch || null,
       message: values.message.trim() || null
@@ -206,6 +282,7 @@
           <td>${escapeHtml(student.parent_name)}</td>
           <td><strong>${escapeHtml(student.phone)}</strong><small>${escapeHtml(student.email || "")}</small></td>
           <td>${escapeHtml((student.subjects || []).join(", "))}</td>
+          <td><strong>${escapeHtml(student.previous_percentage)}%</strong><small>${escapeHtml(student.previous_exam)} · Class ${escapeHtml(student.previous_class)}</small></td>
           <td><select class="status-select" data-student-id="${student.id}" aria-label="Status for ${escapeHtml(student.student_name)}">
             <option value="pending" ${student.status === "pending" ? "selected" : ""}>Pending</option>
             <option value="active" ${student.status === "active" ? "selected" : ""}>Active</option>
