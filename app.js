@@ -74,6 +74,20 @@
     });
   });
 
+  // Reveal heading and supporting text from a clipped baseline without
+  // changing its measured space in the layout.
+  const textRevealTargets = $$(
+    ".hero h1, .section h2, .section h3, .eyebrow, .hero-text, .section-heading > p, .class-card p, .steps p"
+  );
+  textRevealTargets.forEach((element) => {
+    if (element.querySelector(":scope > .text-reveal-inner")) return;
+    const inner = document.createElement("span");
+    inner.className = "text-reveal-inner";
+    while (element.firstChild) inner.appendChild(element.firstChild);
+    element.appendChild(inner);
+    element.classList.add(element.matches("h1, h2, h3, .eyebrow") ? "text-reveal" : "copy-reveal");
+  });
+
   if (!reduceMotion && "IntersectionObserver" in window) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -96,7 +110,8 @@
 
     if (!reduceMotion) {
       $("#heroPanel")?.style.setProperty("--panel-y", Math.min(scrollY * .025, 10) + "px");
-      $$(".section").forEach((section) => {
+      $(".hero")?.style.setProperty("--hero-scroll-y", Math.min(scrollY * .018, 12) + "px");
+      $(".section").forEach((section) => {
         const rect = section.getBoundingClientRect();
         const offset = Math.max(-10, Math.min(10, (innerHeight / 2 - rect.top) * .012));
         section.style.setProperty("--section-parallax", offset + "px");
@@ -138,11 +153,23 @@
     window.addEventListener("pointermove", (event) => {
       target.x = event.clientX;
       target.y = event.clientY;
+      const mouseX = event.clientX / innerWidth - .5;
+      const mouseY = event.clientY / innerHeight - .5;
+      document.documentElement.style.setProperty("--mouse-ambient-x", mouseX * 10 + "px");
+      document.documentElement.style.setProperty("--mouse-ambient-y", mouseY * 8 + "px");
+      document.documentElement.style.setProperty("--mouse-panel-x", mouseX * 7 + "px");
+      document.documentElement.style.setProperty("--mouse-panel-y", mouseY * 5 + "px");
       cursorGlow?.classList.add("active");
       if (!cursorFrame) cursorFrame = requestAnimationFrame(drawCursor);
     }, { passive: true });
 
-    document.documentElement.addEventListener("mouseleave", () => cursorGlow?.classList.remove("active"));
+    document.documentElement.addEventListener("mouseleave", () => {
+      cursorGlow?.classList.remove("active");
+      document.documentElement.style.setProperty("--mouse-ambient-x", "0px");
+      document.documentElement.style.setProperty("--mouse-ambient-y", "0px");
+      document.documentElement.style.setProperty("--mouse-panel-x", "0px");
+      document.documentElement.style.setProperty("--mouse-panel-y", "0px");
+    });
     window.addEventListener("blur", () => cursorGlow?.classList.remove("active"));
 
     $$("a, button, .class-card, .form-card").forEach((element) => {
