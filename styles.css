@@ -79,3 +79,11 @@ body.intro-active #publicApp{opacity:0;transform:scale(.975) translateY(16px)}
 @property --border-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
 @media(max-width:760px){.hero-ambient i:nth-child(2){display:none}.section:after{width:130px;height:130px}.motion-card{transform:none!important}}
 @media(prefers-reduced-motion:reduce){.scroll-progress{display:none}.motion-word i,.intro-sparks i,.hero-ambient i,.hero-ambient span,.hero-panel:before{animation:none!important}.hero-ambient,.section:after{display:none}.magnetic,.motion-card{transform:none!important}}
+
+/* Motion v7 — visible feedback throughout every scroll session */
+body.is-scrolling .site-header .brand-mark{animation:logoScrollAlive .75s ease-in-out infinite alternate}
+body.is-scrolling .motion-word i{animation-duration:.8s}
+body.is-scrolling .scroll-progress{filter:saturate(1.25);box-shadow:0 0 22px rgba(242,189,64,.75)}
+[data-reveal]:not(.revealed){pointer-events:none}
+@keyframes logoScrollAlive{from{transform:translateY(0) rotate(-2deg);box-shadow:0 4px 12px rgba(19,43,79,.12)}to{transform:translateY(-3px) rotate(2deg) scale(1.035);box-shadow:0 9px 24px rgba(19,43,79,.25)}}
+@media(prefers-reduced-motion:reduce){body.is-scrolling .site-header .brand-mark,body.is-scrolling .motion-word i{animation:none!important}[data-reveal]:not(.revealed){pointer-events:auto}}
