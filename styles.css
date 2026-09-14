@@ -405,3 +405,95 @@ body.intro-active #publicApp {
     transition:none;
   }
 }
+
+
+/* Visible interaction v12 — hero-after-intro, scroll entrances and mouse follower */
+[data-reveal] {
+  opacity:0;
+  transition:none;
+}
+[data-reveal].revealed {
+  animation-duration:.86s;
+  animation-timing-function:cubic-bezier(.22,1,.36,1);
+  animation-fill-mode:both;
+}
+[data-reveal="fade"].revealed { animation-name:revealFadeV12; }
+[data-reveal="rise"].revealed { animation-name:revealRiseV12; }
+[data-reveal="left-soft"].revealed { animation-name:revealLeftV12; }
+[data-reveal="right-soft"].revealed { animation-name:revealRightV12; }
+[data-reveal="scale-soft"].revealed { animation-name:revealScaleV12; }
+@keyframes revealFadeV12 {
+  from { opacity:0; filter:blur(5px); }
+  to { opacity:1; filter:none; }
+}
+@keyframes revealRiseV12 {
+  from { opacity:0; transform:translate3d(0,48px,0); }
+  to { opacity:1; transform:none; }
+}
+@keyframes revealLeftV12 {
+  from { opacity:0; transform:translate3d(-64px,8px,0); }
+  to { opacity:1; transform:none; }
+}
+@keyframes revealRightV12 {
+  from { opacity:0; transform:translate3d(64px,8px,0); }
+  to { opacity:1; transform:none; }
+}
+@keyframes revealScaleV12 {
+  from { opacity:0; transform:translate3d(0,24px,0) scale(.91); }
+  to { opacity:1; transform:none; }
+}
+.cursor-glow {
+  width:36px;
+  height:36px;
+  margin:0;
+  border:2px solid rgba(181,123,0,.58);
+  background:rgba(242,189,64,.06);
+  box-shadow:0 0 0 6px rgba(242,189,64,.045);
+  opacity:0;
+}
+.cursor-glow:after {
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#b57b00;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 10px rgba(181,123,0,.55);
+}
+.cursor-glow.active { opacity:.9; }
+.cursor-glow.cursor-action {
+  width:48px;
+  height:48px;
+  margin:-6px 0 0 -6px;
+  background:rgba(242,189,64,.12);
+}
+.text-reveal-inner {
+  transform:translate3d(0,115%,0);
+  opacity:0;
+}
+[data-reveal].revealed > .text-reveal-inner,
+[data-reveal].revealed .text-reveal-inner {
+  transform:none;
+  opacity:1;
+}
+@media (max-width:640px) {
+  @keyframes revealLeftV12 {
+    from { opacity:0; transform:translate3d(0,38px,0); }
+    to { opacity:1; transform:none; }
+  }
+  @keyframes revealRightV12 {
+    from { opacity:0; transform:translate3d(0,38px,0); }
+    to { opacity:1; transform:none; }
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  [data-reveal],
+  [data-reveal].revealed {
+    opacity:1;
+    transform:none;
+    animation:none;
+  }
+}
