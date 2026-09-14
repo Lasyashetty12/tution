@@ -92,11 +92,8 @@
     animatedElements.forEach((element) => element.classList.add("revealed"));
   }
 
-  let scrollEndTimer;
   let ticking = false;
   const updateScrollMotion = () => {
-    const scrollable = Math.max(document.documentElement.scrollHeight - innerHeight, 1);
-    document.documentElement.style.setProperty("--scroll-progress", Math.min(scrollY / scrollable, 1));
     $(".site-header")?.classList.toggle("scrolled", scrollY > 24);
 
     if (!reduceMotion) {
@@ -110,11 +107,6 @@
   };
 
   window.addEventListener("scroll", () => {
-    if (!reduceMotion) {
-      document.body.classList.add("is-scrolling");
-      clearTimeout(scrollEndTimer);
-      scrollEndTimer = setTimeout(() => document.body.classList.remove("is-scrolling"), 150);
-    }
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
