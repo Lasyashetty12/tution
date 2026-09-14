@@ -98,7 +98,7 @@
 
     if (!reduceMotion) {
       $("#heroPanel")?.style.setProperty("--panel-y", Math.min(scrollY * .08, 32) + "px");
-      $(".section").forEach((section) => {
+      $$(".section").forEach((section) => {
         const rect = section.getBoundingClientRect();
         const offset = Math.max(-45, Math.min(45, (innerHeight / 2 - rect.top) * .045));
         section.style.setProperty("--section-parallax", offset + "px");
