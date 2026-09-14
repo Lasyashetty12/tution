@@ -16,6 +16,10 @@ create table if not exists public.students (
   phone text not null check (char_length(phone) between 7 and 15),
   email text check (email is null or char_length(email) <= 150),
   school text check (school is null or char_length(school) <= 150),
+  previous_class smallint not null check (previous_class between 8 and 12),
+  board text not null check (board in ('State Board','CBSE','ICSE','Other')),
+  previous_exam text not null check (char_length(previous_exam) between 2 and 100),
+  previous_percentage numeric(5,2) not null check (previous_percentage between 0 and 100),
   subjects text[] not null check (cardinality(subjects) between 1 and 8),
   preferred_batch text check (preferred_batch is null or preferred_batch in ('Weekday evening','Weekend morning','Weekend evening')),
   message text check (message is null or char_length(message) <= 500),
@@ -35,6 +39,12 @@ create table if not exists public.performance (
   test_date date not null,
   created_at timestamptz not null default now()
 );
+
+-- Safe upgrade path when the table was created by an earlier version.
+alter table public.students add column if not exists previous_class smallint;
+alter table public.students add column if not exists board text;
+alter table public.students add column if not exists previous_exam text;
+alter table public.students add column if not exists previous_percentage numeric(5,2);
 
 create index if not exists students_class_level_idx on public.students(class_level);
 create index if not exists students_created_at_idx on public.students(created_at desc);
