@@ -77,11 +77,14 @@
   if (!reduceMotion && "IntersectionObserver" in window) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("revealed");
-        observer.unobserve(entry.target);
+        if (entry.isIntersecting) {
+          entry.target.classList.add("revealed");
+        } else {
+          // Re-arm the gentle entrance only after the block has fully left view.
+          entry.target.classList.remove("revealed");
+        }
       });
-    }, { threshold: 0.12, rootMargin: "0px 0px -7% 0px" });
+    }, { threshold: 0.14, rootMargin: "-5% 0px -5% 0px" });
     animatedElements.forEach((element) => observer.observe(element));
   } else {
     animatedElements.forEach((element) => element.classList.add("revealed"));
