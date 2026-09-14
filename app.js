@@ -1,6 +1,17 @@
 (() => {
   "use strict";
 
+  // Every fresh load begins at the hero. Navigation clicks still work normally
+  // after the page has opened.
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  if (location.hash) {
+    history.replaceState(null, "", location.pathname + location.search);
+  }
+  window.scrollTo(0, 0);
+  window.addEventListener("load", () => {
+    requestAnimationFrame(() => window.scrollTo(0, 0));
+  }, { once: true });
+
   const config = window.VISION_CONFIG || {};
   const configured =
     /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(config.supabaseUrl || "") &&
@@ -37,6 +48,7 @@
         window.setTimeout(() => {
           intro.classList.add("exit");
           document.body.classList.remove("intro-active");
+          window.dispatchEvent(new Event("vision:intro-complete"));
         }, 760);
         window.setTimeout(() => intro.remove(), 1800);
       }, remaining);
@@ -89,17 +101,32 @@
   });
 
   if (!reduceMotion && "IntersectionObserver" in window) {
+    const revealVisibleElements = () => {
+      animatedElements.forEach((element) => {
+        const box = element.getBoundingClientRect();
+        if (box.top < innerHeight * .94 && box.bottom > innerHeight * .06) {
+          element.classList.add("revealed");
+        }
+      });
+    };
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("revealed");
+          // The hero waits until the logo curtain has finished, ensuring its
+          // entrance is actually visible instead of playing behind the intro.
+          if (!document.body.classList.contains("intro-active")) {
+            entry.target.classList.add("revealed");
+          }
         } else {
-          // Re-arm the gentle entrance only after the block has fully left view.
           entry.target.classList.remove("revealed");
         }
       });
-    }, { threshold: 0.14, rootMargin: "-5% 0px -5% 0px" });
+    }, { threshold: 0.12, rootMargin: "-3% 0px -3% 0px" });
+
     animatedElements.forEach((element) => observer.observe(element));
+    window.addEventListener("vision:intro-complete", revealVisibleElements, { once: true });
+    if (!document.body.classList.contains("intro-active")) revealVisibleElements();
   } else {
     animatedElements.forEach((element) => element.classList.add("revealed"));
   }
