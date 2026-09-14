@@ -134,25 +134,26 @@
   });
 
   if ("IntersectionObserver" in window) {
+    let observer;
+    const revealOnce = (element) => {
+      element.classList.add("revealed");
+      observer?.unobserve(element);
+    };
+
     const revealVisibleElements = () => {
       animatedElements.forEach((element) => {
         const box = element.getBoundingClientRect();
         if (box.top < innerHeight * .94 && box.bottom > innerHeight * .06) {
-          element.classList.add("revealed");
+          revealOnce(element);
         }
       });
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // The hero waits until the logo curtain has finished, ensuring its
-          // entrance is actually visible instead of playing behind the intro.
-          if (!document.body.classList.contains("intro-active")) {
-            entry.target.classList.add("revealed");
-          }
-        } else {
-          entry.target.classList.remove("revealed");
+        if (!entry.isIntersecting) return;
+        if (!document.body.classList.contains("intro-active")) {
+          revealOnce(entry.target);
         }
       });
     }, { threshold: 0.12, rootMargin: "-3% 0px -3% 0px" });
