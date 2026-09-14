@@ -81,7 +81,7 @@
 
   const animatedElements = [];
   revealGroups.forEach((group) => {
-    $(group.selector).forEach((element, index) => {
+    $$(group.selector).forEach((element, index) => {
       element.dataset.reveal = group.motion;
       element.style.setProperty("--reveal-delay", (index % 4) * 70 + "ms");
       animatedElements.push(element);
@@ -124,7 +124,7 @@
       });
     }
   });
-  const oxygenItems = $(
+  const oxygenItems = $$(
     ".class-card, .steps article, .achievement-stats > div, .achievements blockquote, .registration .form-card"
   );
   oxygenItems.forEach((item, index) => {
