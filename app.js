@@ -99,7 +99,38 @@
     inner.className = "text-reveal-inner";
     while (element.firstChild) inner.appendChild(element.firstChild);
     element.appendChild(inner);
-    element.classList.add(element.matches("h1, h2, h3, .eyebrow") ? "text-reveal" : "copy-reveal");
+    const isHeading = element.matches("h1, h2, h3, .eyebrow");
+    element.classList.add(isHeading ? "text-reveal" : "copy-reveal");
+    if (isHeading) {
+      const walker = document.createTreeWalker(inner, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      let wordIndex = 0;
+      nodes.forEach((node) => {
+        const fragment = document.createDocumentFragment();
+        node.textContent.split(/(\s+)/).forEach((part) => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) fragment.appendChild(document.createTextNode(part));
+          else {
+            const word = document.createElement("span");
+            word.className = "oxygen-word";
+            word.style.setProperty("--word-delay", Math.min(wordIndex * 42, 420) + "ms");
+            word.textContent = part;
+            fragment.appendChild(word);
+            wordIndex += 1;
+          }
+        });
+        node.replaceWith(fragment);
+      });
+    }
+  });
+  const oxygenItems = $(
+    ".class-card, .steps article, .achievement-stats > div, .achievements blockquote, .registration .form-card"
+  );
+  oxygenItems.forEach((item, index) => {
+    item.classList.add("oxygen-layer");
+    item.style.setProperty("--oxygen-direction", index % 2 === 0 ? "1" : "-1");
+    item.style.setProperty("--oxygen-speed", String(10 + index % 3 * 4));
   });
 
   if ("IntersectionObserver" in window) {
@@ -143,6 +174,16 @@
       const rect = section.getBoundingClientRect();
       const offset = Math.max(-14, Math.min(14, (innerHeight / 2 - rect.top) * .016));
       section.style.setProperty("--section-parallax", offset + "px");
+      const progress = Math.max(0, Math.min(1, 1 - rect.top / innerHeight));
+      section.style.setProperty("--scene-progress", progress.toFixed(3));
+    });
+    oxygenItems.forEach((item) => {
+      const rect = item.getBoundingClientRect();
+      const distance = (rect.top + rect.height / 2 - innerHeight / 2) / innerHeight;
+      const direction = Number(item.style.getPropertyValue("--oxygen-direction")) || 1;
+      const speed = Number(item.style.getPropertyValue("--oxygen-speed")) || 10;
+      const lift = Math.max(-18, Math.min(18, distance * speed * direction));
+      item.style.setProperty("--oxygen-lift", lift.toFixed(2) + "px");
     });
   };
 
@@ -208,7 +249,7 @@
     });
   }
 
-  const counterElements = $(".hero-proof strong, .achievement-stats strong");
+  const counterElements = $$(".hero-proof strong, .achievement-stats strong");
   const animateCounter = (element) => {
     if (element.dataset.counted) return;
     element.dataset.counted = "true";
