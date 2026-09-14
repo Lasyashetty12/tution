@@ -514,3 +514,52 @@ html.motion-ready .cursor-glow {
     display:block;
   }
 }
+
+
+/* Guaranteed motion v14 — enabled by actual pointer input and scroll state */
+html.motion-ready .intro {
+  display:grid;
+}
+html.motion-ready [data-reveal]:not(.revealed) {
+  opacity:0 !important;
+}
+html.motion-ready [data-reveal="fade"]:not(.revealed) {
+  transform:none !important;
+}
+html.motion-ready [data-reveal="rise"]:not(.revealed) {
+  transform:translate3d(0,48px,0) !important;
+}
+html.motion-ready [data-reveal="left-soft"]:not(.revealed) {
+  transform:translate3d(-64px,8px,0) !important;
+}
+html.motion-ready [data-reveal="right-soft"]:not(.revealed) {
+  transform:translate3d(64px,8px,0) !important;
+}
+html.motion-ready [data-reveal="scale-soft"]:not(.revealed) {
+  transform:translate3d(0,24px,0) scale(.91) !important;
+}
+html.motion-ready [data-reveal="fade"].revealed {
+  animation:revealFadeV12 .86s cubic-bezier(.22,1,.36,1) both !important;
+}
+html.motion-ready [data-reveal="rise"].revealed {
+  animation:revealRiseV12 .86s cubic-bezier(.22,1,.36,1) both !important;
+}
+html.motion-ready [data-reveal="left-soft"].revealed {
+  animation:revealLeftV12 .86s cubic-bezier(.22,1,.36,1) both !important;
+}
+html.motion-ready [data-reveal="right-soft"].revealed {
+  animation:revealRightV12 .86s cubic-bezier(.22,1,.36,1) both !important;
+}
+html.motion-ready [data-reveal="scale-soft"].revealed {
+  animation:revealScaleV12 .86s cubic-bezier(.22,1,.36,1) both !important;
+}
+html.mouse-follower-active .cursor-glow {
+  display:block !important;
+  visibility:visible !important;
+}
+@media (max-width:640px) {
+  html.motion-ready [data-reveal="left-soft"]:not(.revealed),
+  html.motion-ready [data-reveal="right-soft"]:not(.revealed) {
+    transform:translate3d(0,38px,0) !important;
+  }
+}
