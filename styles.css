@@ -574,3 +574,13 @@ html.mouse-follower-active .cursor-glow {
 .classes .class-card:nth-child(1),.classes .class-card:nth-child(3){transform-origin:left center}.classes .class-card:nth-child(2),.classes .class-card:nth-child(4){transform-origin:right center}
 .hero-copy{translate:0 calc(var(--hero-scroll-y,0px) * -.22);transition:translate .25s linear}.hero-panel{will-change:transform}
 @media(max-width:760px){.oxygen-word{transform:translate3d(0,.72em,0)}.oxygen-layer,.hero-copy{translate:none}.section-heading:after{bottom:-12px}}
+
+
+/* Hero colour lock and cursor cleanup v17 */
+.hero h1{color:var(--navy)}
+.hero h1 .text-reveal-inner>.oxygen-word{color:var(--navy)}
+.hero h1 .text-reveal-inner>span:not(.oxygen-word),
+.hero h1 .text-reveal-inner>span:not(.oxygen-word) .oxygen-word{color:#a56f00}
+.hero .eyebrow{color:#a56f00}
+.hero .hero-text{color:var(--muted)}
+.cursor-glow{display:none!important}
