@@ -24,26 +24,55 @@
   // Opening sequence and motion effects. All effects respect reduced-motion settings.
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const intro = $("#intro");
+  document.documentElement.classList.add("motion-ready");
+
   if (!reduceMotion && intro) {
+    const introStarted = performance.now();
     document.body.classList.add("intro-active");
-    window.setTimeout(() => {
-      intro.classList.add("exit");
-      document.body.classList.remove("intro-active");
-    }, 1750);
-    window.setTimeout(() => intro.remove(), 2600);
+
+    const finishIntro = () => {
+      const remaining = Math.max(1850 - (performance.now() - introStarted), 0);
+      window.setTimeout(() => {
+        intro.classList.add("curtain");
+        window.setTimeout(() => {
+          intro.classList.add("exit");
+          document.body.classList.remove("intro-active");
+        }, 760);
+        window.setTimeout(() => intro.remove(), 1800);
+      }, remaining);
+    };
+
+    if (document.readyState === "complete") finishIntro();
+    else window.addEventListener("load", finishIntro, { once: true });
   } else {
     intro?.remove();
   }
 
-  const revealTargets = [
-    ".hero .eyebrow", ".hero h1", ".hero-text", ".hero-actions", ".hero-proof",
-    ".hero-panel", ".about > *", ".section-heading > *", ".class-card",
-    ".steps article", ".achievements > *", ".registration > *", ".footer > *"
+  const revealGroups = [
+    { selector: ".hero .eyebrow, .hero h1, .hero-text, .hero-actions, .hero-proof", direction: "left" },
+    { selector: ".hero-panel", direction: "right" },
+    { selector: ".about > :first-child", direction: "left" },
+    { selector: ".about > :last-child", direction: "right" },
+    { selector: ".section-heading", direction: "up" },
+    { selector: ".class-card", direction: "alternate" },
+    { selector: ".steps article", direction: "alternate" },
+    { selector: ".achievements > :first-child", direction: "left" },
+    { selector: ".achievements > :last-child", direction: "right" },
+    { selector: ".registration > :first-child", direction: "left" },
+    { selector: ".registration > :last-child", direction: "right" },
+    { selector: ".footer > *", direction: "up" }
   ];
-  const animatedElements = $(revealTargets.join(","));
-  animatedElements.forEach((element, index) => {
-    element.dataset.reveal = "";
-    element.style.setProperty("--reveal-delay", (index % 4) * 70 + "ms");
+
+  const animatedElements = [];
+  revealGroups.forEach((group) => {
+    $$(group.selector).forEach((element, index) => {
+      const direction = group.direction === "alternate"
+        ? (index % 2 === 0 ? "left" : "right")
+        : group.direction;
+      element.dataset.reveal = direction;
+      element.style.setProperty("--reveal-delay", (index % 4) * 95 + "ms");
+      animatedElements.push(element);
+    });
   });
 
   if (!reduceMotion && "IntersectionObserver" in window) {
