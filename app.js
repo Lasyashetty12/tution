@@ -266,46 +266,89 @@
     element.classList.toggle("error", isError);
   }
 
+  const adminWhatsAppNumber = "919876543210";
+
   $("#registrationForm").addEventListener("submit", async (event) => {
     event.preventDefault();
+    const form = event.currentTarget;
     const status = $("#registrationStatus");
-    if (!db) {
-      setStatus(status, "Online registration is being configured. Please call +91 98765 43210.", true);
+    const button = event.submitter;
+    const values = Object.fromEntries(new FormData(form));
+    const showValue = (value) => String(value || "").trim() || "Not provided";
+
+    const whatsappMessage = [
+      "🎓 *New Vision Tuition Registration*",
+      "",
+      "*Student details*",
+      "Name: " + showValue(values.student_name),
+      "Class: " + showValue(values.class_level),
+      "School: " + showValue(values.school),
+      "Subjects: " + showValue(values.subjects),
+      "Preferred batch: " + showValue(values.preferred_batch),
+      "",
+      "*Parent / guardian*",
+      "Name: " + showValue(values.parent_name),
+      "Phone: " + showValue(values.phone),
+      "Email: " + showValue(values.email),
+      "",
+      "*Previous academic result*",
+      "Previous class: " + showValue(values.previous_class),
+      "Board / syllabus: " + showValue(values.board),
+      "Last examination: " + showValue(values.previous_exam),
+      "Result: " + showValue(values.previous_percentage) + "%",
+      "",
+      "*Message*",
+      showValue(values.message)
+    ].join("\n");
+
+    const whatsappUrl =
+      "https://wa.me/" + adminWhatsAppNumber +
+      "?text=" + encodeURIComponent(whatsappMessage);
+
+    button.disabled = true;
+    button.textContent = "Opening WhatsApp…";
+    setStatus(status, "");
+
+    // Opening occurs directly from the submit action so browsers do not block it.
+    const whatsappWindow = window.open(whatsappUrl, "_blank");
+    if (whatsappWindow) {
+      whatsappWindow.opener = null;
+    } else {
+      window.location.href = whatsappUrl;
       return;
     }
 
-    const button = event.submitter;
-    button.disabled = true;
-    button.textContent = "Submitting…";
-    setStatus(status, "");
-    const values = Object.fromEntries(new FormData(event.currentTarget));
+    let savedToDashboard = false;
+    if (db) {
+      const { error } = await db.from("students").insert({
+        student_name: values.student_name.trim(),
+        class_level: Number(values.class_level),
+        parent_name: values.parent_name.trim(),
+        phone: values.phone.trim(),
+        email: values.email.trim() || null,
+        school: values.school.trim() || null,
+        previous_class: Number(values.previous_class),
+        board: values.board,
+        previous_exam: values.previous_exam.trim(),
+        previous_percentage: Number(values.previous_percentage),
+        subjects: values.subjects.split(",").map((item) => item.trim()).filter(Boolean),
+        preferred_batch: values.preferred_batch || null,
+        message: values.message.trim() || null
+      });
 
-    const { error } = await db.from("students").insert({
-      student_name: values.student_name.trim(),
-      class_level: Number(values.class_level),
-      parent_name: values.parent_name.trim(),
-      phone: values.phone.trim(),
-      email: values.email.trim() || null,
-      school: values.school.trim() || null,
-      previous_class: Number(values.previous_class),
-      board: values.board,
-      previous_exam: values.previous_exam.trim(),
-      previous_percentage: Number(values.previous_percentage),
-      subjects: values.subjects.split(",").map((item) => item.trim()).filter(Boolean),
-      preferred_batch: values.preferred_batch || null,
-      message: values.message.trim() || null
-    });
+      savedToDashboard = !error;
+      if (error) console.error("Registration database copy error:", error.message);
+    }
 
     button.disabled = false;
-    button.textContent = "Submit registration";
-    if (error) {
-      console.error("Registration error:", error.message);
-      setStatus(status, "We could not submit the form. Please call us for assistance.", true);
-      return;
-    }
-
-    event.currentTarget.reset();
-    setStatus(status, "Registration received. Our team will contact you shortly.");
+    button.textContent = "Send details on WhatsApp";
+    form.reset();
+    setStatus(
+      status,
+      savedToDashboard
+        ? "WhatsApp opened and the registration was saved. Review the message and tap Send."
+        : "WhatsApp opened. Review the registration details and tap Send."
+    );
   });
 
   const closeLogin = () => $("#adminLogin").classList.add("hidden");
