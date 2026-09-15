@@ -595,3 +595,9 @@ html.mouse-follower-active .cursor-glow {
 .class-card.featured h3,.class-card.featured h3 .oxygen-word{color:var(--white)}
 .class-card.featured p,.class-card.featured p .oxygen-word{color:#b8c5d7}
 [data-reveal].revealed{backface-visibility:hidden}
+
+
+/* WhatsApp registration v19 */
+.whatsapp-submit{background:#1f8f5f;color:#fff}
+.whatsapp-submit:hover{background:#18774f;box-shadow:0 10px 25px rgba(31,143,95,.22)}
+.whatsapp-note{margin:12px 0 0;color:var(--muted);font-size:.78rem;line-height:1.55;text-align:center}
