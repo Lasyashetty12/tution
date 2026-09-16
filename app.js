@@ -317,37 +317,12 @@
       window.location.href = whatsappUrl;
       return;
     }
-
-    let savedToDashboard = false;
-    if (db) {
-      const { error } = await db.from("students").insert({
-        student_name: values.student_name.trim(),
-        class_level: Number(values.class_level),
-        parent_name: values.parent_name.trim(),
-        phone: values.phone.trim(),
-        email: values.email.trim() || null,
-        school: values.school.trim() || null,
-        previous_class: Number(values.previous_class),
-        board: values.board,
-        previous_exam: values.previous_exam.trim(),
-        previous_percentage: Number(values.previous_percentage),
-        subjects: values.subjects.split(",").map((item) => item.trim()).filter(Boolean),
-        preferred_batch: values.preferred_batch || null,
-        message: values.message.trim() || null
-      });
-
-      savedToDashboard = !error;
-      if (error) console.error("Registration database copy error:", error.message);
-    }
-
     button.disabled = false;
-    button.textContent = "Send details on WhatsApp";
+    button.textContent = "Submit registration";
     form.reset();
     setStatus(
       status,
-      savedToDashboard
-        ? "WhatsApp opened and the registration was saved. Review the message and tap Send."
-        : "WhatsApp opened. Review the registration details and tap Send."
+      "WhatsApp opened with your completed registration. Review the details and tap Send to submit it to the admin."
     );
   });
 
