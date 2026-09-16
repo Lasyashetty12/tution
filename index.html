@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23132b4f'/%3E%3Cpath d='M15 17l17 34 17-34h-9L32 35l-8-18z' fill='%23f2bd40'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=19">
+  <link rel="stylesheet" href="styles.css?v=20">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -104,7 +104,7 @@
     </section>
 
     <section class="section registration" id="register">
-      <div><p class="eyebrow">Student registration</p><h2>Begin with a conversation</h2><p class="muted">Share the student’s details. Our team will contact the parent or guardian to discuss the right class and batch.</p><div class="contact-strip"><span>Call us</span><strong>+91 98765 43210</strong></div></div>
+      <div><p class="eyebrow">Student registration</p><h2>Begin with a conversation</h2><p class="muted">Complete the registration form below. When you submit, WhatsApp will open with your details ready to send securely to the admin.</p><div class="contact-strip"><span>Call us</span><strong>+91 98765 43210</strong></div></div>
       <form id="registrationForm" class="form-card">
         <div class="form-row"><label>Student name<input name="student_name" required maxlength="100" autocomplete="name"></label><label>Class<select name="class_level" required><option value="">Select class</option><option>9</option><option>10</option><option>11</option><option>12</option></select></label></div>
         <div class="form-row"><label>Parent / guardian name<input name="parent_name" required maxlength="100"></label><label>Phone number<input name="phone" required maxlength="15" inputmode="tel" pattern="[0-9+() -]{7,15}" autocomplete="tel"></label></div>
@@ -117,7 +117,7 @@
         <label>Subjects interested in<input name="subjects" required maxlength="200" placeholder="Example: Mathematics, Science"></label>
         <label>Preferred batch<select name="preferred_batch"><option value="">No preference</option><option>Weekday evening</option><option>Weekend morning</option><option>Weekend evening</option></select></label>
         <label>Message (optional)<textarea name="message" maxlength="500" rows="3" placeholder="Tell us how we can help"></textarea></label>
-        <button class="button button-full whatsapp-submit" type="submit">Send details on WhatsApp</button><p class="whatsapp-note">Your details will open in WhatsApp. Review the message before tapping Send.</p><p class="form-status" id="registrationStatus" role="status"></p>
+        <button class="button button-full whatsapp-submit" type="submit">Submit registration</button><p class="whatsapp-note"><strong>How submission works:</strong> your completed form is not added to the admin dashboard. WhatsApp will open with a prepared message; review it and tap Send to deliver the registration to the admin.</p><p class="form-status" id="registrationStatus" role="status"></p>
       </form>
     </section>
   </main>
@@ -161,7 +161,7 @@
 <noscript><p class="noscript">Please enable JavaScript to use registration and the admin dashboard.</p></noscript>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
-<script src="supabase-config.js?v=19"></script>
-<script src="app.js?v=19"></script>
+<script src="supabase-config.js?v=20"></script>
+<script src="app.js?v=20"></script>
 </body>
 </html>
