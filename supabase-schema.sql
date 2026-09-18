@@ -374,7 +374,7 @@ do $$ declare t text; begin
 end $$;
 
 create policy profiles_read_self_staff on public.profiles for select to authenticated
-using (user_id=auth.uid() or private.is_staff());
+using (user_id=(select auth.uid()) or private.is_staff());
 create policy profiles_admin_update on public.profiles for update to authenticated
 using (private.is_admin()) with check (private.is_admin());
 
@@ -386,13 +386,16 @@ create policy students_read_allowed on public.students for select to authenticat
 create policy students_staff_insert on public.students for insert to authenticated with check (private.is_admin());
 create policy students_staff_update on public.students for update to authenticated using (private.can_manage_student(id)) with check (private.can_manage_student(id));
 
-create policy parents_self_staff on public.parent_profiles for select to authenticated using (user_id=auth.uid() or private.is_staff());
-create policy parents_admin_manage on public.parent_profiles for all to authenticated using (private.is_admin()) with check (private.is_admin());
-create policy parent_links_read on public.parent_student_links for select to authenticated using (parent_user_id=auth.uid() or private.is_staff());
-create policy parent_links_admin_manage on public.parent_student_links for all to authenticated using (private.is_admin()) with check (private.is_admin());
+create policy parents_self_staff on public.parent_profiles for select to authenticated using (user_id=(select auth.uid()) or private.is_staff());
+create policy parents_admin_insert on public.parent_profiles for insert to authenticated with check (private.is_admin());
+create policy parents_admin_update on public.parent_profiles for update to authenticated using (private.is_admin()) with check (private.is_admin());
+create policy parent_links_read on public.parent_student_links for select to authenticated using (parent_user_id=(select auth.uid()) or private.is_staff());
+create policy parent_links_admin_insert on public.parent_student_links for insert to authenticated with check (private.is_admin());
+create policy parent_links_admin_update on public.parent_student_links for update to authenticated using (private.is_admin()) with check (private.is_admin());
 
-create policy assignments_read on public.teacher_batch_assignments for select to authenticated using (teacher_user_id=auth.uid() or private.is_admin());
-create policy assignments_admin_manage on public.teacher_batch_assignments for all to authenticated using (private.is_admin()) with check (private.is_admin());
+create policy assignments_read on public.teacher_batch_assignments for select to authenticated using (teacher_user_id=(select auth.uid()) or private.is_admin());
+create policy assignments_admin_insert on public.teacher_batch_assignments for insert to authenticated with check (private.is_admin());
+create policy assignments_admin_update on public.teacher_batch_assignments for update to authenticated using (private.is_admin()) with check (private.is_admin());
 
 create policy attendance_read on public.attendance for select to authenticated using (private.can_access_student(student_id));
 create policy attendance_staff_insert on public.attendance for insert to authenticated with check (private.can_manage_student(student_id));
@@ -400,7 +403,7 @@ create policy attendance_staff_update on public.attendance for update to authent
 
 create policy leave_read on public.leave_requests for select to authenticated using (private.can_access_student(student_id));
 create policy leave_student_insert on public.leave_requests for insert to authenticated with check (
-  exists(select 1 from public.students s where s.id=student_id and s.user_id=auth.uid()) and status='Pending'
+  exists(select 1 from public.students s where s.id=student_id and s.user_id=(select auth.uid())) and status='Pending'
 );
 create policy leave_staff_update on public.leave_requests for update to authenticated using (private.can_manage_student(student_id)) with check (private.can_manage_student(student_id));
 
@@ -424,7 +427,7 @@ create policy papers_staff_insert on public.test_papers for insert to authentica
 );
 
 create policy announcements_read on public.announcements for select to authenticated using (
-  published and (batch_id is null or private.is_staff() or exists(select 1 from public.students s where s.batch_id=announcements.batch_id and s.user_id=auth.uid()) or exists(select 1 from public.parent_student_links l join public.students s on s.id=l.student_id where l.parent_user_id=auth.uid() and l.active and s.batch_id=announcements.batch_id))
+  published and (batch_id is null or private.is_staff() or exists(select 1 from public.students s where s.batch_id=announcements.batch_id and s.user_id=(select auth.uid())) or exists(select 1 from public.parent_student_links l join public.students s on s.id=l.student_id where l.parent_user_id=(select auth.uid()) and l.active and s.batch_id=announcements.batch_id))
 );
 create policy announcements_staff_insert on public.announcements for insert to authenticated with check (private.is_staff());
 create policy announcements_staff_update on public.announcements for update to authenticated using (private.is_staff()) with check (private.is_staff());
@@ -460,3 +463,26 @@ grant usage on schema public to authenticated;
 grant select on all tables in schema public to authenticated;
 grant insert,update on public.batches,public.students,public.parent_profiles,public.parent_student_links,public.teacher_batch_assignments,public.attendance,public.leave_requests,public.subjects,public.tests,public.marks,public.test_papers,public.announcements to authenticated;
 grant usage,select on all sequences in schema public to authenticated;
+
+-- Explicitly remove hard-delete privileges even when platform defaults grant them.
+revoke delete on all tables in schema public from authenticated, anon;
+
+-- Cover foreign keys used by history, staff filtering and uploaded-paper joins.
+create index if not exists announcements_batch_idx on public.announcements(batch_id);
+create index if not exists announcements_created_by_idx on public.announcements(created_by);
+create index if not exists attendance_marked_by_idx on public.attendance(marked_by);
+create index if not exists batches_created_by_idx on public.batches(created_by);
+create index if not exists leave_reviewed_by_idx on public.leave_requests(reviewed_by);
+create index if not exists marks_entered_by_idx on public.marks(entered_by);
+create index if not exists marks_test_idx on public.marks(test_id);
+create index if not exists parent_links_student_idx on public.parent_student_links(student_id);
+create index if not exists reset_history_reset_by_idx on public.password_reset_history(reset_by);
+create index if not exists reset_history_student_idx on public.password_reset_history(student_id);
+create index if not exists profile_history_changed_by_idx on public.profile_history(changed_by);
+create index if not exists profile_history_student_idx on public.profile_history(student_id);
+create index if not exists students_created_by_idx on public.students(created_by);
+create index if not exists teacher_assignment_batch_idx on public.teacher_batch_assignments(batch_id);
+create index if not exists test_papers_mark_idx on public.test_papers(mark_id);
+create index if not exists test_papers_uploaded_by_idx on public.test_papers(uploaded_by);
+create index if not exists tests_batch_idx on public.tests(batch_id);
+create index if not exists tests_created_by_idx on public.tests(created_by);
