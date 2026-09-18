@@ -1,55 +1,46 @@
-# Infinite Tutorial
+# Vision Tuition
 
-A secure, responsive student management and scorecard system for Students, Parents, Sir/Teachers, and Admins.
-
-## Live application
-
-- Public website: https://tution-lemon.vercel.app/
-- Secure portal: https://tution-lemon.vercel.app/portal.html
+Responsive tuition website for Classes 9–12 with a public registration form and a secure Supabase-backed admin dashboard.
 
 ## Included
 
-- First-login student profile completion with automatic profile locking
-- Parent-mobile student login and DOB-based initial password (MMDDYY)
-- Student password changes and authorized DOB password resets
-- Student, parent, teacher, and admin role-based dashboards
-- Monday-Saturday attendance with morning/evening sessions
-- Batch-wise attendance history and percentage
-- Permanent leave requests with Pending/Approved/Rejected decisions
-- Board-specific CBSE and State Board subjects
-- Custom tests, marks, percentage calculation, remarks, and paper uploads
-- Overall and subject-wise bar charts
-- Search and combined student filters
-- Configurable batches and teacher-batch assignments
-- Profile history, password-reset history, and audit logs
-- Private Supabase Storage for student photos and test papers
-- Row Level Security on every exposed application table
-- No application delete permissions for historical academic records
+- Vision logo and public home page
+- About, classes, teaching approach, achievements, testimonial and contact sections
+- Central student registration
+- Secure email/password admin login
+- Private student records protected by PostgreSQL Row Level Security (RLS)
+- Student status management
+- Test-score and attendance entry
+- Class-distribution and subject-performance charts
+- Responsive mobile, tablet and desktop layouts
 
-## Architecture
+## Secure setup
 
-- Frontend: static HTML, CSS, JavaScript
-- Hosting: Vercel
-- Authentication, database, storage, and server functions: Supabase
-- Charts: Chart.js
+Use a new Supabase project dedicated to this website. Do not reuse a school or question-bank database.
 
-The browser uses only a Supabase publishable key. Privileged account creation and password resets run inside the protected `account-admin` Edge Function. Never place a service-role key in this repository.
+1. Create a Supabase project.
+2. Run `supabase-schema.sql` in its **SQL Editor**.
+3. Create the administrator in **Authentication → Users**.
+4. Authorise the same email in the SQL Editor:
 
-## First administrator
+```sql
+insert into public.admin_users (email)
+values ('admin@visiontuition.com');
+```
 
-Open `portal.html`, choose **First administrator setup**, and create the first administrator using the private one-time setup token supplied separately. The token is stored only as a SHA-256 hash in the database and becomes unusable after the first admin is claimed.
+5. Replace both placeholders in `supabase-config.js` with the project URL and publishable/anon key.
+6. Deploy with GitHub Pages, Netlify or Vercel.
 
-## Student login
+The browser key is public by design. Never add the Supabase `service_role` key to this repository.
 
-- Username: registered parent mobile number
-- Initial password: date of birth in `MMDDYY`
-- Example: 15 August 2010 becomes `081510`
+## Dummy contact values
 
-## Database
+- Phone: +91 98765 43210
+- Email: info@visiontuition.com
+- Address: 123 Education Road, Bengaluru, Karnataka 560001
 
-The production schema is documented in `supabase-schema.sql`. Its setup-token value is intentionally a placeholder; never commit a real setup token.
+Replace these values in `index.html` before the public launch.
 
-## Contact
+## Preview
 
-- Phone: +91 81470 65530
-- Email: info@infinitetutorial.com
+Open `index.html` through a local web server, such as the VS Code Live Server extension. Until Supabase is configured, the public design remains viewable while registration and admin login safely report that setup is incomplete.
