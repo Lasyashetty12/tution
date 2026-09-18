@@ -44,7 +44,7 @@
     document.body.classList.add("intro-active");
 
     const finishIntro = () => {
-      const remaining = Math.max(1850 - (performance.now() - introStarted), 0);
+      const remaining = Math.max(3600 - (performance.now() - introStarted), 0);
       window.setTimeout(() => {
         intro.classList.add("curtain");
         window.setTimeout(() => {
@@ -52,7 +52,7 @@
           document.body.classList.remove("intro-active");
           window.dispatchEvent(new Event("vision:intro-complete"));
         }, 760);
-        window.setTimeout(() => intro.remove(), 1800);
+        window.setTimeout(() => intro.remove(), 1700);
       }, remaining);
     };
 
@@ -554,7 +554,7 @@
 
   function renderCharts() {
     if (!window.Chart) return;
-    const levels = ["9", "10", "11", "12"];
+    const levels = ["9", "10"];
     const classValues = levels.map((level) =>
       state.students.filter((student) => String(student.class_level) === level).length
     );
