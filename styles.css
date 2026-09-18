@@ -601,3 +601,37 @@ html.mouse-follower-active .cursor-glow {
 .whatsapp-submit{background:#1f8f5f;color:#fff}
 .whatsapp-submit:hover{background:#18774f;box-shadow:0 10px 25px rgba(31,143,95,.22)}
 .whatsapp-note{margin:12px 0 0;color:var(--muted);font-size:.78rem;line-height:1.55;text-align:center}
+
+
+/* Infinite Tutorial official identity */
+.brand-image{position:relative;width:190px;height:82px;display:block;overflow:hidden;flex:0 0 auto}
+.brand-image img{position:absolute;left:0;top:-43px;width:190px;height:190px;max-width:none;object-fit:cover}
+.intro-logo-official{width:min(86vw,560px);animation:introRise 1.15s cubic-bezier(.16,1,.3,1) both}
+.intro-logo-official img{width:100%;display:block;border-radius:24px;box-shadow:0 28px 80px rgba(0,0,0,.26);animation:officialLogoReveal 1.25s cubic-bezier(.16,1,.3,1) both}
+.hero-logo-panel{display:grid;place-items:center;padding:26px;background:#fff;color:var(--navy);overflow:hidden}
+.hero-logo-panel img{width:100%;max-width:520px;border-radius:20px}
+.hero-logo-panel>p{width:100%;margin:4px 0 0;padding:20px 8px 0;border-top:1px solid var(--line);color:var(--muted);text-align:center}
+.trust-section{align-items:start}
+.trust-points{display:grid;gap:12px}
+.trust-points article{padding:22px;border:1px solid rgba(255,255,255,.15);border-radius:16px;background:rgba(255,255,255,.07)}
+.trust-points span{color:var(--gold);font:800 .78rem "Manrope";letter-spacing:.12em}
+.trust-points h3{margin:7px 0;color:#fff}
+.trust-points p{margin:0;color:#c1ccdb}
+.contact-strip a{font:800 1.08rem "Manrope";color:var(--navy)}
+.footer{grid-template-columns:1.4fr .8fr 1.3fr}
+.brand-footer-logo{width:220px;height:96px;border-radius:12px;background:#fff}
+.brand-footer-logo img{top:-50px;width:220px;height:220px}
+.admin-logo{display:block;width:210px;margin:-48px auto -26px}
+.admin-brand{width:200px;height:88px;border-radius:12px;background:#fff}
+.admin-brand img{top:-46px;width:200px;height:200px}
+@keyframes officialLogoReveal{0%{opacity:0;transform:translateY(22px) scale(.94);filter:blur(10px)}100%{opacity:1;transform:none;filter:blur(0)}}
+@media (max-width:760px){
+  .brand-image{width:158px;height:70px}
+  .brand-image img{top:-36px;width:158px;height:158px}
+  .hero-logo-panel{padding:18px}
+  .footer{grid-template-columns:1fr}
+  .brand-footer-logo{width:190px;height:84px}
+  .brand-footer-logo img{top:-43px;width:190px;height:190px}
+  .admin-brand{width:170px;height:74px}
+  .admin-brand img{top:-39px;width:170px;height:170px}
+}
