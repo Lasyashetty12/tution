@@ -750,3 +750,62 @@ body{background:#f9fcff}
 .steps>article>span,
 .hero h1 .text-reveal-inner>span:not(.oxygen-word) .oxygen-word{color:#0874cf}
 input:focus,select:focus,textarea:focus{border-color:#168ff0;box-shadow:0 0 0 3px rgba(22,143,240,.18)}
+
+
+/* Restore the original navy-and-gold identity */
+:root{
+  --navy:#132b4f;
+  --navy2:#1b3b68;
+  --gold:#f2bd40;
+  --gold-soft:#fff4d5;
+  --ink:#142033;
+  --muted:#637087;
+  --line:#dfe5ee;
+  --soft:#f4f7fb;
+  --shadow:0 20px 60px rgba(19,43,79,.12)
+}
+body{background:var(--white)}
+.eyebrow,.hero .eyebrow,.steps span,.steps>article>span,.class-card>span{color:#a56f00}
+.button{background:var(--gold);color:#1e2736;box-shadow:none}
+.button:hover{box-shadow:0 10px 25px rgba(190,132,0,.22)}
+.hero{background:radial-gradient(circle at 83% 20%,#fff2c9 0,transparent 25%),linear-gradient(135deg,#f8fbff,#fff 54%)}
+.hero h1 span,
+.hero h1 .text-reveal-inner>span:not(.oxygen-word) .oxygen-word{color:#a56f00}
+.classes{background:var(--soft)}
+.class-card{border-color:var(--line);box-shadow:none}
+.class-card.featured{background:var(--navy)}
+.class-card.featured ul{border-color:#3a5272;color:var(--gold)}
+.achievements{background:var(--navy)}
+.trust-points span{color:var(--gold)}
+.footer{background:#0d1e38}
+.contact-strip{background:var(--white)}
+.contact-strip a{color:var(--navy)}
+.text-link{color:inherit}
+.site-header nav a:not(.button):hover{color:#a56f00}
+.admin-sidebar{background:var(--navy)}
+.admin-sidebar nav button.active{background:#29476f}
+.admin-user i{background:var(--gold-soft);color:#875b00}
+input:focus,select:focus,textarea:focus{border-color:#a56f00;box-shadow:0 0 0 3px rgba(242,189,64,.2)}
+
+/* Reference-sized opening logo with its natural blue-orange outline */
+.intro-stage{width:min(72vw,520px);height:min(72vw,520px)}
+.intro-infinity{width:58%}
+.intro-complete-logo{
+  width:66%;
+  height:66%;
+  object-fit:cover;
+  clip-path:inset(24% 4% 22% 4% round 20px);
+  border-radius:0;
+  box-shadow:none;
+}
+.intro-loading-text{bottom:12%}
+@keyframes completeLogoReveal{
+  0%{opacity:0;transform:scale(.88);filter:blur(10px)}
+  65%{opacity:1;transform:scale(1.015);filter:blur(0) drop-shadow(0 16px 22px rgba(0,15,50,.24))}
+  100%{opacity:1;transform:scale(1);filter:blur(0) drop-shadow(0 16px 22px rgba(0,15,50,.24))}
+}
+@media(max-width:760px){
+  .intro-stage{width:min(82vw,430px);height:min(82vw,430px)}
+  .intro-infinity{width:64%}
+  .intro-complete-logo{width:72%;height:72%;clip-path:inset(24% 3% 22% 3% round 16px)}
+}
