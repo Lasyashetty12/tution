@@ -1037,3 +1037,7 @@ input:focus,select:focus,textarea:focus{border-color:#a56f00;box-shadow:0 0 0 3p
   .trust-section:before,.trust-intro:before,.trust-flow i:after{animation:none}
   .trust-points article{transition:none}
 }
+
+
+/* Single clean number badge */
+.trust-points article>span:after{display:none}
