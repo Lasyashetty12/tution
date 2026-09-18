@@ -809,3 +809,25 @@ input:focus,select:focus,textarea:focus{border-color:#a56f00;box-shadow:0 0 0 3p
   .intro-infinity{width:64%}
   .intro-complete-logo{width:72%;height:72%;clip-path:inset(24% 3% 22% 3% round 16px)}
 }
+
+
+/* True upward screen-opener reveal */
+.intro{
+  will-change:transform;
+  transform:translate3d(0,0,0);
+  transition:transform 1.05s cubic-bezier(.76,0,.24,1);
+}
+.intro:after{display:none!important}
+.intro.curtain{
+  opacity:1;
+  visibility:visible;
+  transform:translate3d(0,-100%,0);
+}
+.intro.exit{
+  opacity:1;
+  visibility:hidden;
+  transform:translate3d(0,-100%,0);
+  transition:visibility 0s;
+}
+.intro.exit .intro-stage,
+.intro.exit .intro-ambient{opacity:1;transform:none}
