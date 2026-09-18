@@ -266,7 +266,7 @@
     element.classList.toggle("error", isError);
   }
 
-  const adminWhatsAppNumber = "919876543210";
+  const adminWhatsAppNumber = "918147065530";
 
   $("#registrationForm").addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -277,7 +277,7 @@
     const showValue = (value) => String(value || "").trim() || "Not provided";
 
     const whatsappMessage = [
-      "🎓 *New Vision Tuition Registration*",
+      "🎓 *New Infinite Tutorial Registration*",
       "",
       "*Student details*",
       "Name: " + showValue(values.student_name),
