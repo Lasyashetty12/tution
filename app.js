@@ -266,7 +266,7 @@
     element.classList.toggle("error", isError);
   }
 
-  const adminWhatsAppNumber = "919876543210";
+  const adminWhatsAppNumber = "918147065530";
 
   $("#registrationForm").addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -328,8 +328,7 @@
 
   const closeLogin = () => $("#adminLogin").classList.add("hidden");
   $("#openAdmin").addEventListener("click", () => {
-    $("#adminLogin").classList.remove("hidden");
-    $("#loginForm input").focus();
+    window.location.href = "portal.html";
   });
   $("#closeAdmin").addEventListener("click", closeLogin);
   $("#adminLogin").addEventListener("click", (event) => {
