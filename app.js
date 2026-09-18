@@ -72,8 +72,8 @@
     { selector: ".section-heading", motion: "fade" },
     { selector: ".class-card", motion: "scale-soft" },
     { selector: ".steps article", motion: "rise" },
-    { selector: ".achievements > :first-child", motion: "right-soft" },
-    { selector: ".achievements > :last-child", motion: "scale-soft" },
+    { selector: ".achievements > :first-child", motion: "left-soft" },
+    { selector: ".trust-points article", motion: "right-soft", stagger: 110 },
     { selector: ".registration > :first-child", motion: "fade" },
     { selector: ".registration > :last-child", motion: "rise" },
     { selector: ".footer > *", motion: "fade" }
@@ -83,7 +83,7 @@
   revealGroups.forEach((group) => {
     $$(group.selector).forEach((element, index) => {
       element.dataset.reveal = group.motion;
-      element.style.setProperty("--reveal-delay", (index % 4) * 70 + "ms");
+      element.style.setProperty("--reveal-delay", (index % 4) * (group.stagger || 70) + "ms");
       animatedElements.push(element);
     });
   });
