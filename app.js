@@ -44,7 +44,7 @@
     document.body.classList.add("intro-active");
 
     const finishIntro = () => {
-      const remaining = Math.max(3600 - (performance.now() - introStarted), 0);
+      const remaining = Math.max(4700 - (performance.now() - introStarted), 0);
       window.setTimeout(() => {
         intro.classList.add("curtain");
         window.setTimeout(() => {
