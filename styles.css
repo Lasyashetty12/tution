@@ -1041,3 +1041,81 @@ input:focus,select:focus,textarea:focus{border-color:#a56f00;box-shadow:0 0 0 3p
 
 /* Single clean number badge */
 .trust-points article>span:after{display:none}
+
+
+/* Six-service Why Infinite Tutorial grid */
+.six-service-section{display:block}
+.six-service-section .trust-intro{
+  max-width:850px;
+  margin-bottom:50px;
+}
+.six-service-section .trust-intro h2{max-width:780px}
+.six-service-section .trust-intro .soft-text{max-width:760px}
+.six-service-section .service-points{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+.six-service-section .service-points:before{display:none}
+.six-service-section .service-points article{
+  display:grid;
+  grid-template-columns:62px minmax(0,1fr);
+  grid-template-areas:"icon title" "icon copy";
+  column-gap:18px;
+  min-height:174px;
+  padding:26px 24px;
+}
+.six-service-section .service-points .trust-icon{
+  grid-area:icon;
+  width:54px;
+  height:54px;
+  border:1px solid rgba(242,189,64,.48);
+  border-radius:16px;
+  background:linear-gradient(145deg,rgba(242,189,64,.16),rgba(242,189,64,.05));
+  color:var(--gold);
+}
+.six-service-section .trust-icon svg{
+  width:28px;
+  height:28px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.six-service-section .service-points h3{
+  grid-area:title;
+  align-self:end;
+  min-height:46px;
+  margin:0 0 8px;
+  font-size:1.02rem;
+}
+.six-service-section .service-points p{
+  grid-area:copy;
+  align-self:start;
+}
+@media(hover:hover){
+  .six-service-section .service-points article:hover .trust-icon{
+    transform:translateY(-3px) rotate(-3deg);
+    background:linear-gradient(145deg,rgba(242,189,64,.24),rgba(242,189,64,.08));
+    box-shadow:0 10px 25px rgba(242,189,64,.12);
+  }
+}
+.six-service-section .trust-icon{
+  transition:transform .35s cubic-bezier(.16,1,.3,1),background .35s,box-shadow .35s;
+}
+@media(max-width:1050px){
+  .six-service-section .service-points{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:680px){
+  .six-service-section .trust-intro{margin-bottom:34px}
+  .six-service-section .service-points{grid-template-columns:1fr}
+  .six-service-section .service-points article{
+    min-height:0;
+    grid-template-columns:56px minmax(0,1fr);
+    padding:22px 20px;
+  }
+  .six-service-section .service-points .trust-icon{width:48px;height:48px;border-radius:14px}
+  .six-service-section .trust-icon svg{width:25px;height:25px}
+  .six-service-section .service-points h3{min-height:0;align-self:center}
+}
