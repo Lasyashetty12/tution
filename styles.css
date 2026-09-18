@@ -1119,3 +1119,20 @@ input:focus,select:focus,textarea:focus{border-color:#a56f00;box-shadow:0 0 0 3p
   .six-service-section .trust-icon svg{width:25px;height:25px}
   .six-service-section .service-points h3{min-height:0;align-self:center}
 }
+
+
+/* Mission tagline replacing the previous Learn / Grow / Succeed strip */
+.trust-mission{
+  margin-top:28px;
+  color:var(--gold);
+  font-family:"Brush Script MT","Segoe Script","Lucida Handwriting",cursive;
+  font-size:clamp(2.15rem,4vw,3.65rem);
+  font-weight:500;
+  line-height:1.05;
+  letter-spacing:.01em;
+  text-transform:none;
+  text-shadow:0 8px 24px rgba(242,189,64,.16);
+}
+@media(max-width:760px){
+  .trust-mission{font-size:clamp(2rem,9vw,3rem);margin-top:22px}
+}
