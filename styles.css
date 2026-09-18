@@ -745,3 +745,8 @@ body{background:#f9fcff}
   .intro-infinity{width:68%}
   .intro-complete-logo{width:82%;height:82%}
 }
+
+.hero .eyebrow,
+.steps>article>span,
+.hero h1 .text-reveal-inner>span:not(.oxygen-word) .oxygen-word{color:#0874cf}
+input:focus,select:focus,textarea:focus{border-color:#168ff0;box-shadow:0 0 0 3px rgba(22,143,240,.18)}
