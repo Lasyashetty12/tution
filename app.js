@@ -284,6 +284,7 @@
       "Class: " + showValue(values.class_level),
       "School: " + showValue(values.school),
       "Subjects: " + showValue(values.subjects),
+      "Preferred batch: " + showValue(values.preferred_batch),
       "",
       "*Parent / guardian*",
       "Name: " + showValue(values.parent_name),
