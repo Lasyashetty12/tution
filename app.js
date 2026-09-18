@@ -51,8 +51,8 @@
           intro.classList.add("exit");
           document.body.classList.remove("intro-active");
           window.dispatchEvent(new Event("vision:intro-complete"));
-        }, 760);
-        window.setTimeout(() => intro.remove(), 1700);
+        }, 1080);
+        window.setTimeout(() => intro.remove(), 1250);
       }, remaining);
     };
 
