@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lasyashetty12.github.io/tution/sitemap.xml
+Sitemap: https://tution-lemon.vercel.app/sitemap.xml
