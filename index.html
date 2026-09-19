@@ -24,7 +24,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Dancing+Script:wght@600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="assets/infinite-tutorial-logo.png">
   <link rel="preload" href="assets/single-student-learning.webp?v=44" as="image" type="image/webp">
-  <link rel="stylesheet" href="styles.css?v=46">
+  <link rel="stylesheet" href="styles.css?v=47">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -49,43 +49,66 @@
   </script>
 </head>
 <body>
-<div class="intro intro-exact-screen" id="intro" aria-label="Infinite Tutorial opening animation">
-  <div class="intro-logo-watermark" aria-hidden="true">
-    <img src="assets/infinite-tutorial-logo.png" alt="">
-  </div>
-  <div class="intro-exact-orb" aria-hidden="true"></div>
-  <div class="intro-exact-stage" role="img" aria-label="Infinite Tutorial official logo">
-    <div class="intro-bouncy-cap" aria-hidden="true">
-      <svg viewBox="0 0 240 150">
-        <defs>
-          <linearGradient id="capNavy" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#1b4b91"></stop>
-            <stop offset="1" stop-color="#081d43"></stop>
-          </linearGradient>
-          <linearGradient id="capGold" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#ffe078"></stop>
-            <stop offset="1" stop-color="#e98214"></stop>
-          </linearGradient>
-          <filter id="capShadow" x="-40%" y="-40%" width="180%" height="200%">
-            <feDropShadow dx="0" dy="12" stdDeviation="9" flood-color="#102f5b" flood-opacity=".26"></feDropShadow>
-          </filter>
-        </defs>
-        <g filter="url(#capShadow)">
-          <path fill="url(#capNavy)" stroke="#2f65ad" stroke-width="3" d="M18 54L120 12L223 55L120 98Z"></path>
-          <path fill="#0b254d" stroke="#163d73" stroke-width="3" d="M58 76V112C88 137 151 137 183 111V76L120 98Z"></path>
-          <path fill="none" stroke="url(#capGold)" stroke-width="6" stroke-linecap="round" d="M59 76L120 98L182 76"></path>
-          <path fill="none" stroke="url(#capGold)" stroke-width="6" stroke-linecap="round" d="M223 55V107"></path>
-          <circle cx="223" cy="111" r="8" fill="url(#capGold)"></circle>
-          <path fill="url(#capGold)" d="M216 119L207 148H238L230 119Z"></path>
+<div class="intro intro-generated-screen intro-no-cap" id="intro" aria-label="Infinite Tutorial opening animation">
+  <div class="intro-generated-halo" aria-hidden="true"></div>
+  <div class="intro-generated-stage" role="img" aria-label="Infinite Tutorial logo forming from an infinity symbol">
+    <svg class="intro-generated-logo" viewBox="0 0 1100 560" aria-hidden="true">
+      <defs>
+        <linearGradient id="generatedInfinityGradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#07378a"></stop>
+          <stop offset=".36" stop-color="#078ee4"></stop>
+          <stop offset=".7" stop-color="#2bc3f2"></stop>
+          <stop offset="1" stop-color="#1c55b5"></stop>
+        </linearGradient>
+        <linearGradient id="generatedGoldGradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#ffe178"></stop>
+          <stop offset=".45" stop-color="#f4ad27"></stop>
+          <stop offset="1" stop-color="#e77c13"></stop>
+        </linearGradient>
+        <linearGradient id="generatedWordGradient" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#25bdf0"></stop>
+          <stop offset="1" stop-color="#0964cf"></stop>
+        </linearGradient>
+        <filter id="generatedGlow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="8" result="blur"></feGaussianBlur>
+          <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+        </filter>
+        <filter id="generatedSoftShadow" x="-40%" y="-40%" width="180%" height="180%">
+          <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#102f5b" flood-opacity=".22"></feDropShadow>
+        </filter>
+      </defs>
+
+      <g class="generated-emblem" filter="url(#generatedSoftShadow)">
+        <path class="generated-orbit generated-orbit-left" d="M82 133C28 202 31 346 98 407"></path>
+        <path class="generated-orbit generated-orbit-right" d="M405 126C483 179 496 330 423 411"></path>
+        <path class="generated-infinity-shadow" pathLength="1" d="M82 270C82 174 198 158 272 226L355 302C422 363 506 333 506 258C506 177 410 151 336 219L258 292C181 363 82 343 82 270"></path>
+        <path class="generated-infinity-line" pathLength="1" d="M82 270C82 174 198 158 272 226L355 302C422 363 506 333 506 258C506 177 410 151 336 219L258 292C181 363 82 343 82 270"></path>
+        <path class="generated-infinity-shine" pathLength="1" d="M82 270C82 174 198 158 272 226L355 302C422 363 506 333 506 258C506 177 410 151 336 219L258 292C181 363 82 343 82 270"></path>
+
+        <g class="generated-bulb generated-bulb-no-cap">
+          <path class="generated-bulb-glow" d="M250 388C250 349 283 327 316 341C351 356 355 402 326 424C315 432 312 446 312 454H268C268 440 265 431 255 420C245 410 250 398 250 388Z"></path>
+          <path class="generated-bulb-filament" d="M274 388L291 407L310 380M291 407V451"></path>
+          <path class="generated-bulb-base" d="M266 455H318M270 472H315M278 489H307"></path>
         </g>
-      </svg>
-    </div>
-    <div class="intro-exact-logo-wrap">
-      <img class="intro-exact-logo" src="assets/infinite-tutorial-logo.png" alt="Infinite Tutorial">
-      <span class="intro-logo-shine" aria-hidden="true"></span>
-    </div>
-    <p class="intro-exact-tagline brand-tagline">Where learning is infinity for better Tomorrow</p>
-    <div class="intro-logo-particles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <g class="generated-rays generated-rays-no-cap">
+          <path d="M292 126V91"></path><path d="M208 143L188 111"></path><path d="M139 183L109 156"></path>
+          <path d="M375 143L395 111"></path><path d="M445 183L475 156"></path>
+        </g>
+        <g class="generated-sparks">
+          <circle cx="73" cy="207" r="5"></circle><circle cx="127" cy="139" r="4"></circle><circle cx="461" cy="204" r="5"></circle>
+          <circle cx="477" cy="330" r="4"></circle><circle cx="132" cy="385" r="4"></circle>
+        </g>
+      </g>
+
+      <g class="generated-brand">
+        <path class="generated-frame-top" pathLength="1" d="M468 137H951Q1005 137 1005 191V398"></path>
+        <path class="generated-frame-bottom" pathLength="1" d="M462 450C628 414 794 425 944 440"></path>
+        <circle class="generated-frame-dot" cx="977" cy="441" r="12"></circle>
+        <text class="generated-word generated-word-infinite" x="518" y="282">Infinite</text>
+        <text class="generated-word generated-word-tutorial" x="518" y="397">Tutorial</text>
+      </g>
+    </svg>
+    <p class="intro-generated-tagline brand-tagline">Where learning is infinity for better Tomorrow</p>
   </div>
   <button class="intro-skip" id="skipIntro" type="button" aria-label="Skip opening animation">Skip intro</button>
 </div>
@@ -101,7 +124,10 @@
   </header>
 
   <main>
-    <section class="hero" id="home"><div class="hero-ambient" aria-hidden="true"><i></i><i></i><i></i><span></span></div>
+    <section class="hero" id="home"><div class="hero-ambient" aria-hidden="true"><i></i><i></i><i></i><span></span></div><svg class="cap-doodle cap-doodle-hero" viewBox="0 0 220 140" aria-hidden="true">
+        <path d="M16 53L109 15L204 54L109 94Z"></path><path d="M52 74V105C80 128 139 128 168 104V74"></path>
+        <path class="cap-doodle-gold" d="M204 54V105M197 116H212L205 101"></path>
+      </svg>
       <div>
         <p class="eyebrow">Admissions open for Classes 9–10</p>
         <h1>Strong concepts.<br><span>Confident results.</span></h1>
@@ -124,7 +150,10 @@
       <div class="about-copy"><p>Infinite Tutorial helps Class 9 and Class 10 students build clear fundamentals, disciplined study habits and exam confidence.</p><p>Regular practice and individual feedback help teachers identify learning gaps and guide each student with care.</p></div>
     </section>
 
-    <section class="section classes" id="classes">
+    <section class="section classes" id="classes"><svg class="cap-doodle cap-doodle-classes" viewBox="0 0 220 140" aria-hidden="true">
+        <path d="M16 53L109 15L204 54L109 94Z"></path><path d="M52 74V105C80 128 139 128 168 104V74"></path>
+        <path class="cap-doodle-gold" d="M204 54V105M197 116H212L205 101"></path>
+      </svg>
       <div class="section-heading"><div><p class="eyebrow">Classes 9–10</p><h2>Focused support for these important years</h2></div><p>Structured teaching for school examinations and Class 10 board preparation.</p></div>
       <div class="class-grid">
         <article class="class-card"><span>09</span><h3>Class 9</h3><p>Foundation building, school exam preparation and confident problem-solving.</p><ul><li>Mathematics</li><li>Science</li><li>English</li></ul></article>
@@ -236,6 +265,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script src="supabase-config.js?v=28"></script>
-<script src="app.js?v=46"></script>
+<script src="app.js?v=47"></script>
 </body>
 </html>
