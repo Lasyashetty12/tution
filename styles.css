@@ -1814,3 +1814,235 @@ body:not(.intro-active) #publicApp{visibility:visible}
   }
   .intro-built-brand{opacity:1;transform:translate(-50%,0)}
 }
+
+
+/* ========================================================================
+   Logo-faithful opening build + stronger blue/orange site identity
+   ======================================================================== */
+
+/* Build the supplied logo in stages instead of replacing the animation with it. */
+.intro-stage{
+  width:min(82vw,720px);
+  height:min(68vw,520px);
+}
+.intro-infinity{
+  width:42%;
+  top:31%;
+  left:22%;
+  z-index:7;
+  animation:introInfinityToMark 1.05s cubic-bezier(.16,1,.3,1) 1.95s forwards;
+}
+.intro-logo-build{
+  position:absolute;
+  z-index:6;
+  left:50%;
+  top:49%;
+  width:min(92%,620px);
+  aspect-ratio:1.55/1;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+.intro-logo-piece{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  opacity:0;
+}
+.intro-logo-piece img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  filter:drop-shadow(0 14px 28px rgba(0,8,32,.28));
+}
+.intro-logo-symbol{
+  clip-path:inset(0 55% 0 0);
+  transform:translateY(10px) scale(.92);
+  animation:introLogoSymbolReveal .72s cubic-bezier(.16,1,.3,1) 2.45s forwards;
+}
+.intro-logo-wordmark{
+  clip-path:inset(13% 2% 17% 39%);
+  transform:translateX(34px);
+  animation:introLogoWordReveal .78s cubic-bezier(.16,1,.3,1) 2.85s forwards;
+}
+.intro-logo-frame{
+  clip-path:inset(0 0 0 0);
+  transform:scale(.985);
+  mix-blend-mode:normal;
+  animation:introLogoFrameReveal .9s ease 3.08s forwards;
+}
+.intro-logo-spark{
+  position:absolute;
+  z-index:8;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#ffae26;
+  opacity:0;
+  box-shadow:0 0 0 7px rgba(255,174,38,.12),0 0 22px rgba(255,174,38,.8);
+  animation:introLogoSpark .7s ease-out forwards;
+}
+.spark-one{left:24%;top:15%;animation-delay:2.52s}
+.spark-two{left:31%;top:8%;animation-delay:2.65s}
+.spark-three{right:8%;bottom:20%;animation-delay:3.18s}
+.intro-loading-text.brand-tagline{
+  bottom:6.5%;
+  animation:introTextReveal .56s ease 3.55s forwards;
+}
+@keyframes introInfinityToMark{
+  0%{opacity:1;transform:translate3d(-50%,-50%,0) scale(1);filter:drop-shadow(0 14px 24px rgba(0,0,0,.2))}
+  70%{opacity:1;transform:translate3d(-50%,-50%,0) translate(-70px,7px) scale(.78)}
+  100%{opacity:0;transform:translate3d(-50%,-50%,0) translate(-70px,7px) scale(.74)}
+}
+@keyframes introLogoSymbolReveal{
+  from{opacity:0;transform:translateY(12px) scale(.9);filter:blur(7px)}
+  to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
+@keyframes introLogoWordReveal{
+  from{opacity:0;transform:translateX(42px);filter:blur(6px)}
+  to{opacity:1;transform:translateX(0);filter:blur(0)}
+}
+@keyframes introLogoFrameReveal{
+  0%{opacity:0;clip-path:inset(0 100% 0 0)}
+  40%{opacity:.28}
+  100%{opacity:1;clip-path:inset(0 0 0 0)}
+}
+@keyframes introLogoSpark{
+  0%{opacity:0;transform:scale(.2)}
+  45%{opacity:1;transform:scale(1.35)}
+  100%{opacity:0;transform:scale(.55)}
+}
+
+/* Darker opening canvas drawn directly from the logo palette. */
+.intro{
+  background:
+    radial-gradient(circle at 50% 42%,rgba(20,126,255,.26),transparent 28%),
+    radial-gradient(circle at 74% 48%,rgba(255,149,26,.12),transparent 22%),
+    linear-gradient(145deg,#04132f 0%,#062b66 52%,#071b3d 100%)!important;
+}
+.intro-ambient-one{
+  background:radial-gradient(circle,rgba(26,151,255,.22),transparent 67%)!important;
+}
+.intro-ambient-two{
+  background:radial-gradient(circle,rgba(255,155,35,.14),transparent 67%)!important;
+}
+
+/* Public site now follows the logo: navy/blue surfaces with orange highlights. */
+:root{
+  --brand-deep:#061c43;
+  --brand-navy:#082b63;
+  --brand-blue:#0b62d5;
+  --brand-cyan:#19aaf5;
+  --brand-orange:#ff9b2f;
+  --brand-orange-soft:#fff0dc;
+  --brand-ice:#edf6ff;
+}
+body{
+  background:#eaf4ff;
+}
+.site-header{
+  background:linear-gradient(90deg,rgba(6,28,67,.97),rgba(8,58,126,.96))!important;
+  border-bottom:1px solid rgba(80,180,255,.18);
+  box-shadow:0 8px 30px rgba(3,20,50,.18);
+}
+.site-header nav a:not(.button),
+.site-header .nav-login{color:#eef7ff!important}
+.site-header nav a:not(.button):hover,
+.site-header .nav-login:hover{color:#ffb24a!important}
+.site-header .button{background:linear-gradient(135deg,#ffb23e,#ff8e24)!important;color:#0b2347!important}
+
+/* Hero becomes a full branded scene instead of a mostly white canvas. */
+.hero{
+  background:
+    radial-gradient(circle at 72% 28%,rgba(20,171,255,.22),transparent 22%),
+    radial-gradient(circle at 90% 60%,rgba(255,155,47,.18),transparent 24%),
+    linear-gradient(135deg,#061c43 0%,#073977 54%,#0b5ebd 100%)!important;
+}
+.hero:before{
+  border-color:rgba(90,190,255,.24)!important;
+  box-shadow:
+    0 0 0 64px rgba(20,160,255,.08),
+    0 0 0 128px rgba(255,155,47,.065)!important;
+}
+.hero:after{color:rgba(255,255,255,.045)!important}
+.hero h1,
+.hero .hero-text{color:#f7fbff!important}
+.hero h1 span{color:#ffb03c!important}
+.hero .eyebrow{color:#7cd7ff!important}
+.hero .text-link{color:#dff4ff!important}
+.hero .text-link:hover{color:#ffb03c!important}
+.hero .button{
+  background:linear-gradient(135deg,#ffb83e,#ff8d22)!important;
+  color:#091b34!important;
+  box-shadow:0 12px 28px rgba(255,145,35,.24)!important;
+}
+.hero-logo-panel{
+  background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(229,244,255,.92))!important;
+  border-color:rgba(88,181,255,.38)!important;
+  box-shadow:0 28px 80px rgba(1,18,47,.38)!important;
+}
+.hero-logo-panel:before{
+  border-color:rgba(255,155,47,.48)!important;
+}
+.hero-logo-panel>.brand-tagline{color:#0a3671!important}
+
+/* Alternating branded surfaces reduce empty white space. */
+.about{
+  background:
+    radial-gradient(circle at 90% 20%,rgba(26,168,245,.12),transparent 22%),
+    linear-gradient(180deg,#eaf4ff,#f7fbff)!important;
+}
+.classes{
+  background:
+    radial-gradient(circle at 10% 18%,rgba(255,155,47,.10),transparent 24%),
+    linear-gradient(180deg,#dceeff,#edf6ff)!important;
+}
+.classes .class-card{
+  background:rgba(255,255,255,.92);
+  border-color:rgba(13,100,195,.16);
+  box-shadow:0 14px 34px rgba(5,54,112,.08);
+}
+.classes .class-card.featured{
+  background:linear-gradient(145deg,#062b63,#0a58ac)!important;
+  box-shadow:0 22px 48px rgba(3,37,84,.22);
+}
+.steps article{
+  background:linear-gradient(180deg,#fff,#eef7ff);
+  border-color:rgba(12,100,198,.14);
+}
+.registration{
+  background:
+    radial-gradient(circle at 14% 18%,rgba(24,168,245,.14),transparent 25%),
+    radial-gradient(circle at 90% 80%,rgba(255,155,47,.11),transparent 23%),
+    linear-gradient(135deg,#dfefff,#f5faff)!important;
+}
+.form-card{
+  background:rgba(255,255,255,.96);
+  border:1px solid rgba(11,98,213,.13);
+  box-shadow:0 22px 58px rgba(4,44,96,.12);
+}
+.footer{
+  background:linear-gradient(135deg,#04152f,#082d63)!important;
+}
+
+/* Orange/blue motion details repeat the logo colors across the page. */
+.hero-ambient i:nth-child(odd){background:#19aaf5!important;box-shadow:0 0 0 9px rgba(25,170,245,.08),0 0 22px rgba(25,170,245,.42)}
+.hero-ambient i:nth-child(even){background:#ff9b2f!important;box-shadow:0 0 0 9px rgba(255,155,47,.08),0 0 22px rgba(255,155,47,.42)}
+.hero-ambient span{border-color:rgba(126,215,255,.22)!important}
+.eyebrow,.steps span,.class-card>span{color:#0a67c9}
+.button{background:linear-gradient(135deg,#ffb23e,#ff8f28)}
+.text-link{color:#0a64bf}
+.trust-mission.brand-tagline{color:#ffbf4f!important}
+
+@media(max-width:760px){
+  .intro-stage{width:min(96vw,650px);height:min(88vw,470px)}
+  .intro-infinity{width:52%;left:27%;top:31%}
+  .intro-logo-build{width:96%;top:49%}
+  .intro-loading-text.brand-tagline{bottom:5%;font-size:1rem!important}
+  .hero{padding-top:60px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .intro-logo-piece{opacity:1!important;animation:none!important}
+  .intro-logo-spark{display:none}
+}
