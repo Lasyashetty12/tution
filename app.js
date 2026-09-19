@@ -32,8 +32,8 @@
 
   $("#year").textContent = new Date().getFullYear();
 
-  // Original SVG opening sequence: the infinity mark draws first, then the
-  // academic emblem, wordmark, frame and tagline assemble before the screen lifts.
+  // Official-logo opening sequence: the exact logo sharpens from a soft blur,
+  // the graduation cap bounces into place, and the tagline settles before reveal.
   const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches || false;
   const intro = $("#intro");
   const skipIntro = $("#skipIntro");
@@ -59,7 +59,7 @@
     };
 
     skipIntro?.addEventListener("click", finishIntro, { once: true });
-    intro.finishTimer = window.setTimeout(finishIntro, 6900);
+    intro.finishTimer = window.setTimeout(finishIntro, 6200);
   } else {
     document.body.classList.remove("intro-active");
     intro?.remove();
