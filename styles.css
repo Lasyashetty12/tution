@@ -3061,3 +3061,113 @@ input:focus,select:focus,textarea:focus{border-color:var(--brand-blue)!important
 
 /* The irregular angled pencil doodle has been removed from markup. */
 .education-doodles-approach .edu-pencil{display:none!important}
+
+
+/* v55 — logo-theme footer and popup logo after the 489b880 infinity animation */
+.intro-reference-infinity .intro-popup-logo{
+  position:absolute;
+  z-index:4;
+  width:min(62vw,430px);
+  aspect-ratio:190/82;
+  overflow:hidden;
+  border-radius:20px;
+  background:#fff;
+  opacity:0;
+  transform:scale(.68);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.72),
+    0 0 34px rgba(51,190,255,.32),
+    0 0 70px rgba(244,154,37,.20),
+    0 24px 62px rgba(0,17,55,.30);
+  animation:introLogoPop .76s cubic-bezier(.18,1.35,.32,1) 2.02s forwards;
+}
+.intro-reference-infinity .intro-popup-logo img{
+  position:absolute;
+  left:0;
+  top:-52.4%;
+  width:100%;
+  height:auto;
+  max-width:none;
+  display:block;
+}
+@keyframes introLogoPop{
+  0%{opacity:0;transform:scale(.68)}
+  65%{opacity:1;transform:scale(1.06)}
+  100%{opacity:1;transform:scale(1)}
+}
+
+/* Footer now follows the Infinite Tutorial blue, cyan and gold identity. */
+.footer{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 8% 18%,rgba(61,190,255,.22),transparent 30%),
+    radial-gradient(circle at 88% 82%,rgba(242,189,64,.18),transparent 30%),
+    linear-gradient(135deg,#073774 0%,#0a4f99 52%,#0b67bd 100%)!important;
+  color:#eaf5ff!important;
+  border-top:3px solid #f2bd40;
+  box-shadow:inset 0 1px rgba(255,255,255,.08);
+}
+.footer:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:
+    linear-gradient(115deg,transparent 20%,rgba(255,255,255,.035) 48%,transparent 74%);
+  pointer-events:none;
+}
+.footer h3{
+  color:#ffd36a!important;
+}
+.footer a:not(.brand){
+  color:#eef8ff;
+  transition:color .25s ease,transform .25s ease;
+}
+.footer a:not(.brand):hover{
+  color:#ffd36a;
+}
+.footer-brand>.brand-tagline{
+  color:#ffd36a!important;
+  text-shadow:0 3px 18px rgba(0,0,0,.26);
+}
+.footer>div>p,
+.footer-location>p,
+.copyright{
+  color:#d8e9f8!important;
+}
+.footer .map-link{
+  color:#ffd36a!important;
+}
+.footer-map{
+  border:1px solid rgba(255,211,106,.48)!important;
+  background:#0a4f99!important;
+  box-shadow:0 16px 34px rgba(0,23,65,.24),0 0 0 3px rgba(255,255,255,.035);
+}
+.copyright{
+  border-top:1px solid rgba(255,255,255,.18)!important;
+}
+.brand-footer-logo{
+  border:1px solid rgba(255,211,106,.34);
+  box-shadow:0 12px 32px rgba(0,20,58,.18);
+}
+
+@media(max-width:760px){
+  .intro-reference-infinity .intro-popup-logo{
+    width:min(78vw,360px);
+    border-radius:16px;
+  }
+}
+@media(max-width:480px){
+  .intro-reference-infinity .intro-popup-logo{
+    width:min(84vw,320px);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .intro-reference-infinity .intro-popup-logo{
+    opacity:1;
+    transform:none;
+    animation:none!important;
+  }
+}
