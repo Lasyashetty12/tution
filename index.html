@@ -24,7 +24,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Dancing+Script:wght@600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="assets/infinite-tutorial-logo.png">
   <link rel="preload" href="assets/single-student-learning.webp?v=44" as="image" type="image/webp">
-  <link rel="stylesheet" href="styles.css?v=53">
+  <link rel="stylesheet" href="styles.css?v=54">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -49,25 +49,27 @@
   </script>
 </head>
 <body>
-<div class="intro intro-legacy-screen" id="intro" aria-label="Infinite Tutorial opening animation">
-  <div class="intro-legacy-halo" aria-hidden="true"></div>
-  <div class="intro-legacy-stage">
-    <svg class="intro-infinity-trace" viewBox="0 0 420 220" aria-hidden="true">
+<div class="intro intro-reference-infinity" id="intro" aria-hidden="true">
+  <div class="intro-ambient intro-ambient-one" aria-hidden="true"></div>
+  <div class="intro-ambient intro-ambient-two" aria-hidden="true"></div>
+  <div class="intro-stage intro-reference-stage">
+    <svg class="intro-infinity" viewBox="0 0 640 300" role="presentation" aria-hidden="true">
       <defs>
-        <linearGradient id="introInfinityStroke" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#168fda"></stop>
-          <stop offset=".52" stop-color="#2ab8ef"></stop>
-          <stop offset="1" stop-color="#d89a18"></stop>
+        <linearGradient id="infinityGradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#8cecff"></stop>
+          <stop offset=".52" stop-color="#28a9ff"></stop>
+          <stop offset="1" stop-color="#f49a25"></stop>
         </linearGradient>
-        <filter id="introInfinityGlow" x="-40%" y="-40%" width="180%" height="180%">
-          <feGaussianBlur stdDeviation="7" result="blur"></feGaussianBlur>
+        <filter id="infinityGlow" x="-30%" y="-50%" width="160%" height="200%">
+          <feGaussianBlur stdDeviation="8" result="blur"></feGaussianBlur>
           <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
         </filter>
       </defs>
-      <path pathLength="1" d="M54 111C54 57 119 43 164 83L211 125C252 162 311 159 347 124C382 89 361 52 321 52C291 52 266 69 242 91L179 149C136 187 54 169 54 111Z"></path>
+      <path class="infinity-shadow" pathLength="1" d="M72 150C72 60 186 48 258 112L382 188C454 252 568 240 568 150C568 60 454 48 382 112L258 188C186 252 72 240 72 150"></path>
+      <path class="infinity-line" pathLength="1" d="M72 150C72 60 186 48 258 112L382 188C454 252 568 240 568 150C568 60 454 48 382 112L258 188C186 252 72 240 72 150"></path>
+      <path class="infinity-shine" pathLength="1" d="M72 150C72 60 186 48 258 112L382 188C454 252 568 240 568 150C568 60 454 48 382 112L258 188C186 252 72 240 72 150"></path>
     </svg>
-    <img class="intro-legacy-logo" src="assets/infinite-tutorial-logo.png" alt="Infinite Tutorial">
-    <p class="intro-legacy-tagline brand-tagline">Where learning is infinity for better Tomorrow</p>
+    <div class="intro-particles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
   </div>
 </div>
 <div id="publicApp">
@@ -139,9 +141,6 @@
           <path class="approach-infinity-shadow" pathLength="1" d="M72 150C72 60 186 48 258 112L382 188C454 252 568 240 568 150C568 60 454 48 382 112L258 188C186 252 72 240 72 150"></path>
           <path class="approach-infinity-line" pathLength="1" d="M72 150C72 60 186 48 258 112L382 188C454 252 568 240 568 150C568 60 454 48 382 112L258 188C186 252 72 240 72 150"></path>
           <path class="approach-infinity-shine" pathLength="1" d="M72 150C72 60 186 48 258 112L382 188C454 252 568 240 568 150C568 60 454 48 382 112L258 188C186 252 72 240 72 150"></path>
-        </svg>
-        <svg class="edu-doodle edu-pencil" viewBox="0 0 190 80">
-          <path d="M18 54L132 12L166 46L52 70Z"></path><path class="edu-gold-stroke" d="M132 12L171 7L166 46M18 54L8 74L52 70"></path>
         </svg>
         <svg class="edu-doodle edu-ruler" viewBox="0 0 180 58">
           <rect x="6" y="8" width="168" height="42" rx="8"></rect><path d="M30 8V26M52 8V20M74 8V26M96 8V20M118 8V26M140 8V20"></path>
@@ -258,6 +257,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script src="supabase-config.js?v=28"></script>
-<script src="app.js?v=50"></script>
+<script src="app.js?v=51"></script>
 </body>
 </html>
