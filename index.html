@@ -24,7 +24,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Dancing+Script:wght@600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="assets/infinite-tutorial-logo.png">
   <link rel="preload" href="assets/single-student-learning.webp?v=44" as="image" type="image/webp">
-  <link rel="stylesheet" href="styles.css?v=51">
+  <link rel="stylesheet" href="styles.css?v=52">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -52,10 +52,23 @@
 <div class="intro intro-legacy-screen" id="intro" aria-label="Infinite Tutorial opening animation">
   <div class="intro-legacy-halo" aria-hidden="true"></div>
   <div class="intro-legacy-stage">
+    <svg class="intro-infinity-trace" viewBox="0 0 420 220" aria-hidden="true">
+      <defs>
+        <linearGradient id="introInfinityStroke" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#168fda"></stop>
+          <stop offset=".52" stop-color="#2ab8ef"></stop>
+          <stop offset="1" stop-color="#d89a18"></stop>
+        </linearGradient>
+        <filter id="introInfinityGlow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="7" result="blur"></feGaussianBlur>
+          <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+        </filter>
+      </defs>
+      <path pathLength="1" d="M54 111C54 57 119 43 164 83L211 125C252 162 311 159 347 124C382 89 361 52 321 52C291 52 266 69 242 91L179 149C136 187 54 169 54 111Z"></path>
+    </svg>
     <img class="intro-legacy-logo" src="assets/infinite-tutorial-logo.png" alt="Infinite Tutorial">
     <p class="intro-legacy-tagline brand-tagline">Where learning is infinity for better Tomorrow</p>
   </div>
-  <button class="intro-skip" id="skipIntro" type="button" aria-label="Skip opening animation">Skip intro</button>
 </div>
 <div id="publicApp">
   <header class="site-header">
@@ -230,6 +243,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script src="supabase-config.js?v=28"></script>
-<script src="app.js?v=49"></script>
+<script src="app.js?v=50"></script>
 </body>
 </html>
