@@ -32,7 +32,7 @@
 
   $("#year").textContent = new Date().getFullYear();
 
-  // Opening sequence: use the infinity-only animation from the 489b880 checkpoint.
+  // Opening sequence: draw the 489b880-style infinity, then pop in the official logo.
   const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches || false;
   const intro = $("#intro");
   document.documentElement.classList.add("motion-ready");
@@ -56,7 +56,7 @@
       }, 980);
     };
 
-    intro.finishTimer = window.setTimeout(finishIntro, 3200);
+    intro.finishTimer = window.setTimeout(finishIntro, 4200);
   } else {
     document.body.classList.remove("intro-active");
     intro?.remove();
