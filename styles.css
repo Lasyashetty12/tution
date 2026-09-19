@@ -2253,3 +2253,74 @@ input:focus,select:focus,textarea:focus{border-color:var(--brand-blue)!important
     animation-iteration-count:1!important;
   }
 }
+
+
+/* === Image-free logo build and floating cap doodles (v47) === */
+.intro.intro-generated-screen.intro-no-cap{
+  background:
+    radial-gradient(circle at 48% 46%,rgba(39,184,242,.09),transparent 30%),
+    radial-gradient(circle at 53% 58%,rgba(244,173,39,.055),transparent 26%),
+    #fff!important;
+}
+.intro-no-cap .intro-generated-stage{width:min(82vw,820px)!important}
+.intro-no-cap .intro-generated-logo{
+  width:100%!important;
+  filter:drop-shadow(0 18px 34px rgba(16,47,91,.11));
+}
+.intro-no-cap .generated-emblem{transform-origin:29% 52%;animation:noCapEmblemSettle .9s ease 4.75s both}
+.intro-no-cap .generated-bulb{animation-delay:1.75s}
+.intro-no-cap .generated-rays path:nth-child(1){animation-delay:2.12s}
+.intro-no-cap .generated-rays path:nth-child(2){animation-delay:2.2s}
+.intro-no-cap .generated-rays path:nth-child(3){animation-delay:2.28s}
+.intro-no-cap .generated-rays path:nth-child(4){animation-delay:2.36s}
+.intro-no-cap .generated-rays path:nth-child(5){animation-delay:2.44s}
+.intro-no-cap .generated-frame-top{animation-delay:2.35s}
+.intro-no-cap .generated-frame-bottom{animation-delay:2.9s}
+.intro-no-cap .generated-word-infinite{animation-delay:2.55s}
+.intro-no-cap .generated-word-tutorial{animation-delay:2.98s}
+.intro-no-cap .generated-frame-dot{animation-delay:3.8s}
+.intro-no-cap .intro-generated-tagline.brand-tagline{
+  margin-top:clamp(-63px,-5vw,-38px);
+  animation-delay:4.05s;
+}
+.intro-no-cap .intro-generated-tagline:after{animation-delay:4.35s}
+@keyframes noCapEmblemSettle{0%,100%{transform:none}45%{transform:translateY(-7px) scale(1.018)}}
+
+/* Graduation caps belong to the page atmosphere, not the generated logo. */
+.cap-doodle{
+  position:absolute;
+  z-index:0;
+  display:block;
+  width:clamp(115px,13vw,190px);
+  height:auto;
+  fill:none;
+  stroke:#0b5fba;
+  stroke-width:4;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  opacity:.105;
+  pointer-events:none;
+  filter:drop-shadow(0 8px 14px rgba(16,47,91,.08));
+  animation:capDoodleFloat 7s ease-in-out infinite;
+}
+.cap-doodle .cap-doodle-gold{stroke:#e79a19}
+.cap-doodle-hero{right:2.5%;top:12%;transform:rotate(9deg);animation-delay:-1.2s}
+.cap-doodle-classes{right:5%;top:8%;transform:rotate(-8deg) scale(.9);opacity:.09;animation-delay:-3.8s}
+@keyframes capDoodleFloat{
+  0%,100%{translate:0 0}
+  42%{translate:0 -14px}
+  70%{translate:5px -5px}
+}
+@media(max-width:760px){
+  .intro-no-cap .intro-generated-stage{width:96vw!important}
+  .intro-no-cap .intro-generated-logo{width:100%!important}
+  .intro-no-cap .intro-generated-tagline.brand-tagline{margin-top:-24px}
+  .cap-doodle{width:118px;opacity:.075}
+  .cap-doodle-hero{right:-24px;top:9%}
+  .cap-doodle-classes{right:-18px;top:5%}
+}
+@media(max-width:420px){
+  .intro-no-cap .intro-generated-stage{width:105vw!important}
+  .intro-no-cap .intro-generated-tagline.brand-tagline{width:92vw;margin-top:-8px}
+}
+@media(prefers-reduced-motion:reduce){.cap-doodle,.intro-no-cap .generated-emblem{animation:none!important}}
