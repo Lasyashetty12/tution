@@ -32,33 +32,51 @@
 
   $("#year").textContent = new Date().getFullYear();
 
-  // Opening sequence and motion effects. All effects respect reduced-motion settings.
-  // Motion is an explicit part of this site experience. Keep the effects
-  // gentle, but do not silently disable them because of browser media detection.
-  const reduceMotion = false;
+  // The supplied film is the opening sequence. As soon as it finishes,
+  // the opener lifts away and the already-rendered home page is revealed.
+  const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches || false;
   const intro = $("#intro");
+  const introVideo = $("#introVideo");
+  const skipIntro = $("#skipIntro");
   document.documentElement.classList.add("motion-ready");
 
-  if (!reduceMotion && intro) {
-    const introStarted = performance.now();
+  if (intro && !reduceMotion) {
+    let introFinished = false;
+    let fallbackTimer;
     document.body.classList.add("intro-active");
 
     const finishIntro = () => {
-      const remaining = Math.max(4700 - (performance.now() - introStarted), 0);
+      if (introFinished) return;
+      introFinished = true;
+      window.clearTimeout(fallbackTimer);
+
+      // Reveal content at the same instant the screen begins moving away.
+      document.body.classList.remove("intro-active");
+      window.dispatchEvent(new Event("vision:intro-complete"));
+      requestAnimationFrame(() => intro.classList.add("curtain"));
       window.setTimeout(() => {
-        intro.classList.add("curtain");
-        window.setTimeout(() => {
-          intro.classList.add("exit");
-          document.body.classList.remove("intro-active");
-          window.dispatchEvent(new Event("vision:intro-complete"));
-        }, 1080);
-        window.setTimeout(() => intro.remove(), 1250);
-      }, remaining);
+        intro.classList.add("exit");
+        intro.remove();
+      }, 980);
     };
 
-    if (document.readyState === "complete") finishIntro();
-    else window.addEventListener("load", finishIntro, { once: true });
+    introVideo?.addEventListener("ended", finishIntro, { once: true });
+    introVideo?.addEventListener("error", () => window.setTimeout(finishIntro, 900), { once: true });
+    skipIntro?.addEventListener("click", finishIntro, { once: true });
+
+    const playOpening = () => {
+      const playback = introVideo?.play();
+      if (playback?.catch) playback.catch(() => {
+        // A visible skip button and timeout keep the home page reachable
+        // even when a browser blocks media playback.
+      });
+      fallbackTimer = window.setTimeout(finishIntro, 12000);
+    };
+
+    if (document.readyState === "complete") playOpening();
+    else window.addEventListener("load", playOpening, { once: true });
   } else {
+    document.body.classList.remove("intro-active");
     intro?.remove();
   }
 
