@@ -377,7 +377,14 @@
     panel.setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
   };
-  $("#openAdmin").addEventListener("click", () => {
+  $("#openAdmin").addEventListener("click", async () => {
+    if (db) {
+      const { data } = await db.auth.getUser();
+      if (data.user && await verifyAdmin(data.user)) {
+        await showAdmin(data.user);
+        return;
+      }
+    }
     const panel = $("#adminLogin");
     panel.hidden = false;
     panel.classList.remove("hidden");
@@ -390,10 +397,18 @@
     if (event.target === $("#adminLogin")) closeLogin();
   });
 
-  async function verifyAdmin() {
-    if (!db) return false;
-    const { data, error } = await db.from("website_admin_users").select("email").limit(1);
-    return !error && Array.isArray(data) && data.length > 0;
+  async function verifyAdmin(user) {
+    if (!db || !user?.id) return false;
+    const { data, error } = await db
+      .from("website_admin_users")
+      .select("user_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+    if (error) {
+      console.error("Admin verification failed:", error);
+      return false;
+    }
+    return data?.user_id === user.id;
   }
 
   $("#loginForm").addEventListener("submit", async (event) => {
@@ -414,19 +429,28 @@
       email: values.email.trim(),
       password: values.password
     });
-    const authorised = !error && data.session && await verifyAdmin();
 
-    button.disabled = false;
-    button.textContent = "Sign in securely";
-    if (!authorised) {
-      if (data?.session) await db.auth.signOut();
-      setStatus(status, "Invalid credentials or this account is not authorised.", true);
+    if (error || !data.session || !data.user) {
+      button.disabled = false;
+      button.textContent = "Sign in securely";
+      setStatus(status, "The email or password is incorrect.", true);
       return;
     }
 
+    const authorised = await verifyAdmin(data.user);
+    if (!authorised) {
+      await db.auth.signOut();
+      button.disabled = false;
+      button.textContent = "Sign in securely";
+      setStatus(status, "Sign-in succeeded, but this account is not authorised for the admin dashboard.", true);
+      return;
+    }
+
+    setStatus(status, "Opening dashboard…");
     event.currentTarget.reset();
-    closeLogin();
     await showAdmin(data.user);
+    button.disabled = false;
+    button.textContent = "Sign in securely";
   });
 
   async function showAdmin(user) {
@@ -437,14 +461,21 @@
     adminApp.classList.remove("hidden");
     adminApp.setAttribute("aria-hidden", "false");
     $("#adminEmail").textContent = user.email || "Admin";
+    document.body.classList.add("admin-active");
     window.scrollTo(0, 0);
-    await loadDashboard();
+    try {
+      await loadDashboard();
+    } catch (error) {
+      console.error("Dashboard loading failed:", error);
+    }
   }
 
   async function restoreSession() {
     if (!db) return;
-    const { data } = await db.auth.getSession();
-    if (data.session && await verifyAdmin()) await showAdmin(data.session.user);
+    const { data, error } = await db.auth.getUser();
+    if (!error && data.user && await verifyAdmin(data.user)) {
+      await showAdmin(data.user);
+    }
   }
 
   $("#logoutButton").addEventListener("click", async () => {
@@ -454,6 +485,7 @@
     adminApp.hidden = true;
     adminApp.setAttribute("aria-hidden", "true");
     $("#publicApp").classList.remove("hidden");
+    document.body.classList.remove("admin-active");
     history.replaceState(null, "", location.pathname + location.search + "#home");
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
