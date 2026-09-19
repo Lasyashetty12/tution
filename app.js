@@ -70,15 +70,15 @@
   const revealGroups = [
     { selector: ".hero .eyebrow, .hero h1, .hero-text, .hero-actions, .hero-proof", motion: "rise" },
     { selector: ".hero-panel", motion: "scale-soft" },
-    { selector: ".about > :first-child", motion: "left-soft" },
-    { selector: ".about > :last-child", motion: "fade" },
+    { selector: ".about > div:not(.education-doodles):not(.about-copy)", motion: "left-soft" },
+    { selector: ".about > .about-copy", motion: "fade" },
     { selector: ".section-heading", motion: "fade" },
     { selector: ".class-card", motion: "scale-soft" },
     { selector: ".steps article", motion: "rise" },
     { selector: ".achievements > :first-child", motion: "left-soft" },
     { selector: ".trust-points article", motion: "right-soft", stagger: 110 },
-    { selector: ".registration > :first-child", motion: "fade" },
-    { selector: ".registration > :last-child", motion: "rise" },
+    { selector: ".registration > div:not(.education-doodles)", motion: "fade" },
+    { selector: ".registration > .form-card", motion: "rise" },
     { selector: ".footer > *", motion: "fade" }
   ];
 
