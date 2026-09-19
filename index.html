@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="assets/infinite-tutorial-logo.png">
-  <link rel="stylesheet" href="styles.css?v=32">
+  <link rel="stylesheet" href="styles.css?v=33">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -168,30 +168,30 @@
   <footer class="footer" id="contact">
     <div class="footer-brand"><a class="brand brand-image brand-footer-logo" href="#home" aria-label="Infinite Tutorial home"><img src="assets/infinite-tutorial-logo.png" alt="Infinite Tutorial"></a><p>Focused academic guidance for students in Classes 9–10.</p></div>
     <div><h3>Contact</h3><a href="tel:+918073912005">+91 80-73912005</a><a href="https://www.instagram.com/p/DdQdt0cP1zy/?stkn=YjZvcG11cXZhNGY0" target="_blank" rel="noopener noreferrer">Instagram</a></div>
-    <div class="footer-location"><h3>Visit us</h3><p>#352/58 Sainik Buliding<br>7th Cross, DR Circle<br>SS Hospital Road, Ambika Nagara<br>Davangere, Karnataka 577002</p>
+    <div class="footer-location"><h3>Visit us</h3><p>#352/58 Sainik Building<br>7th Cross, DR Circle<br>SS Hospital Road, Ambika Nagara<br>Davanagere, Karnataka 577002</p>
       <div class="footer-map">
         <iframe
           title="Infinite Tutorial location on Google Maps"
-          src="https://www.google.com/maps?q=%23352%2F58%20Sainik%20Buliding%2C%207th%20Cross%2C%20DR%20Circle%2C%20SS%20Hospital%20Road%2C%20Ambika%20Nagara%2C%20Davangere%2C%20Karnataka%20577002&output=embed"
+          src="https://www.google.com/maps?q=352%2F58%20Sainik%20Building%2C%207th%20Cross%2C%20DR%20Circle%2C%20SS%20Hospital%20Road%2C%20Ambika%20Nagara%2C%20Davanagere%2C%20Karnataka%20577002&output=embed&z=17"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
           allowfullscreen>
         </iframe>
       </div>
-      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=%23352%2F58%20Sainik%20Buliding%2C%207th%20Cross%2C%20DR%20Circle%2C%20SS%20Hospital%20Road%2C%20Ambika%20Nagara%2C%20Davangere%2C%20Karnataka%20577002" target="_blank" rel="noopener noreferrer">Open in Google Maps →</a>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=352%2F58%20Sainik%20Building%2C%207th%20Cross%2C%20DR%20Circle%2C%20SS%20Hospital%20Road%2C%20Ambika%20Nagara%2C%20Davanagere%2C%20Karnataka%20577002" target="_blank" rel="noopener noreferrer">Open in Google Maps →</a>
     </div>
     <p class="copyright">© <span id="year"></span> Infinite Tutorial. All rights reserved.</p>
   </footer>
 </div>
 
-<section id="adminLogin" class="admin-login hidden" aria-labelledby="loginTitle">
-  <div class="login-card"><button class="close-button" id="closeAdmin" aria-label="Close">×</button><img class="admin-logo" src="assets/infinite-tutorial-logo.png" alt="Infinite Tutorial"><p class="eyebrow">Protected area</p><h2 id="loginTitle">Admin sign in</h2><p class="muted">Use your authorised Infinite Tutorial account.</p>
+<section id="adminLogin" class="admin-login hidden" aria-labelledby="loginTitle" aria-hidden="true" hidden>
+  <div class="login-card admin-surface"><button class="close-button" id="closeAdmin" aria-label="Close admin sign in">×</button><a class="brand brand-image login-brand" href="#home" aria-label="Infinite Tutorial home"><img src="assets/infinite-tutorial-logo.png" alt="Infinite Tutorial"></a><p class="eyebrow">Protected area</p><h2 id="loginTitle">Admin sign in</h2><p class="muted">Use your authorised Infinite Tutorial account.</p>
     <form id="loginForm"><label>Email<input name="email" type="email" required autocomplete="username"></label><label>Password<input name="password" type="password" required autocomplete="current-password"></label><button class="button button-full" type="submit">Sign in securely</button><p class="form-status" id="loginStatus" role="status"></p></form>
   </div>
 </section>
 
-<section id="adminApp" class="admin-shell hidden">
-  <aside class="admin-sidebar"><a class="brand brand-image admin-brand" href="#" aria-label="Infinite Tutorial admin"><img src="assets/infinite-tutorial-logo.png" alt="Infinite Tutorial"></a><nav><button class="active" data-admin-view="overview">Overview</button><button data-admin-view="students">Students</button><button data-admin-view="performance">Performance</button></nav><button class="logout-button" id="logoutButton">Sign out</button></aside>
+<section id="adminApp" class="admin-shell hidden" aria-hidden="true" hidden>
+  <aside class="admin-sidebar"><a class="brand brand-image admin-brand" href="#overview" aria-label="Infinite Tutorial admin dashboard"><img src="assets/infinite-tutorial-logo.png" alt="Infinite Tutorial"></a><p class="admin-sidebar-label">Admin workspace</p><nav aria-label="Admin dashboard navigation"><button class="active" data-admin-view="overview">Overview</button><button data-admin-view="students">Students</button><button data-admin-view="performance">Performance</button></nav><button class="logout-button" id="logoutButton">Sign out</button></aside>
   <div class="admin-main">
     <header class="admin-header"><div><p class="eyebrow">Admin dashboard</p><h1 id="adminPageTitle">Overview</h1></div><div class="admin-user"><span id="adminEmail"></span><i>A</i></div></header>
     <main>
@@ -215,6 +215,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script src="supabase-config.js?v=28"></script>
-<script src="app.js?v=29"></script>
+<script src="app.js?v=33"></script>
 </body>
 </html>
