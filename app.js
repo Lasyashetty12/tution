@@ -44,16 +44,15 @@
     document.body.classList.add("intro-active");
 
     const finishIntro = () => {
-      const remaining = Math.max(4800 - (performance.now() - introStarted), 0);
+      const remaining = Math.max(4700 - (performance.now() - introStarted), 0);
       window.setTimeout(() => {
-        // Reveal the real page immediately as the opening screen starts moving.
-        document.body.classList.remove("intro-active");
-        window.dispatchEvent(new Event("vision:intro-complete"));
         intro.classList.add("curtain");
         window.setTimeout(() => {
           intro.classList.add("exit");
-        }, 900);
-        window.setTimeout(() => intro.remove(), 1020);
+          document.body.classList.remove("intro-active");
+          window.dispatchEvent(new Event("vision:intro-complete"));
+        }, 1080);
+        window.setTimeout(() => intro.remove(), 1250);
       }, remaining);
     };
 
@@ -252,33 +251,22 @@
     counterElements.forEach((element) => counterObserver.observe(element));
   }
 
-  const closeMainNav = () => {
-    $("#mainNav").classList.remove("open");
-    $("#menuToggle").setAttribute("aria-expanded", "false");
-    $("#menuToggle").setAttribute("aria-label", "Open menu");
-  };
   $("#menuToggle").addEventListener("click", () => {
     const nav = $("#mainNav");
     const open = nav.classList.toggle("open");
     $("#menuToggle").setAttribute("aria-expanded", String(open));
-    $("#menuToggle").setAttribute("aria-label", open ? "Close menu" : "Open menu");
   });
-  $$("#mainNav a, #mainNav button").forEach((option) => {
-    option.addEventListener("click", closeMainNav);
-  });
-  document.addEventListener("click", (event) => {
-    if (!event.target.closest(".site-header")) closeMainNav();
-  });
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeMainNav();
-  });
+  $$("#mainNav a").forEach((link) => link.addEventListener("click", () => {
+    $("#mainNav").classList.remove("open");
+    $("#menuToggle").setAttribute("aria-expanded", "false");
+  }));
 
   function setStatus(element, message, isError = false) {
     element.textContent = message;
     element.classList.toggle("error", isError);
   }
 
-  const adminWhatsAppNumber = "918073912005";
+  const adminWhatsAppNumber = "918147065530";
 
   $("#registrationForm").addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -288,47 +276,8 @@
     const values = Object.fromEntries(new FormData(form));
     const showValue = (value) => String(value || "").trim() || "Not provided";
 
-    if (!db) {
-      setStatus(status, "Registration service is temporarily unavailable. Please contact us on WhatsApp.", true);
-      return;
-    }
-
-    const subjects = String(values.subjects || "")
-      .split(",")
-      .map((item) => item.trim())
-      .filter(Boolean);
-
-    button.disabled = true;
-    button.textContent = "Saving registration…";
-    setStatus(status, "");
-
-    const { error: saveError } = await db.from("website_students").insert({
-      student_name: String(values.student_name || "").trim(),
-      class_level: String(values.class_level || "").trim(),
-      parent_name: String(values.parent_name || "").trim(),
-      phone: String(values.phone || "").trim(),
-      email: String(values.email || "").trim() || null,
-      school: String(values.school || "").trim() || null,
-      previous_class: String(values.previous_class || "").trim() || null,
-      board: String(values.board || "").trim() || null,
-      previous_exam: String(values.previous_exam || "").trim() || null,
-      previous_percentage: values.previous_percentage === "" ? null : Number(values.previous_percentage),
-      subjects,
-      preferred_batch: String(values.preferred_batch || "").trim() || null,
-      message: String(values.message || "").trim() || null,
-      status: "pending"
-    });
-
-    if (saveError) {
-      console.error("Registration save error:", saveError);
-      button.disabled = false;
-      button.textContent = "Submit registration";
-      setStatus(status, "Registration could not be saved. Please try again or contact us on WhatsApp.", true);
-      return;
-    }
-
     const whatsappMessage = [
-      "*New Infinite Tutorial Registration*",
+      "🎓 *New Infinite Tutorial Registration*",
       "",
       "*Student details*",
       "Name: " + showValue(values.student_name),
@@ -356,72 +305,52 @@
       "https://wa.me/" + adminWhatsAppNumber +
       "?text=" + encodeURIComponent(whatsappMessage);
 
+    button.disabled = true;
     button.textContent = "Opening WhatsApp…";
-    const whatsappWindow = window.open(whatsappUrl, "_blank");
-    if (whatsappWindow) whatsappWindow.opener = null;
+    setStatus(status, "");
 
+    // Opening occurs directly from the submit action so browsers do not block it.
+    const whatsappWindow = window.open(whatsappUrl, "_blank");
+    if (whatsappWindow) {
+      whatsappWindow.opener = null;
+    } else {
+      window.location.href = whatsappUrl;
+      return;
+    }
     button.disabled = false;
     button.textContent = "Submit registration";
     form.reset();
     setStatus(
       status,
-      "Registration saved successfully. WhatsApp opened with your completed registration. Review the details and tap Send to submit it to the admin."
+      "WhatsApp opened with your completed registration. Review the details and tap Send to submit it to the admin."
     );
-
-    if (!whatsappWindow) window.location.href = whatsappUrl;
   });
 
-  const closeLogin = () => {
-    const panel = $("#adminLogin");
-    panel.classList.add("hidden");
-    panel.hidden = true;
-    panel.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("modal-open");
-  };
-  $("#openAdmin").addEventListener("click", async () => {
-    if (db) {
-      const { data } = await db.auth.getUser();
-      if (data.user && await verifyAdmin(data.user)) {
-        await showAdmin(data.user);
-        return;
-      }
-    }
-    const panel = $("#adminLogin");
-    panel.hidden = false;
-    panel.classList.remove("hidden");
-    panel.setAttribute("aria-hidden", "false");
-    document.body.classList.add("modal-open");
-    window.setTimeout(() => $("#loginForm input").focus(), 80);
+  const closeLogin = () => $("#adminLogin").classList.add("hidden");
+  $("#openAdmin").addEventListener("click", () => {
+    $("#adminLogin").classList.remove("hidden");
+    $("#loginForm input").focus();
   });
   $("#closeAdmin").addEventListener("click", closeLogin);
   $("#adminLogin").addEventListener("click", (event) => {
     if (event.target === $("#adminLogin")) closeLogin();
   });
 
-  async function verifyAdmin(user) {
-    if (!db || !user?.id) return false;
-    const { data, error } = await db
-      .from("website_admin_users")
-      .select("user_id")
-      .eq("user_id", user.id)
-      .maybeSingle();
-    if (error) {
-      console.error("Admin verification failed:", error);
-      return false;
-    }
-    return data?.user_id === user.id;
+  async function verifyAdmin() {
+    if (!db) return false;
+    const { data, error } = await db.rpc("is_admin");
+    return !error && data === true;
   }
 
   $("#loginForm").addEventListener("submit", async (event) => {
     event.preventDefault();
-    const form = event.currentTarget;
     const status = $("#loginStatus");
     if (!db) {
       setStatus(status, "Secure admin access is not configured yet.", true);
       return;
     }
 
-    const values = Object.fromEntries(new FormData(form));
+    const values = Object.fromEntries(new FormData(event.currentTarget));
     const button = event.submitter;
     button.disabled = true;
     button.textContent = "Signing in…";
@@ -431,71 +360,45 @@
       email: values.email.trim(),
       password: values.password
     });
+    const authorised = !error && data.session && await verifyAdmin();
 
-    if (error || !data.session || !data.user) {
-      button.disabled = false;
-      button.textContent = "Sign in securely";
-      setStatus(status, "The email or password is incorrect.", true);
-      return;
-    }
-
-    const authorised = await verifyAdmin(data.user);
-    if (!authorised) {
-      await db.auth.signOut();
-      button.disabled = false;
-      button.textContent = "Sign in securely";
-      setStatus(status, "Sign-in succeeded, but this account is not authorised for the admin dashboard.", true);
-      return;
-    }
-
-    setStatus(status, "Opening dashboard…");
-    form.reset();
-    await showAdmin(data.user);
     button.disabled = false;
     button.textContent = "Sign in securely";
+    if (!authorised) {
+      if (data?.session) await db.auth.signOut();
+      setStatus(status, "Invalid credentials or this account is not authorised.", true);
+      return;
+    }
+
+    event.currentTarget.reset();
+    closeLogin();
+    await showAdmin(data.user);
   });
 
   async function showAdmin(user) {
-    closeLogin();
-    const adminApp = $("#adminApp");
     $("#publicApp").classList.add("hidden");
-    adminApp.hidden = false;
-    adminApp.classList.remove("hidden");
-    adminApp.setAttribute("aria-hidden", "false");
+    $("#adminApp").classList.remove("hidden");
     $("#adminEmail").textContent = user.email || "Admin";
-    document.body.classList.add("admin-active");
-    window.scrollTo(0, 0);
-    try {
-      await loadDashboard();
-    } catch (error) {
-      console.error("Dashboard loading failed:", error);
-    }
+    await loadDashboard();
   }
 
   async function restoreSession() {
     if (!db) return;
-    const { data, error } = await db.auth.getUser();
-    if (!error && data.user && await verifyAdmin(data.user)) {
-      await showAdmin(data.user);
-    }
+    const { data } = await db.auth.getSession();
+    if (data.session && await verifyAdmin()) await showAdmin(data.session.user);
   }
 
   $("#logoutButton").addEventListener("click", async () => {
     if (db) await db.auth.signOut();
-    const adminApp = $("#adminApp");
-    adminApp.classList.add("hidden");
-    adminApp.hidden = true;
-    adminApp.setAttribute("aria-hidden", "true");
+    $("#adminApp").classList.add("hidden");
     $("#publicApp").classList.remove("hidden");
-    document.body.classList.remove("admin-active");
-    history.replaceState(null, "", location.pathname + location.search + "#home");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    location.hash = "home";
   });
 
   async function loadDashboard() {
     const [studentResult, performanceResult] = await Promise.all([
-      db.from("website_students").select("*").order("created_at", { ascending: false }),
-      db.from("website_performance").select("*, website_students(student_name, class_level)").order("test_date", { ascending: false })
+      db.from("students").select("*").order("created_at", { ascending: false }),
+      db.from("performance").select("*, students(student_name, class_level)").order("test_date", { ascending: false })
     ]);
 
     if (studentResult.error || performanceResult.error) {
@@ -574,7 +477,7 @@
   async function updateStudentStatus(event) {
     const select = event.currentTarget;
     select.disabled = true;
-    const { error } = await db.from("website_students")
+    const { error } = await db.from("students")
       .update({ status: select.value })
       .eq("id", select.dataset.studentId);
     select.disabled = false;
@@ -609,7 +512,7 @@
         ? Math.round(Number(row.score) / Number(row.max_score) * 100)
         : 0;
       return `<tr>
-        <td>${escapeHtml(row.website_students?.student_name || "Student")}</td>
+        <td>${escapeHtml(row.students?.student_name || "Student")}</td>
         <td>${escapeHtml(row.subject)}</td>
         <td><strong>${escapeHtml(row.test_name)}</strong><small>${new Date(row.test_date).toLocaleDateString()}</small></td>
         <td>${escapeHtml(row.score)}/${escapeHtml(row.max_score)} (${percentage}%)</td>
@@ -620,8 +523,7 @@
 
   $("#performanceForm").addEventListener("submit", async (event) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    const values = Object.fromEntries(new FormData(form));
+    const values = Object.fromEntries(new FormData(event.currentTarget));
     const status = $("#performanceStatus");
     const score = Number(values.score);
     const maximum = Number(values.max_score);
@@ -631,7 +533,7 @@
       return;
     }
 
-    const { error } = await db.from("website_performance").insert({
+    const { error } = await db.from("performance").insert({
       student_id: values.student_id,
       subject: values.subject.trim(),
       test_name: values.test_name.trim(),
@@ -645,7 +547,7 @@
       setStatus(status, "Performance could not be saved.", true);
       return;
     }
-    form.reset();
+    event.currentTarget.reset();
     setStatus(status, "Performance saved successfully.");
     await loadDashboard();
   });
