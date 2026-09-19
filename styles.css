@@ -2856,3 +2856,85 @@ input:focus,select:focus,textarea:focus{border-color:var(--brand-blue)!important
   .intro-infinity-trace{display:none}
   .intro-legacy-logo,.intro-legacy-tagline{opacity:1}
 }
+
+
+/* v53 — replace the faded full-logo watermark with the infinity-only animation */
+.approach-infinity-mark{
+  position:absolute;
+  right:clamp(22px,4vw,68px);
+  top:clamp(18px,3vw,40px);
+  width:clamp(190px,20vw,320px);
+  overflow:visible;
+  opacity:.42;
+  filter:drop-shadow(0 10px 22px rgba(22,143,240,.10));
+  transform:rotate(-3deg);
+  animation:approachInfinityFloat 7s ease-in-out infinite;
+}
+.approach-infinity-shadow,
+.approach-infinity-line,
+.approach-infinity-shine{
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-dasharray:1;
+  stroke-dashoffset:1;
+}
+.approach-infinity-shadow{
+  stroke:rgba(19,43,79,.12);
+  stroke-width:58;
+  animation:approachInfinityDraw 5.8s cubic-bezier(.65,0,.25,1) .15s infinite;
+}
+.approach-infinity-line{
+  stroke:url(#approachInfinityGradient);
+  stroke-width:42;
+  filter:url(#approachInfinityGlow);
+  animation:approachInfinityDraw 5.8s cubic-bezier(.65,0,.25,1) .15s infinite;
+}
+.approach-infinity-shine{
+  stroke:rgba(255,255,255,.74);
+  stroke-width:7;
+  animation:
+    approachInfinityDraw 5.8s cubic-bezier(.65,0,.25,1) .22s infinite,
+    approachInfinityShimmer 2.9s ease-in-out 1.35s infinite;
+}
+@keyframes approachInfinityDraw{
+  0%,8%{stroke-dashoffset:1;opacity:0}
+  12%{opacity:1}
+  42%,78%{stroke-dashoffset:0;opacity:1}
+  92%,100%{stroke-dashoffset:0;opacity:.20}
+}
+@keyframes approachInfinityShimmer{
+  0%,100%{opacity:.18}
+  48%{opacity:.92}
+  70%{opacity:.36}
+}
+@keyframes approachInfinityFloat{
+  0%,100%{translate:0 0;rotate:0deg;scale:1}
+  50%{translate:-4px -7px;rotate:1deg;scale:1.025}
+}
+
+@media(max-width:760px){
+  .approach-infinity-mark{
+    right:-28px;
+    top:16px;
+    width:220px;
+    opacity:.30;
+  }
+}
+@media(max-width:480px){
+  .approach-infinity-mark{
+    right:-52px;
+    top:24px;
+    width:200px;
+    opacity:.24;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .approach-infinity-mark,
+  .approach-infinity-shadow,
+  .approach-infinity-line,
+  .approach-infinity-shine{animation:none!important}
+  .approach-infinity-shadow,
+  .approach-infinity-line,
+  .approach-infinity-shine{stroke-dashoffset:0}
+}
