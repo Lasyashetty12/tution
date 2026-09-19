@@ -1432,3 +1432,60 @@ th:last-child{border-radius:0 11px 0 0}
   font-size:clamp(1.25rem,2vw,1.65rem);
   line-height:1.3;
 }
+
+
+/* Gentle dancing motion for the public header logo */
+.site-header>.brand-image{
+  transform-origin:50% 58%;
+  animation:headerLogoDance 4.8s ease-in-out infinite;
+  will-change:transform;
+}
+@media(hover:hover){
+  .site-header>.brand-image:hover{
+    animation:headerLogoWiggle .72s cubic-bezier(.34,1.56,.64,1) both;
+  }
+}
+@keyframes headerLogoDance{
+  0%,100%{transform:translate3d(0,0,0) rotate(0)}
+  25%{transform:translate3d(0,-2px,0) rotate(-.7deg)}
+  50%{transform:translate3d(0,1px,0) rotate(.5deg)}
+  75%{transform:translate3d(0,-1px,0) rotate(.8deg)}
+}
+@keyframes headerLogoWiggle{
+  0%,100%{transform:translate3d(0,0,0) rotate(0) scale(1)}
+  30%{transform:translate3d(0,-3px,0) rotate(-2deg) scale(1.02)}
+  65%{transform:translate3d(0,-1px,0) rotate(1.6deg) scale(1.02)}
+}
+
+/* Strong, highly visible brand tagline */
+.intro-loading-text,
+.hero-logo-panel>p,
+.footer-brand>p{
+  font-weight:700!important;
+  opacity:1;
+  -webkit-font-smoothing:antialiased;
+}
+.intro-loading-text{
+  color:#ffd36a;
+  font-size:clamp(1.15rem,2.25vw,1.55rem);
+  letter-spacing:.025em;
+  text-shadow:0 2px 2px rgba(0,0,0,.48),0 8px 24px rgba(0,0,0,.3);
+}
+.hero-logo-panel>p{
+  color:#102d55;
+  font-size:clamp(1.5rem,2.5vw,2rem);
+  text-shadow:0 1px 0 #fff,0 5px 15px rgba(19,43,79,.12);
+}
+.footer-brand>p{
+  color:#ffd268;
+  font-size:clamp(1.4rem,2.2vw,1.85rem);
+  text-shadow:0 2px 12px rgba(0,0,0,.35);
+}
+@media(max-width:640px){
+  .site-header>.brand-image{animation-duration:5.4s}
+  .intro-loading-text{font-size:1.12rem;padding:0 18px}
+  .hero-logo-panel>p{font-size:1.5rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .site-header>.brand-image{animation:none!important}
+}
