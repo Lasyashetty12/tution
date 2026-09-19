@@ -1390,3 +1390,18 @@ th:last-child{border-radius:0 11px 0 0}
 @media(prefers-reduced-motion:reduce){
   .login-card.admin-surface,.admin-shell,.admin-sidebar,.admin-main,.admin-view,.metric-grid article{animation:none!important}
 }
+
+
+/* Infinite Tutorial brand tagline */
+.intro-loading-text{
+  width:min(90vw,620px);
+  text-align:center;
+  letter-spacing:.08em;
+  text-transform:none;
+  white-space:normal;
+}
+.hero-logo-panel>p,
+.footer-brand>p{
+  font-style:italic;
+  letter-spacing:.015em;
+}
