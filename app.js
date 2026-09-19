@@ -46,13 +46,14 @@
     const finishIntro = () => {
       const remaining = Math.max(4700 - (performance.now() - introStarted), 0);
       window.setTimeout(() => {
+        // Reveal the real page immediately as the opening screen starts moving.
+        document.body.classList.remove("intro-active");
+        window.dispatchEvent(new Event("vision:intro-complete"));
         intro.classList.add("curtain");
         window.setTimeout(() => {
           intro.classList.add("exit");
-          document.body.classList.remove("intro-active");
-          window.dispatchEvent(new Event("vision:intro-complete"));
-        }, 1080);
-        window.setTimeout(() => intro.remove(), 1250);
+        }, 900);
+        window.setTimeout(() => intro.remove(), 1020);
       }, remaining);
     };
 
