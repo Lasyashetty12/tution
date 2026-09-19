@@ -1554,3 +1554,263 @@ th:last-child{border-radius:0 11px 0 0}
   .trust-mission.brand-tagline{font-size:1.38rem!important}
   .footer-brand>.brand-tagline{font-size:1.25rem!important}
 }
+
+
+/* ========================================================================
+   Infinite Tutorial — cohesive navy/gold animated brand polish
+   ======================================================================== */
+
+/* Opening brand is constructed by the infinity drawing itself. */
+.intro-stage{
+  width:min(74vw,520px);
+  height:min(74vw,520px);
+}
+.intro-infinity{
+  z-index:4;
+  width:58%;
+  top:29%;
+  transform-origin:50% 50%;
+  animation:introInfinityBecomeLogo 1.05s cubic-bezier(.16,1,.3,1) 2.15s forwards;
+}
+.intro-built-brand{
+  position:absolute;
+  z-index:5;
+  left:50%;
+  top:55%;
+  width:min(88%,430px);
+  transform:translate(-50%,18px);
+  text-align:center;
+  opacity:0;
+  animation:introBrandBuild .82s cubic-bezier(.16,1,.3,1) 2.72s forwards;
+}
+.intro-built-brand strong{
+  display:block;
+  color:#fff;
+  font:800 clamp(1.3rem,3.4vw,2.15rem) "Manrope",sans-serif;
+  letter-spacing:.045em;
+  text-transform:uppercase;
+  text-shadow:0 8px 24px rgba(0,0,0,.24);
+}
+.intro-built-brand strong span{color:#f2bd40}
+.intro-built-brand i{
+  display:block;
+  width:0;
+  height:2px;
+  margin:10px auto 0;
+  border-radius:4px;
+  background:linear-gradient(90deg,transparent,#f2bd40 22%,#fff 50%,#f2bd40 78%,transparent);
+  animation:introBrandRule .72s cubic-bezier(.16,1,.3,1) 3.02s forwards;
+}
+.intro-loading-text.brand-tagline{
+  bottom:10%;
+  animation:introTextReveal .62s ease 3.18s forwards;
+}
+.intro-complete-logo{display:none!important}
+@keyframes introInfinityBecomeLogo{
+  0%{transform:translateY(0) scale(1);filter:drop-shadow(0 16px 26px rgba(0,0,0,.22))}
+  100%{transform:translateY(-40px) scale(.70);filter:drop-shadow(0 10px 18px rgba(0,0,0,.2))}
+}
+@keyframes introBrandBuild{
+  from{opacity:0;transform:translate(-50%,24px);filter:blur(7px)}
+  to{opacity:1;transform:translate(-50%,0);filter:blur(0)}
+}
+@keyframes introBrandRule{to{width:72%}}
+
+/* Curtain reveals the already-live page beneath it, with no blank transition. */
+.intro{
+  transition:transform .88s cubic-bezier(.76,0,.24,1);
+  backface-visibility:hidden;
+}
+.intro.curtain{transform:translate3d(0,-100%,0)}
+body:not(.intro-active) #publicApp{visibility:visible}
+
+/* Home scene: less empty, more logo-led, still calm. */
+.hero{
+  position:relative;
+  isolation:isolate;
+  min-height:min(760px,calc(100vh - 84px));
+  padding-top:clamp(80px,8vw,120px);
+  padding-bottom:clamp(70px,7vw,105px);
+  grid-template-columns:minmax(0,1.12fr) minmax(300px,.68fr);
+  gap:clamp(34px,5vw,72px);
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 83% 23%,rgba(242,189,64,.20),transparent 20%),
+    radial-gradient(circle at 5% 85%,rgba(38,95,164,.09),transparent 28%),
+    linear-gradient(135deg,#f8fbff 0%,#fff 54%,#fffaf0 100%);
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  width:460px;
+  height:460px;
+  right:-165px;
+  top:70px;
+  border:1px solid rgba(19,43,79,.08);
+  border-radius:50%;
+  box-shadow:
+    0 0 0 64px rgba(19,43,79,.025),
+    0 0 0 128px rgba(242,189,64,.045);
+  animation:heroBrandOrbit 10s ease-in-out infinite alternate;
+}
+.hero:after{
+  content:"∞";
+  position:absolute;
+  z-index:-1;
+  left:42%;
+  bottom:-115px;
+  color:rgba(19,43,79,.026);
+  font:800 clamp(16rem,32vw,31rem) "Manrope",sans-serif;
+  line-height:.7;
+  transform:rotate(-7deg);
+  pointer-events:none;
+}
+.hero>div:first-of-type{position:relative;z-index:2;max-width:690px}
+.hero h1{font-size:clamp(3rem,6vw,5.4rem);line-height:.95}
+.hero-text{max-width:620px}
+
+/* Compact the logo card to remove the unused visual space. */
+.hero-logo-panel{
+  justify-self:end;
+  align-self:center;
+  width:min(100%,390px);
+  min-height:0;
+  padding:clamp(22px,3vw,34px);
+  border:1px solid rgba(19,43,79,.10);
+  border-radius:28px;
+  background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(255,249,233,.82));
+  box-shadow:0 24px 70px rgba(19,43,79,.13);
+  backdrop-filter:blur(10px);
+  transform:translateY(var(--panel-y,0));
+  animation:heroCardFloat 5.2s ease-in-out infinite;
+}
+.hero-logo-panel:before{
+  content:"";
+  position:absolute;
+  inset:-12px;
+  z-index:-1;
+  border:1px solid rgba(242,189,64,.18);
+  border-radius:34px;
+  animation:heroCardHalo 3.8s ease-in-out infinite;
+}
+.hero-logo-panel img{
+  display:block;
+  width:min(100%,280px);
+  max-height:190px;
+  margin:0 auto;
+  object-fit:contain;
+}
+.hero-logo-panel>.brand-tagline{
+  margin-top:4px;
+  font-size:clamp(1.05rem,1.45vw,1.35rem)!important;
+}
+
+/* Existing ambient nodes become subtle branded motion, not empty decoration. */
+.hero-ambient{
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  overflow:hidden;
+  pointer-events:none;
+}
+.hero-ambient i{
+  position:absolute;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--gold);
+  opacity:.42;
+  box-shadow:0 0 0 9px rgba(242,189,64,.07);
+  animation:heroParticle 8s ease-in-out infinite;
+}
+.hero-ambient i:nth-child(1){left:8%;top:22%;animation-delay:-1s}
+.hero-ambient i:nth-child(2){left:52%;top:18%;width:7px;height:7px;animation-delay:-3s}
+.hero-ambient i:nth-child(3){right:10%;bottom:20%;animation-delay:-5s}
+.hero-ambient span{
+  position:absolute;
+  left:48%;
+  top:30%;
+  width:120px;
+  height:120px;
+  border:1px dashed rgba(19,43,79,.12);
+  border-radius:50%;
+  animation:heroSpin 18s linear infinite;
+}
+
+/* Uniform motion language across cards and main sections. */
+.class-card,
+.steps article,
+.six-service-section .service-points article,
+.form-card{
+  transition:transform .38s cubic-bezier(.16,1,.3,1),box-shadow .38s,border-color .38s;
+}
+@media(hover:hover){
+  .class-card:hover,
+  .steps article:hover{
+    transform:translateY(-7px);
+    box-shadow:0 20px 44px rgba(19,43,79,.11);
+  }
+}
+.classes{
+  background:
+    radial-gradient(circle at 92% 8%,rgba(242,189,64,.12),transparent 22%),
+    linear-gradient(180deg,#f4f7fb,#fff);
+}
+.about{background:linear-gradient(180deg,#fff,#fbfcfe)}
+.registration{
+  background:
+    radial-gradient(circle at 10% 15%,rgba(242,189,64,.10),transparent 26%),
+    linear-gradient(135deg,#f7f9fc,#fff);
+}
+
+@keyframes heroBrandOrbit{
+  from{transform:translate3d(-8px,-5px,0) scale(.97)}
+  to{transform:translate3d(18px,14px,0) scale(1.04)}
+}
+@keyframes heroCardFloat{
+  0%,100%{translate:0 0}
+  50%{translate:0 -9px}
+}
+@keyframes heroCardHalo{
+  0%,100%{opacity:.35;transform:scale(.985)}
+  50%{opacity:.8;transform:scale(1.015)}
+}
+@keyframes heroParticle{
+  0%,100%{transform:translate3d(0,0,0);opacity:.25}
+  50%{transform:translate3d(10px,-18px,0);opacity:.6}
+}
+@keyframes heroSpin{to{transform:rotate(360deg)}}
+
+@media(max-width:900px){
+  .hero{
+    min-height:auto;
+    grid-template-columns:1fr;
+    padding-top:72px;
+    gap:42px;
+  }
+  .hero-logo-panel{
+    justify-self:center;
+    width:min(88vw,360px);
+  }
+  .hero-logo-panel img{width:min(100%,250px);max-height:165px}
+  .hero:after{left:30%;bottom:-80px}
+}
+@media(max-width:600px){
+  .intro-stage{width:min(90vw,430px);height:min(90vw,430px)}
+  .intro-infinity{width:68%}
+  .intro-built-brand{top:56%}
+  .intro-built-brand strong{font-size:1.28rem}
+  .hero{padding-top:56px;padding-bottom:64px}
+  .hero h1{font-size:clamp(2.6rem,13vw,3.8rem)}
+  .hero-logo-panel{padding:20px;width:min(91vw,330px)}
+  .hero-logo-panel img{width:225px;max-height:150px}
+  .hero-logo-panel>.brand-tagline{font-size:1.08rem!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .intro-built-brand,.intro-built-brand i,.intro-infinity,
+  .hero:before,.hero-logo-panel,.hero-logo-panel:before,.hero-ambient i,.hero-ambient span{
+    animation:none!important;
+  }
+  .intro-built-brand{opacity:1;transform:translate(-50%,0)}
+}
