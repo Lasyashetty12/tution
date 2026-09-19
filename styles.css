@@ -2938,3 +2938,126 @@ input:focus,select:focus,textarea:focus{border-color:var(--brand-blue)!important
   .approach-infinity-line,
   .approach-infinity-shine{stroke-dashoffset:0}
 }
+
+
+/* v54 — opening animation restored from 489b880: infinity only, no generated/full logo */
+.intro.intro-reference-infinity{
+  background:
+    radial-gradient(circle at 50% 45%,rgba(41,169,255,.34) 0,rgba(10,77,157,.28) 34%,transparent 62%),
+    linear-gradient(145deg,#041735 0%,#082f73 48%,#0877bd 100%)!important;
+  color:#fff;
+}
+.intro.intro-reference-infinity:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(115deg,transparent 34%,rgba(119,220,255,.22) 49%,transparent 64%);
+  transform:translateX(-120%);
+  animation:introLightSweep 1.15s ease 2.05s forwards;
+}
+.intro.intro-reference-infinity:after{display:none!important}
+.intro-reference-infinity .intro-ambient-one{
+  width:min(68vw,660px);
+  height:min(68vw,660px);
+  background:radial-gradient(circle,rgba(72,194,255,.28),transparent 68%);
+  animation:introAmbientPulse 3.2s ease-in-out both;
+}
+.intro-reference-infinity .intro-ambient-two{
+  width:min(42vw,420px);
+  height:min(42vw,420px);
+  background:radial-gradient(circle,rgba(244,154,37,.16),transparent 70%);
+  animation:introAmbientPulse 3.2s ease-in-out .2s both reverse;
+}
+.intro-reference-stage{
+  position:relative;
+  z-index:2;
+  width:min(76vw,560px);
+  height:min(76vw,560px);
+  display:grid;
+  place-items:center;
+}
+.intro-reference-infinity .intro-infinity{
+  position:absolute;
+  z-index:2;
+  width:62%;
+  overflow:visible;
+  opacity:1;
+  filter:drop-shadow(0 20px 32px rgba(0,0,0,.28));
+  animation:referenceInfinityResolve .75s cubic-bezier(.4,0,.2,1) 2.05s forwards!important;
+}
+.intro-reference-infinity .infinity-shadow,
+.intro-reference-infinity .infinity-line,
+.intro-reference-infinity .infinity-shine{
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-dasharray:1;
+  stroke-dashoffset:1;
+}
+.intro-reference-infinity .infinity-shadow{
+  stroke:rgba(0,12,41,.32);
+  stroke-width:64;
+  animation:referenceInfinityDraw 1.75s cubic-bezier(.65,0,.25,1) .12s forwards!important;
+}
+.intro-reference-infinity .infinity-line{
+  stroke:url(#infinityGradient);
+  stroke-width:48;
+  filter:url(#infinityGlow);
+  animation:referenceInfinityDraw 1.75s cubic-bezier(.65,0,.25,1) .12s forwards!important;
+}
+.intro-reference-infinity .infinity-shine{
+  stroke:rgba(255,255,255,.68);
+  stroke-width:8;
+  animation:
+    referenceInfinityDraw 1.75s cubic-bezier(.65,0,.25,1) .18s forwards,
+    referenceInfinityShimmer .65s ease 1.72s forwards!important;
+}
+.intro-reference-infinity .intro-particles{
+  position:absolute;
+  z-index:1;
+  inset:0;
+}
+.intro-reference-infinity .intro-particles i{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#159cff;
+  opacity:0;
+  box-shadow:0 0 18px #159cff;
+  animation:introParticle 1.1s cubic-bezier(.16,1,.3,1) 1.25s forwards;
+}
+.intro-reference-infinity .intro-particles i:nth-child(1){--tx:-260px;--ty:-120px}
+.intro-reference-infinity .intro-particles i:nth-child(2){--tx:250px;--ty:-105px;background:#ff9f24;box-shadow:0 0 18px #ff9f24}
+.intro-reference-infinity .intro-particles i:nth-child(3){--tx:-210px;--ty:140px}
+.intro-reference-infinity .intro-particles i:nth-child(4){--tx:220px;--ty:130px;background:#ff9f24;box-shadow:0 0 18px #ff9f24}
+.intro-reference-infinity .intro-particles i:nth-child(5){--tx:-310px;--ty:15px}
+.intro-reference-infinity .intro-particles i:nth-child(6){--tx:310px;--ty:10px;background:#ff9f24;box-shadow:0 0 18px #ff9f24}
+
+@keyframes referenceInfinityDraw{to{stroke-dashoffset:0}}
+@keyframes referenceInfinityShimmer{
+  0%{opacity:.2}
+  50%{opacity:1}
+  100%{opacity:.18}
+}
+@keyframes referenceInfinityResolve{
+  0%{opacity:1;transform:scale(1);filter:drop-shadow(0 20px 32px rgba(0,0,0,.28))}
+  100%{opacity:0;transform:scale(1.11);filter:blur(9px)}
+}
+
+@media(max-width:760px){
+  .intro-reference-stage{width:min(88vw,460px);height:min(88vw,460px)}
+  .intro-reference-infinity .intro-infinity{width:68%}
+}
+@media(prefers-reduced-motion:reduce){
+  .intro-reference-infinity .infinity-shadow,
+  .intro-reference-infinity .infinity-line,
+  .intro-reference-infinity .infinity-shine{stroke-dashoffset:0;animation:none!important}
+  .intro-reference-infinity .intro-infinity{opacity:1;animation:none!important}
+  .intro-reference-infinity .intro-particles{display:none}
+}
+
+/* The irregular angled pencil doodle has been removed from markup. */
+.education-doodles-approach .edu-pencil{display:none!important}
