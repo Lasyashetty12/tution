@@ -32,11 +32,9 @@
 
   $("#year").textContent = new Date().getFullYear();
 
-  // Full SVG logo sequence: infinity, graduation cap and bulb assemble first,
-  // followed by the wordmark, frame and tagline before the page is revealed.
+  // Intro sequence: draw the infinity mark first, then reveal the original logo.
   const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches || false;
   const intro = $("#intro");
-  const skipIntro = $("#skipIntro");
   document.documentElement.classList.add("motion-ready");
 
   if (intro && !reduceMotion) {
@@ -58,8 +56,7 @@
       }, 980);
     };
 
-    skipIntro?.addEventListener("click", finishIntro, { once: true });
-    intro.finishTimer = window.setTimeout(finishIntro, 6200);
+    intro.finishTimer = window.setTimeout(finishIntro, 4700);
   } else {
     document.body.classList.remove("intro-active");
     intro?.remove();
