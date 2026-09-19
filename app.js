@@ -40,24 +40,42 @@
   document.documentElement.classList.add("motion-ready");
 
   if (!reduceMotion && intro) {
-    const introStarted = performance.now();
+    const video = $("#introVideo");
+    const skipButton = $("#skipIntro");
+    let introFinished = false;
+    let fallbackTimer;
+
     document.body.classList.add("intro-active");
 
     const finishIntro = () => {
-      const remaining = Math.max(4700 - (performance.now() - introStarted), 0);
-      window.setTimeout(() => {
-        intro.classList.add("curtain");
-        window.setTimeout(() => {
-          intro.classList.add("exit");
-          document.body.classList.remove("intro-active");
-          window.dispatchEvent(new Event("vision:intro-complete"));
-        }, 1080);
-        window.setTimeout(() => intro.remove(), 1250);
-      }, remaining);
+      if (introFinished) return;
+      introFinished = true;
+      window.clearTimeout(fallbackTimer);
+
+      // The homepage is already visible underneath while the video screen lifts away.
+      document.body.classList.remove("intro-active");
+      window.dispatchEvent(new Event("vision:intro-complete"));
+      intro.classList.add("curtain");
+
+      window.setTimeout(() => intro.classList.add("exit"), 1050);
+      window.setTimeout(() => intro.remove(), 1180);
     };
 
-    if (document.readyState === "complete") finishIntro();
-    else window.addEventListener("load", finishIntro, { once: true });
+    skipButton?.addEventListener("click", finishIntro, { once: true });
+
+    if (video) {
+      video.currentTime = 0;
+      video.addEventListener("ended", finishIntro, { once: true });
+      video.addEventListener("error", () => {
+        window.setTimeout(finishIntro, 900);
+      }, { once: true });
+      const playback = video.play();
+      playback?.catch(() => {
+        // Browsers that delay autoplay still receive a timed, graceful reveal.
+      });
+    }
+
+    fallbackTimer = window.setTimeout(finishIntro, 7000);
   } else {
     intro?.remove();
   }
