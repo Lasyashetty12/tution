@@ -262,7 +262,7 @@
     $("#menuToggle").setAttribute("aria-expanded", String(open));
     $("#menuToggle").setAttribute("aria-label", open ? "Close menu" : "Open menu");
   });
-  $("#mainNav a, #mainNav button").forEach((option) => {
+  $$("#mainNav a, #mainNav button").forEach((option) => {
     option.addEventListener("click", closeMainNav);
   });
   document.addEventListener("click", (event) => {
