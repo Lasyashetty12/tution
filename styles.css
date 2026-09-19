@@ -2427,3 +2427,177 @@ input:focus,select:focus,textarea:focus{border-color:var(--brand-blue)!important
   position:relative;
   z-index:2;
 }
+
+
+/* v50 — original logo, golden teaching headings and livelier educational doodles */
+.intro-legacy-screen{
+  background:
+    radial-gradient(circle at 50% 42%,rgba(255,255,255,.98) 0 19%,rgba(243,249,255,.97) 48%,#eaf4ff 100%);
+  color:var(--navy);
+}
+.intro-legacy-halo{
+  position:absolute;
+  width:min(72vw,720px);
+  aspect-ratio:1;
+  border-radius:50%;
+  background:
+    radial-gradient(circle,rgba(30,154,235,.14) 0 28%,rgba(242,181,57,.10) 48%,transparent 70%);
+  filter:blur(2px);
+  animation:legacyHaloBreath 3.8s ease-in-out infinite;
+}
+.intro-legacy-stage{
+  position:relative;
+  z-index:2;
+  display:grid;
+  justify-items:center;
+  width:min(90vw,720px);
+  padding:24px;
+}
+.intro-legacy-logo{
+  display:block;
+  width:min(84vw,610px);
+  max-height:440px;
+  object-fit:contain;
+  filter:drop-shadow(0 24px 34px rgba(16,47,91,.16));
+  transform-origin:50% 55%;
+  animation:
+    legacyLogoReveal .95s cubic-bezier(.16,1,.3,1) both,
+    legacyLogoFloat 3.4s ease-in-out 1s infinite;
+}
+.intro-legacy-tagline{
+  margin:8px 0 0;
+  color:#b67a09;
+  font-family:"Dancing Script","Segoe Script","Brush Script MT",cursive;
+  font-size:clamp(1.35rem,2.6vw,2rem);
+  font-weight:700;
+  line-height:1.25;
+  text-align:center;
+  text-shadow:0 5px 16px rgba(182,122,9,.13);
+  animation:legacyTaglineReveal .8s ease .55s both;
+}
+@keyframes legacyLogoReveal{
+  0%{opacity:0;transform:translateY(24px) scale(.88);filter:blur(10px) drop-shadow(0 24px 34px rgba(16,47,91,0))}
+  100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0) drop-shadow(0 24px 34px rgba(16,47,91,.16))}
+}
+@keyframes legacyLogoFloat{
+  0%,100%{transform:translate3d(0,0,0) rotate(0deg) scale(1)}
+  28%{transform:translate3d(-2px,-7px,0) rotate(-1.1deg) scale(1.012)}
+  58%{transform:translate3d(2px,-3px,0) rotate(.8deg) scale(1.018)}
+  80%{transform:translate3d(1px,2px,0) rotate(-.5deg) scale(1.008)}
+}
+@keyframes legacyHaloBreath{
+  0%,100%{transform:scale(.96);opacity:.72}
+  50%{transform:scale(1.06);opacity:1}
+}
+@keyframes legacyTaglineReveal{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Keep the actual Infinite Tutorial mark visible in the teaching section. */
+.approach{overflow:hidden}
+.education-doodles-approach .approach-brand-mark{
+  position:absolute;
+  right:clamp(24px,4vw,72px);
+  top:clamp(18px,3vw,42px);
+  width:clamp(170px,17vw,270px);
+  opacity:.11;
+  object-fit:contain;
+  filter:saturate(.95) drop-shadow(0 12px 24px rgba(16,47,91,.08));
+  transform:rotate(2deg);
+  animation:approachBrandFloat 6.2s ease-in-out infinite;
+}
+.education-doodles-approach .edu-doodle{
+  opacity:.20;
+  stroke:#2f83c9;
+  stroke-width:3.25;
+  filter:drop-shadow(0 8px 16px rgba(16,47,91,.09));
+  animation-duration:6.4s;
+}
+.education-doodles-approach .edu-pencil{opacity:.23}
+.education-doodles-approach .edu-ruler{opacity:.16}
+.education-doodles-approach .edu-gold-stroke{stroke:#d69a16;opacity:1}
+
+/* Gold replaces blue for the teaching-process headings. */
+.approach .eyebrow{color:#a66d00!important}
+.approach .section-heading h2{
+  position:relative;
+  display:inline-block;
+  color:#b77900!important;
+  text-shadow:0 4px 18px rgba(183,121,0,.08);
+}
+.approach .section-heading h2:after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-15px;
+  width:min(180px,42%);
+  height:3px;
+  border-radius:999px;
+  background:linear-gradient(90deg,#d49a1b,#f2bd40,rgba(242,189,64,0));
+  transform-origin:left center;
+  animation:approachGoldSweep 3.6s ease-in-out infinite;
+}
+.approach .steps>article>span{
+  color:#c4860d!important;
+  transition:transform .3s ease,color .3s ease;
+}
+.approach .steps h3{
+  color:#b77900!important;
+  transition:transform .3s ease,color .3s ease;
+}
+.approach .steps article{
+  position:relative;
+  overflow:hidden;
+  transition:background .35s ease,transform .35s ease,box-shadow .35s ease;
+}
+.approach .steps article:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(115deg,transparent 22%,rgba(242,189,64,.11) 48%,transparent 72%);
+  transform:translateX(-130%);
+  transition:transform .75s ease;
+  pointer-events:none;
+}
+.approach .steps article:hover{
+  background:#fffaf0;
+  transform:translateY(-6px);
+  box-shadow:0 16px 34px rgba(183,121,0,.08);
+}
+.approach .steps article:hover:before{transform:translateX(130%)}
+.approach .steps article:hover h3,
+.approach .steps article:hover>span{transform:translateY(-2px)}
+
+@keyframes approachBrandFloat{
+  0%,100%{translate:0 0;rotate:0deg;scale:1}
+  35%{translate:-6px -8px;rotate:-1.1deg;scale:1.025}
+  70%{translate:4px -3px;rotate:.8deg;scale:1.012}
+}
+@keyframes approachGoldSweep{
+  0%,100%{transform:scaleX(.38);opacity:.55}
+  50%{transform:scaleX(1);opacity:1}
+}
+
+/* Preserve the previously requested noticeable header-logo dance. */
+.site-header>.brand-image{animation-duration:3.6s!important}
+
+@media(max-width:760px){
+  .intro-legacy-logo{width:min(92vw,500px)}
+  .intro-legacy-stage{padding:16px}
+  .education-doodles-approach .approach-brand-mark{
+    right:-34px;
+    top:18px;
+    width:190px;
+    opacity:.08;
+  }
+  .education-doodles-approach .edu-pencil{opacity:.18}
+  .education-doodles-approach .edu-ruler{opacity:.13}
+  .approach .section-heading h2:after{bottom:-11px}
+}
+@media(prefers-reduced-motion:reduce){
+  .intro-legacy-halo,.intro-legacy-logo,.intro-legacy-tagline,
+  .education-doodles-approach .approach-brand-mark,
+  .education-doodles-approach .edu-doodle,
+  .approach .section-heading h2:after{animation:none!important}
+}
