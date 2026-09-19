@@ -2062,3 +2062,194 @@ input:focus,select:focus,textarea:focus{border-color:var(--brand-blue)!important
   .generated-frame-top,.generated-frame-bottom,.generated-frame-dot,.generated-word,.intro-generated-tagline.brand-tagline,
   .intro-generated-tagline:after{animation-duration:.01ms!important;animation-delay:0ms!important;animation-iteration-count:1!important}
 }
+
+
+/* === Exact official-logo opening treatment (v46) === */
+.intro.intro-exact-screen{
+  position:fixed!important;
+  z-index:1000!important;
+  inset:0!important;
+  display:grid!important;
+  place-items:center!important;
+  overflow:hidden!important;
+  padding:0!important;
+  background:#fff!important;
+  color:var(--navy)!important;
+  opacity:1;
+  visibility:visible;
+  transform:translate3d(0,0,0);
+  transition:transform .92s cubic-bezier(.77,0,.18,1),opacity .35s ease!important;
+  will-change:transform;
+}
+.intro.intro-exact-screen.curtain{
+  transform:translate3d(0,-102%,0)!important;
+  opacity:1!important;
+  visibility:visible!important;
+  pointer-events:none;
+}
+.intro.intro-exact-screen.exit{opacity:0!important;visibility:hidden!important;pointer-events:none}
+.intro-logo-watermark{
+  position:absolute;
+  inset:50% auto auto 50%;
+  width:min(82vw,860px);
+  aspect-ratio:1;
+  transform:translate(-50%,-50%) scale(.88);
+  opacity:0;
+  filter:blur(24px) saturate(.9);
+  animation:exactWatermarkIn 1.4s ease .15s forwards,exactWatermarkBreathe 5s ease-in-out 1.55s infinite;
+  pointer-events:none;
+}
+.intro-logo-watermark img{display:block;width:100%;height:100%;object-fit:contain}
+.intro-exact-orb{
+  position:absolute;
+  width:min(72vw,720px);
+  aspect-ratio:1;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 42% 44%,rgba(32,176,239,.1),transparent 34%),
+    radial-gradient(circle at 60% 57%,rgba(244,173,39,.08),transparent 31%);
+  opacity:0;
+  filter:blur(9px);
+  animation:exactOrbIn 1.2s ease .3s forwards,exactOrbFloat 5.8s ease-in-out 1.5s infinite;
+}
+.intro-exact-stage{
+  position:relative;
+  z-index:2;
+  display:grid;
+  justify-items:center;
+  width:min(86vw,560px);
+}
+.intro-exact-logo-wrap{
+  position:relative;
+  width:min(78vw,520px);
+  aspect-ratio:1.35;
+  overflow:hidden;
+  border-radius:30px;
+  background:#fff;
+  opacity:0;
+  filter:blur(22px);
+  transform:translateY(18px) scale(.72);
+  box-shadow:0 28px 75px rgba(16,47,91,0);
+  animation:exactLogoFocus 1.25s cubic-bezier(.2,.8,.2,1) .35s forwards,exactLogoSettle .9s ease 3.45s both;
+}
+.intro-exact-logo{
+  position:absolute;
+  inset:50% auto auto 50%;
+  display:block;
+  width:100%;
+  height:auto;
+  transform:translate(-50%,-50%);
+  user-select:none;
+}
+.intro-logo-shine{
+  position:absolute;
+  z-index:2;
+  top:-28%;
+  bottom:-28%;
+  left:-50%;
+  width:28%;
+  transform:skewX(-18deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.86),transparent);
+  opacity:0;
+  animation:exactLogoShine 1.05s ease 1.55s forwards;
+}
+.intro-bouncy-cap{
+  position:absolute;
+  z-index:5;
+  top:4%;
+  left:8%;
+  width:min(25vw,145px);
+  opacity:0;
+  transform:translateY(-110px) rotate(-10deg) scale(.78);
+  transform-origin:50% 80%;
+  animation:exactCapBounce 1.25s cubic-bezier(.22,.9,.28,1.24) .52s forwards,exactCapHop .85s ease-in-out 1.85s 2,exactCapFade .5s ease 3.45s forwards;
+  pointer-events:none;
+}
+.intro-bouncy-cap svg{display:block;width:100%;height:auto;overflow:visible}
+.intro-exact-tagline.brand-tagline{
+  position:relative;
+  z-index:4;
+  margin:-38px 0 0;
+  padding:0 18px 12px;
+  color:#9e6805!important;
+  font-family:"Dancing Script","Segoe Script",cursive!important;
+  font-size:clamp(1.15rem,2.2vw,1.72rem)!important;
+  font-weight:700!important;
+  letter-spacing:.018em!important;
+  text-align:center;
+  opacity:0;
+  transform:translateY(16px);
+  animation:exactTaglineIn .8s cubic-bezier(.2,.8,.2,1) 2.18s forwards;
+}
+.intro-exact-tagline:after{
+  content:"";
+  display:block;
+  width:0;
+  height:2px;
+  margin:9px auto 0;
+  border-radius:20px;
+  background:linear-gradient(90deg,#0879d9,#27b8f2,#f4ad27);
+  animation:exactTaglineLine .85s ease 2.45s forwards;
+}
+.intro-logo-particles{position:absolute;inset:0;pointer-events:none}
+.intro-logo-particles i{
+  position:absolute;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  opacity:0;
+  background:#26b8ef;
+  box-shadow:0 0 18px currentColor;
+  animation:exactParticle 1.8s ease-in-out infinite;
+}
+.intro-logo-particles i:nth-child(1){left:5%;top:31%;animation-delay:.9s}
+.intro-logo-particles i:nth-child(2){left:15%;bottom:19%;width:6px;height:6px;background:#f4ad27;animation-delay:1.35s}
+.intro-logo-particles i:nth-child(3){right:8%;top:24%;width:7px;height:7px;background:#f4ad27;animation-delay:1.65s}
+.intro-logo-particles i:nth-child(4){right:4%;bottom:27%;animation-delay:2.05s}
+.intro-logo-particles i:nth-child(5){left:34%;top:1%;width:5px;height:5px;animation-delay:2.3s}
+.intro-logo-particles i:nth-child(6){right:31%;bottom:4%;width:6px;height:6px;background:#f4ad27;animation-delay:2.55s}
+@keyframes exactWatermarkIn{to{opacity:.075;transform:translate(-50%,-50%) scale(1)}}
+@keyframes exactWatermarkBreathe{0%,100%{transform:translate(-50%,-50%) scale(1);filter:blur(24px)}50%{transform:translate(-50%,-51%) scale(1.035);filter:blur(29px)}}
+@keyframes exactOrbIn{to{opacity:1}}
+@keyframes exactOrbFloat{0%,100%{transform:translateY(0) scale(.96)}50%{transform:translateY(-8px) scale(1.04)}}
+@keyframes exactLogoFocus{
+  0%{opacity:0;filter:blur(22px);transform:translateY(18px) scale(.72);box-shadow:0 28px 75px rgba(16,47,91,0)}
+  68%{opacity:1;filter:blur(1.5px);transform:translateY(-3px) scale(1.025);box-shadow:0 28px 75px rgba(16,47,91,.1)}
+  100%{opacity:1;filter:blur(0);transform:none;box-shadow:0 25px 68px rgba(16,47,91,.1)}
+}
+@keyframes exactLogoSettle{0%,100%{transform:none}45%{transform:translateY(-5px) scale(1.012)}}
+@keyframes exactLogoShine{0%{left:-50%;opacity:0}20%{opacity:.9}100%{left:125%;opacity:0}}
+@keyframes exactCapBounce{
+  0%{opacity:0;transform:translateY(-110px) rotate(-10deg) scale(.78)}
+  54%{opacity:1;transform:translateY(9px) rotate(4deg) scale(1.05)}
+  73%{opacity:1;transform:translateY(-18px) rotate(-3deg) scale(.98)}
+  88%{opacity:1;transform:translateY(4px) rotate(1.5deg) scale(1.01)}
+  100%{opacity:1;transform:translateY(0) rotate(0) scale(1)}
+}
+@keyframes exactCapHop{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(-2deg)}}
+@keyframes exactCapFade{to{opacity:0;transform:translateY(-8px) scale(.96)}}
+@keyframes exactTaglineIn{to{opacity:1;transform:none}}
+@keyframes exactTaglineLine{to{width:min(250px,48vw)}}
+@keyframes exactParticle{0%,100%{opacity:0;transform:translateY(12px) scale(.35)}42%{opacity:.9;transform:translateY(-5px) scale(1.15)}70%{opacity:.35;transform:translateY(-16px) scale(.7)}}
+
+@media(max-width:640px){
+  .intro-exact-stage{width:94vw}
+  .intro-exact-logo-wrap{width:min(88vw,440px);border-radius:22px}
+  .intro-bouncy-cap{left:7%;top:3%;width:min(27vw,125px)}
+  .intro-exact-tagline.brand-tagline{margin-top:-24px;font-size:clamp(1.05rem,4.8vw,1.35rem)!important}
+  .intro-logo-watermark{width:112vw}
+}
+@media(max-width:420px){
+  .intro-exact-logo-wrap{width:92vw}
+  .intro-bouncy-cap{left:6%;top:5%;width:26vw}
+  .intro-logo-particles i:nth-child(1),.intro-logo-particles i:nth-child(4){display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .intro.intro-exact-screen{transition-duration:.25s!important}
+  .intro-logo-watermark,.intro-exact-orb,.intro-exact-logo-wrap,.intro-logo-shine,.intro-bouncy-cap,
+  .intro-exact-tagline.brand-tagline,.intro-exact-tagline:after,.intro-logo-particles i{
+    animation-duration:.01ms!important;
+    animation-delay:0ms!important;
+    animation-iteration-count:1!important;
+  }
+}
