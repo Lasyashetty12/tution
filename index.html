@@ -23,9 +23,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Dancing+Script:wght@600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="assets/infinite-tutorial-logo.png">
-  <link rel="preload" href="assets/infinite-opening-animation.mp4?v=44" as="video" type="video/mp4">
   <link rel="preload" href="assets/single-student-learning.webp?v=44" as="image" type="image/webp">
-  <link rel="stylesheet" href="styles.css?v=44">
+  <link rel="stylesheet" href="styles.css?v=45">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -50,11 +49,77 @@
   </script>
 </head>
 <body>
-<div class="intro intro-video-screen" id="intro" aria-label="Infinite Tutorial opening animation">
-  <div class="intro-video-halo" aria-hidden="true"></div>
-  <video class="intro-video" id="introVideo" autoplay muted playsinline preload="auto" poster="assets/infinite-tutorial-logo.png">
-    <source src="assets/infinite-opening-animation.mp4?v=44" type="video/mp4">
-  </video>
+<div class="intro intro-generated-screen" id="intro" aria-label="Infinite Tutorial opening animation">
+  <div class="intro-generated-halo" aria-hidden="true"></div>
+  <div class="intro-generated-stage" role="img" aria-label="Infinite Tutorial logo forming from an infinity symbol">
+    <svg class="intro-generated-logo" viewBox="0 0 1100 600" aria-hidden="true">
+      <defs>
+        <linearGradient id="generatedInfinityGradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#07378a"></stop>
+          <stop offset=".38" stop-color="#0798eb"></stop>
+          <stop offset=".7" stop-color="#2bc3f2"></stop>
+          <stop offset="1" stop-color="#1c55b5"></stop>
+        </linearGradient>
+        <linearGradient id="generatedGoldGradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#ffe178"></stop>
+          <stop offset=".45" stop-color="#f4ad27"></stop>
+          <stop offset="1" stop-color="#e77c13"></stop>
+        </linearGradient>
+        <linearGradient id="generatedWordGradient" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#28c4f4"></stop>
+          <stop offset="1" stop-color="#0964cf"></stop>
+        </linearGradient>
+        <filter id="generatedGlow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="9" result="blur"></feGaussianBlur>
+          <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+        </filter>
+        <filter id="generatedSoftShadow" x="-40%" y="-40%" width="180%" height="180%">
+          <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#102f5b" flood-opacity=".22"></feDropShadow>
+        </filter>
+      </defs>
+
+      <g class="generated-emblem" filter="url(#generatedSoftShadow)">
+        <path class="generated-orbit generated-orbit-left" d="M92 176C45 220 48 342 112 386"></path>
+        <path class="generated-orbit generated-orbit-right" d="M388 128C463 165 486 315 422 388"></path>
+        <path class="generated-infinity-shadow" pathLength="1" d="M95 282C95 188 209 174 278 239L356 312C420 372 500 343 500 270C500 192 408 168 338 232L265 301C193 369 95 351 95 282"></path>
+        <path class="generated-infinity-line" pathLength="1" d="M95 282C95 188 209 174 278 239L356 312C420 372 500 343 500 270C500 192 408 168 338 232L265 301C193 369 95 351 95 282"></path>
+        <path class="generated-infinity-shine" pathLength="1" d="M95 282C95 188 209 174 278 239L356 312C420 372 500 343 500 270C500 192 408 168 338 232L265 301C193 369 95 351 95 282"></path>
+
+        <g class="generated-cap">
+          <path class="generated-cap-board" d="M177 174L296 120L420 176L296 229Z"></path>
+          <path class="generated-cap-band" d="M219 196V240C257 273 335 273 374 239V195L296 229Z"></path>
+          <path class="generated-cap-gold" d="M220 196L296 229L374 195"></path>
+          <path class="generated-tassel" d="M420 176V234"></path>
+          <circle class="generated-tassel-knot" cx="420" cy="238" r="9"></circle>
+          <path class="generated-tassel-end" d="M414 247L405 284H435L426 247Z"></path>
+        </g>
+
+        <g class="generated-bulb">
+          <path class="generated-bulb-glow" d="M258 389C258 351 290 330 321 343C356 358 359 403 331 424C320 432 318 445 318 452H276C276 439 273 430 263 420C253 411 258 398 258 389Z"></path>
+          <path class="generated-bulb-filament" d="M281 389L297 407L316 381M297 407V450"></path>
+          <path class="generated-bulb-base" d="M274 453H323M277 469H320M284 485H313"></path>
+        </g>
+
+        <g class="generated-rays">
+          <path d="M295 89V57"></path><path d="M232 103L216 72"></path><path d="M171 135L144 110"></path>
+          <path d="M360 103L377 72"></path><path d="M420 136L448 110"></path>
+        </g>
+        <g class="generated-sparks">
+          <circle cx="82" cy="218" r="5"></circle><circle cx="130" cy="156" r="4"></circle><circle cx="458" cy="210" r="5"></circle>
+          <circle cx="470" cy="325" r="4"></circle><circle cx="143" cy="376" r="4"></circle>
+        </g>
+      </g>
+
+      <g class="generated-brand">
+        <path class="generated-frame-top" pathLength="1" d="M475 152H954Q1005 152 1005 203V393"></path>
+        <path class="generated-frame-bottom" pathLength="1" d="M486 438C624 409 790 421 941 433"></path>
+        <circle class="generated-frame-dot" cx="975" cy="434" r="12"></circle>
+        <text class="generated-word generated-word-infinite" x="520" y="286">Infinite</text>
+        <text class="generated-word generated-word-tutorial" x="520" y="397">Tutorial</text>
+      </g>
+    </svg>
+    <p class="intro-generated-tagline brand-tagline">Where learning is infinity for better Tomorrow</p>
+  </div>
   <button class="intro-skip" id="skipIntro" type="button" aria-label="Skip opening animation">Skip intro</button>
 </div>
 <div id="publicApp">
@@ -204,6 +269,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script src="supabase-config.js?v=28"></script>
-<script src="app.js?v=44"></script>
+<script src="app.js?v=45"></script>
 </body>
 </html>
