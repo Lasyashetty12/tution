@@ -32,25 +32,23 @@
 
   $("#year").textContent = new Date().getFullYear();
 
-  // The supplied film is the opening sequence. As soon as it finishes,
-  // the opener lifts away and the already-rendered home page is revealed.
+  // Original SVG opening sequence: the infinity mark draws first, then the
+  // academic emblem, wordmark, frame and tagline assemble before the screen lifts.
   const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches || false;
   const intro = $("#intro");
-  const introVideo = $("#introVideo");
   const skipIntro = $("#skipIntro");
   document.documentElement.classList.add("motion-ready");
 
   if (intro && !reduceMotion) {
     let introFinished = false;
-    let fallbackTimer;
     document.body.classList.add("intro-active");
 
     const finishIntro = () => {
       if (introFinished) return;
       introFinished = true;
-      window.clearTimeout(fallbackTimer);
+      window.clearTimeout(intro.finishTimer);
 
-      // Reveal content at the same instant the screen begins moving away.
+      // Make the homepage live as the opening screen begins to move away.
       document.body.classList.remove("intro-active");
       window.dispatchEvent(new Event("vision:intro-complete"));
       requestAnimationFrame(() => intro.classList.add("curtain"));
@@ -60,21 +58,8 @@
       }, 980);
     };
 
-    introVideo?.addEventListener("ended", finishIntro, { once: true });
-    introVideo?.addEventListener("error", () => window.setTimeout(finishIntro, 900), { once: true });
     skipIntro?.addEventListener("click", finishIntro, { once: true });
-
-    const playOpening = () => {
-      const playback = introVideo?.play();
-      if (playback?.catch) playback.catch(() => {
-        // A visible skip button and timeout keep the home page reachable
-        // even when a browser blocks media playback.
-      });
-      fallbackTimer = window.setTimeout(finishIntro, 12000);
-    };
-
-    if (document.readyState === "complete") playOpening();
-    else window.addEventListener("load", playOpening, { once: true });
+    intro.finishTimer = window.setTimeout(finishIntro, 6900);
   } else {
     document.body.classList.remove("intro-active");
     intro?.remove();
