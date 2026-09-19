@@ -2266,3 +2266,33 @@ body{
 @media(prefers-reduced-motion:reduce){
   .hero-student-panel:hover .hero-student-image-wrap img{transform:none}
 }
+
+
+/* v41 layout correction and compact natural logo crop */
+.hero{position:relative}
+.hero>.hero-ambient{
+  position:absolute!important;
+  inset:0!important;
+  z-index:0;
+  width:auto!important;
+  height:auto!important;
+  pointer-events:none;
+}
+.hero>div:not(.hero-ambient),
+.hero>.hero-student-panel{position:relative;z-index:1}
+.intro-logo-build{
+  width:min(82vw,560px)!important;
+  aspect-ratio:1.72/1!important;
+}
+.intro-logo-piece{
+  border-radius:22px;
+  box-shadow:0 24px 70px rgba(0,10,35,.28);
+}
+.intro-logo-piece img{
+  object-fit:cover!important;
+  object-position:center!important;
+}
+@media(max-width:600px){
+  .intro-logo-build{width:min(84vw,430px)!important}
+  .intro-logo-piece{border-radius:16px}
+}
