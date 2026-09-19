@@ -1,16 +1,10 @@
 (() => {
   "use strict";
 
-  // Every fresh load begins at the hero. Navigation clicks still work normally
-  // after the page has opened.
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
-  if (location.hash) {
-    history.replaceState(null, "", location.pathname + location.search);
-  }
+  if (location.hash) history.replaceState(null, "", location.pathname + location.search);
   window.scrollTo(0, 0);
-  window.addEventListener("load", () => {
-    requestAnimationFrame(() => window.scrollTo(0, 0));
-  }, { once: true });
+  window.addEventListener("load", () => requestAnimationFrame(() => window.scrollTo(0, 0)), { once: true });
 
   const config = window.VISION_CONFIG || {};
   const configured =
@@ -32,241 +26,139 @@
 
   $("#year").textContent = new Date().getFullYear();
 
-  // Opening sequence and motion effects. All effects respect reduced-motion settings.
-  // Motion is an explicit part of this site experience. Keep the effects
-  // gentle, but do not silently disable them because of browser media detection.
-  const reduceMotion = false;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const intro = $("#intro");
-  document.documentElement.classList.add("motion-ready");
+  let introFinished = false;
+  document.documentElement.classList.add("js-motion");
 
-  if (!reduceMotion && intro) {
-    const introStarted = performance.now();
-    document.body.classList.add("intro-active");
+  const revealVisibleElements = () => {
+    $$("[data-reveal]:not(.revealed)").forEach((element) => {
+      const box = element.getBoundingClientRect();
+      if (box.top < innerHeight * .94 && box.bottom > innerHeight * .04) element.classList.add("revealed");
+    });
+  };
 
-    const finishIntro = () => {
-      const remaining = Math.max(4700 - (performance.now() - introStarted), 0);
-      window.setTimeout(() => {
-        intro.classList.add("curtain");
-        window.setTimeout(() => {
-          intro.classList.add("exit");
-          document.body.classList.remove("intro-active");
-          window.dispatchEvent(new Event("vision:intro-complete"));
-        }, 1080);
-        window.setTimeout(() => intro.remove(), 1250);
-      }, remaining);
-    };
+  const finishIntro = (instant = false) => {
+    if (!intro || introFinished) return;
+    introFinished = true;
+    document.body.classList.remove("intro-active");
+    revealVisibleElements();
+    window.dispatchEvent(new Event("vision:intro-complete"));
+    if (instant) {
+      intro.remove();
+      return;
+    }
+    requestAnimationFrame(() => {
+      intro.classList.add("curtain");
+      window.setTimeout(() => intro.remove(), 850);
+    });
+  };
 
-    if (document.readyState === "complete") finishIntro();
-    else window.addEventListener("load", finishIntro, { once: true });
-  } else {
-    intro?.remove();
+  if (intro) {
+    if (reduceMotion) {
+      intro.classList.add("reduced");
+      window.setTimeout(() => finishIntro(true), 180);
+    } else {
+      document.body.classList.add("intro-active");
+      $("#skipIntro")?.addEventListener("click", () => finishIntro(false), { once: true });
+      window.setTimeout(() => finishIntro(false), 5000);
+    }
   }
 
-  // Each content group gets its own calm entrance. Reveals happen once so
-  // scrolling never repeatedly flashes or moves content the user has already read.
+  // Hero heading: word-by-word reveal while preserving the explicit line break.
+  $$(".hero h1").forEach((heading) => {
+    const walker = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    let wordIndex = 0;
+    nodes.forEach((node) => {
+      const fragment = document.createDocumentFragment();
+      node.textContent.split(/(\s+)/).forEach((part) => {
+        if (!part) return;
+        if (/^\s+$/.test(part)) fragment.appendChild(document.createTextNode(part));
+        else {
+          const word = document.createElement("span");
+          word.className = "hero-word";
+          word.style.setProperty("--word-delay", Math.min(wordIndex * 85, 520) + "ms");
+          word.textContent = part;
+          fragment.appendChild(word);
+          wordIndex += 1;
+        }
+      });
+      node.replaceWith(fragment);
+    });
+  });
+
   const revealGroups = [
-    { selector: ".hero .eyebrow, .hero h1, .hero-text, .hero-actions, .hero-proof", motion: "rise" },
-    { selector: ".hero-panel", motion: "scale-soft" },
-    { selector: ".about > :first-child", motion: "left-soft" },
-    { selector: ".about > :last-child", motion: "fade" },
-    { selector: ".section-heading", motion: "fade" },
-    { selector: ".class-card", motion: "scale-soft" },
-    { selector: ".steps article", motion: "rise" },
-    { selector: ".achievements > :first-child", motion: "left-soft" },
-    { selector: ".trust-points article", motion: "right-soft", stagger: 110 },
-    { selector: ".registration > :first-child", motion: "fade" },
-    { selector: ".registration > :last-child", motion: "rise" },
-    { selector: ".footer > *", motion: "fade" }
+    [".hero .eyebrow, .hero .hero-text, .hero .hero-actions", "up", 90],
+    [".hero-student-panel", "scale", 0],
+    [".about > *", "left", 110],
+    [".classes .section-heading", "up", 0],
+    [".class-card", "up", 130],
+    [".approach .section-heading", "up", 0],
+    [".steps article", "alternate", 110],
+    [".trust-intro", "left", 0],
+    [".service-points article", "scale", 95],
+    [".registration > *", "up", 120],
+    [".footer > *", "fade", 70]
   ];
 
-  const animatedElements = [];
-  revealGroups.forEach((group) => {
-    $$(group.selector).forEach((element, index) => {
-      element.dataset.reveal = group.motion;
-      element.style.setProperty("--reveal-delay", (index % 4) * (group.stagger || 70) + "ms");
-      animatedElements.push(element);
+  const revealElements = [];
+  revealGroups.forEach(([selector, motion, stagger]) => {
+    $$(selector).forEach((element, index) => {
+      element.dataset.reveal = motion === "alternate" ? (index % 2 ? "right" : "left") : motion;
+      element.style.setProperty("--reveal-delay", (index * stagger) + "ms");
+      revealElements.push(element);
     });
   });
+  $(".hero h1")?.setAttribute("data-reveal", "words");
+  if ($(".hero h1")) revealElements.push($(".hero h1"));
 
-  // Reveal heading and supporting text from a clipped baseline without
-  // changing its measured space in the layout.
-  const textRevealTargets = $$(
-    ".hero h1, .section h2, .section h3, .eyebrow, .hero-text, .section-heading > p, .class-card p, .steps p"
-  );
-  textRevealTargets.forEach((element) => {
-    if (element.querySelector(":scope > .text-reveal-inner")) return;
-    const inner = document.createElement("span");
-    inner.className = "text-reveal-inner";
-    while (element.firstChild) inner.appendChild(element.firstChild);
-    element.appendChild(inner);
-    const isHeading = element.matches("h1, h2, h3, .eyebrow");
-    element.classList.add(isHeading ? "text-reveal" : "copy-reveal");
-    if (isHeading) {
-      const walker = document.createTreeWalker(inner, NodeFilter.SHOW_TEXT);
-      const nodes = [];
-      while (walker.nextNode()) nodes.push(walker.currentNode);
-      let wordIndex = 0;
-      nodes.forEach((node) => {
-        const fragment = document.createDocumentFragment();
-        node.textContent.split(/(\s+)/).forEach((part) => {
-          if (!part) return;
-          if (/^\s+$/.test(part)) fragment.appendChild(document.createTextNode(part));
-          else {
-            const word = document.createElement("span");
-            word.className = "oxygen-word";
-            word.style.setProperty("--word-delay", Math.min(wordIndex * 42, 420) + "ms");
-            word.textContent = part;
-            fragment.appendChild(word);
-            wordIndex += 1;
-          }
-        });
-        node.replaceWith(fragment);
-      });
-    }
-  });
-  const oxygenItems = $$(
-    ".class-card, .steps article, .achievement-stats > div, .achievements blockquote, .registration .form-card"
-  );
-  oxygenItems.forEach((item, index) => {
-    item.classList.add("oxygen-layer");
-    item.style.setProperty("--oxygen-direction", index % 2 === 0 ? "1" : "-1");
-    item.style.setProperty("--oxygen-speed", String(10 + index % 3 * 4));
-  });
-
-  if ("IntersectionObserver" in window) {
-    let observer;
-    const revealOnce = (element) => {
-      element.classList.add("revealed");
-      observer?.unobserve(element);
-    };
-
-    const revealVisibleElements = () => {
-      animatedElements.forEach((element) => {
-        const box = element.getBoundingClientRect();
-        if (box.top < innerHeight * .94 && box.bottom > innerHeight * .06) {
-          revealOnce(element);
-        }
-      });
-    };
-
-    observer = new IntersectionObserver((entries) => {
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    revealElements.forEach((element) => element.classList.add("revealed"));
+  } else {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        if (!document.body.classList.contains("intro-active")) {
-          revealOnce(entry.target);
-        }
+        if (!entry.isIntersecting || document.body.classList.contains("intro-active")) return;
+        entry.target.classList.add("revealed");
+        observer.unobserve(entry.target);
       });
-    }, { threshold: 0.12, rootMargin: "-3% 0px -3% 0px" });
-
-    animatedElements.forEach((element) => observer.observe(element));
+    }, { threshold: .14, rootMargin: "0px 0px -6% 0px" });
+    revealElements.forEach((element) => observer.observe(element));
     window.addEventListener("vision:intro-complete", revealVisibleElements, { once: true });
     if (!document.body.classList.contains("intro-active")) revealVisibleElements();
-  } else {
-    animatedElements.forEach((element) => element.classList.add("revealed"));
   }
 
-  let ticking = false;
-  const updateScrollMotion = () => {
-    $(".site-header")?.classList.toggle("scrolled", scrollY > 24);
+  const updateHeader = () => $(".site-header")?.classList.toggle("scrolled", scrollY > 10);
+  window.addEventListener("scroll", updateHeader, { passive: true });
+  updateHeader();
 
-    $("#heroPanel")?.style.setProperty("--panel-y", Math.min(scrollY * .035, 14) + "px");
-    $(".hero")?.style.setProperty("--hero-scroll-y", Math.min(scrollY * .024, 16) + "px");
-    $$(".section").forEach((section) => {
-      const rect = section.getBoundingClientRect();
-      const offset = Math.max(-14, Math.min(14, (innerHeight / 2 - rect.top) * .016));
-      section.style.setProperty("--section-parallax", offset + "px");
-      const progress = Math.max(0, Math.min(1, 1 - rect.top / innerHeight));
-      section.style.setProperty("--scene-progress", progress.toFixed(3));
-    });
-    oxygenItems.forEach((item) => {
-      const rect = item.getBoundingClientRect();
-      const distance = (rect.top + rect.height / 2 - innerHeight / 2) / innerHeight;
-      const direction = Number(item.style.getPropertyValue("--oxygen-direction")) || 1;
-      const speed = Number(item.style.getPropertyValue("--oxygen-speed")) || 10;
-      const lift = Math.max(-18, Math.min(18, distance * speed * direction));
-      item.style.setProperty("--oxygen-lift", lift.toFixed(2) + "px");
-    });
+  const closeMainNav = () => {
+    $("#mainNav").classList.remove("open");
+    $("#menuToggle").setAttribute("aria-expanded", "false");
+    $("#menuToggle").setAttribute("aria-label", "Open menu");
   };
-
-  window.addEventListener("scroll", () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      updateScrollMotion();
-      ticking = false;
-    });
-  }, { passive: true });
-  updateScrollMotion();
-
-  if ("PointerEvent" in window) {
-    window.addEventListener("pointermove", (event) => {
-      if (event.pointerType === "touch") return;
-      const mouseX = event.clientX / innerWidth - .5;
-      const mouseY = event.clientY / innerHeight - .5;
-      document.documentElement.style.setProperty("--mouse-ambient-x", mouseX * 10 + "px");
-      document.documentElement.style.setProperty("--mouse-ambient-y", mouseY * 8 + "px");
-      document.documentElement.style.setProperty("--mouse-panel-x", mouseX * 7 + "px");
-      document.documentElement.style.setProperty("--mouse-panel-y", mouseY * 5 + "px");
-    }, { passive: true });
-
-    document.documentElement.addEventListener("mouseleave", () => {
-      document.documentElement.style.setProperty("--mouse-ambient-x", "0px");
-      document.documentElement.style.setProperty("--mouse-ambient-y", "0px");
-      document.documentElement.style.setProperty("--mouse-panel-x", "0px");
-      document.documentElement.style.setProperty("--mouse-panel-y", "0px");
-    });
-  }
-
-  const counterElements = $$(".hero-proof strong, .achievement-stats strong");
-  const animateCounter = (element) => {
-    if (element.dataset.counted) return;
-    element.dataset.counted = "true";
-    const original = element.textContent.trim();
-    const target = Number.parseInt(original.replace(/\D/g, ""), 10);
-    if (!Number.isFinite(target)) return;
-    const suffix = original.replace(/[\d,.]/g, "");
-    const started = performance.now();
-    const duration = 1100;
-    element.classList.add("counter-active");
-
-    const frame = (now) => {
-      const progress = Math.min((now - started) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      element.textContent = Math.round(target * eased).toLocaleString() + suffix;
-      if (progress < 1) requestAnimationFrame(frame);
-      else element.textContent = original;
-    };
-    requestAnimationFrame(frame);
-  };
-
-  if (!reduceMotion && "IntersectionObserver" in window) {
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateCounter(entry.target);
-          counterObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: .65 });
-    counterElements.forEach((element) => counterObserver.observe(element));
-  }
 
   $("#menuToggle").addEventListener("click", () => {
     const nav = $("#mainNav");
     const open = nav.classList.toggle("open");
     $("#menuToggle").setAttribute("aria-expanded", String(open));
+    $("#menuToggle").setAttribute("aria-label", open ? "Close menu" : "Open menu");
   });
-  $$("#mainNav a").forEach((link) => link.addEventListener("click", () => {
-    $("#mainNav").classList.remove("open");
-    $("#menuToggle").setAttribute("aria-expanded", "false");
-  }));
+  $$("#mainNav a, #mainNav button").forEach((option) => option.addEventListener("click", closeMainNav));
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".site-header")) closeMainNav();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeMainNav();
+  });
 
   function setStatus(element, message, isError = false) {
     element.textContent = message;
     element.classList.toggle("error", isError);
   }
 
-  const adminWhatsAppNumber = "918147065530";
+  const adminWhatsAppNumber = "918073912005";
 
   $("#registrationForm").addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -276,8 +168,47 @@
     const values = Object.fromEntries(new FormData(form));
     const showValue = (value) => String(value || "").trim() || "Not provided";
 
+    if (!db) {
+      setStatus(status, "Registration service is temporarily unavailable. Please contact us on WhatsApp.", true);
+      return;
+    }
+
+    const subjects = String(values.subjects || "")
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean);
+
+    button.disabled = true;
+    button.textContent = "Saving registration…";
+    setStatus(status, "");
+
+    const { error: saveError } = await db.from("website_students").insert({
+      student_name: String(values.student_name || "").trim(),
+      class_level: String(values.class_level || "").trim(),
+      parent_name: String(values.parent_name || "").trim(),
+      phone: String(values.phone || "").trim(),
+      email: String(values.email || "").trim() || null,
+      school: String(values.school || "").trim() || null,
+      previous_class: String(values.previous_class || "").trim() || null,
+      board: String(values.board || "").trim() || null,
+      previous_exam: String(values.previous_exam || "").trim() || null,
+      previous_percentage: values.previous_percentage === "" ? null : Number(values.previous_percentage),
+      subjects,
+      preferred_batch: String(values.preferred_batch || "").trim() || null,
+      message: String(values.message || "").trim() || null,
+      status: "pending"
+    });
+
+    if (saveError) {
+      console.error("Registration save error:", saveError);
+      button.disabled = false;
+      button.textContent = "Submit registration";
+      setStatus(status, "Registration could not be saved. Please try again or contact us on WhatsApp.", true);
+      return;
+    }
+
     const whatsappMessage = [
-      "🎓 *New Infinite Tutorial Registration*",
+      "*New Infinite Tutorial Registration*",
       "",
       "*Student details*",
       "Name: " + showValue(values.student_name),
@@ -305,52 +236,72 @@
       "https://wa.me/" + adminWhatsAppNumber +
       "?text=" + encodeURIComponent(whatsappMessage);
 
-    button.disabled = true;
     button.textContent = "Opening WhatsApp…";
-    setStatus(status, "");
-
-    // Opening occurs directly from the submit action so browsers do not block it.
     const whatsappWindow = window.open(whatsappUrl, "_blank");
-    if (whatsappWindow) {
-      whatsappWindow.opener = null;
-    } else {
-      window.location.href = whatsappUrl;
-      return;
-    }
+    if (whatsappWindow) whatsappWindow.opener = null;
+
     button.disabled = false;
     button.textContent = "Submit registration";
     form.reset();
     setStatus(
       status,
-      "WhatsApp opened with your completed registration. Review the details and tap Send to submit it to the admin."
+      "Registration saved successfully. WhatsApp opened with your completed registration. Review the details and tap Send to submit it to the admin."
     );
+
+    if (!whatsappWindow) window.location.href = whatsappUrl;
   });
 
-  const closeLogin = () => $("#adminLogin").classList.add("hidden");
-  $("#openAdmin").addEventListener("click", () => {
-    $("#adminLogin").classList.remove("hidden");
-    $("#loginForm input").focus();
+  const closeLogin = () => {
+    const panel = $("#adminLogin");
+    panel.classList.add("hidden");
+    panel.hidden = true;
+    panel.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+  };
+  $("#openAdmin").addEventListener("click", async () => {
+    if (db) {
+      const { data } = await db.auth.getUser();
+      if (data.user && await verifyAdmin(data.user)) {
+        await showAdmin(data.user);
+        return;
+      }
+    }
+    const panel = $("#adminLogin");
+    panel.hidden = false;
+    panel.classList.remove("hidden");
+    panel.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+    window.setTimeout(() => $("#loginForm input").focus(), 80);
   });
   $("#closeAdmin").addEventListener("click", closeLogin);
   $("#adminLogin").addEventListener("click", (event) => {
     if (event.target === $("#adminLogin")) closeLogin();
   });
 
-  async function verifyAdmin() {
-    if (!db) return false;
-    const { data, error } = await db.rpc("is_admin");
-    return !error && data === true;
+  async function verifyAdmin(user) {
+    if (!db || !user?.id) return false;
+    const { data, error } = await db
+      .from("website_admin_users")
+      .select("user_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+    if (error) {
+      console.error("Admin verification failed:", error);
+      return false;
+    }
+    return data?.user_id === user.id;
   }
 
   $("#loginForm").addEventListener("submit", async (event) => {
     event.preventDefault();
+    const form = event.currentTarget;
     const status = $("#loginStatus");
     if (!db) {
       setStatus(status, "Secure admin access is not configured yet.", true);
       return;
     }
 
-    const values = Object.fromEntries(new FormData(event.currentTarget));
+    const values = Object.fromEntries(new FormData(form));
     const button = event.submitter;
     button.disabled = true;
     button.textContent = "Signing in…";
@@ -360,45 +311,71 @@
       email: values.email.trim(),
       password: values.password
     });
-    const authorised = !error && data.session && await verifyAdmin();
 
-    button.disabled = false;
-    button.textContent = "Sign in securely";
-    if (!authorised) {
-      if (data?.session) await db.auth.signOut();
-      setStatus(status, "Invalid credentials or this account is not authorised.", true);
+    if (error || !data.session || !data.user) {
+      button.disabled = false;
+      button.textContent = "Sign in securely";
+      setStatus(status, "The email or password is incorrect.", true);
       return;
     }
 
-    event.currentTarget.reset();
-    closeLogin();
+    const authorised = await verifyAdmin(data.user);
+    if (!authorised) {
+      await db.auth.signOut();
+      button.disabled = false;
+      button.textContent = "Sign in securely";
+      setStatus(status, "Sign-in succeeded, but this account is not authorised for the admin dashboard.", true);
+      return;
+    }
+
+    setStatus(status, "Opening dashboard…");
+    form.reset();
     await showAdmin(data.user);
+    button.disabled = false;
+    button.textContent = "Sign in securely";
   });
 
   async function showAdmin(user) {
+    closeLogin();
+    const adminApp = $("#adminApp");
     $("#publicApp").classList.add("hidden");
-    $("#adminApp").classList.remove("hidden");
+    adminApp.hidden = false;
+    adminApp.classList.remove("hidden");
+    adminApp.setAttribute("aria-hidden", "false");
     $("#adminEmail").textContent = user.email || "Admin";
-    await loadDashboard();
+    document.body.classList.add("admin-active");
+    window.scrollTo(0, 0);
+    try {
+      await loadDashboard();
+    } catch (error) {
+      console.error("Dashboard loading failed:", error);
+    }
   }
 
   async function restoreSession() {
     if (!db) return;
-    const { data } = await db.auth.getSession();
-    if (data.session && await verifyAdmin()) await showAdmin(data.session.user);
+    const { data, error } = await db.auth.getUser();
+    if (!error && data.user && await verifyAdmin(data.user)) {
+      await showAdmin(data.user);
+    }
   }
 
   $("#logoutButton").addEventListener("click", async () => {
     if (db) await db.auth.signOut();
-    $("#adminApp").classList.add("hidden");
+    const adminApp = $("#adminApp");
+    adminApp.classList.add("hidden");
+    adminApp.hidden = true;
+    adminApp.setAttribute("aria-hidden", "true");
     $("#publicApp").classList.remove("hidden");
-    location.hash = "home";
+    document.body.classList.remove("admin-active");
+    history.replaceState(null, "", location.pathname + location.search + "#home");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
   async function loadDashboard() {
     const [studentResult, performanceResult] = await Promise.all([
-      db.from("students").select("*").order("created_at", { ascending: false }),
-      db.from("performance").select("*, students(student_name, class_level)").order("test_date", { ascending: false })
+      db.from("website_students").select("*").order("created_at", { ascending: false }),
+      db.from("website_performance").select("*, website_students(student_name, class_level)").order("test_date", { ascending: false })
     ]);
 
     if (studentResult.error || performanceResult.error) {
@@ -477,7 +454,7 @@
   async function updateStudentStatus(event) {
     const select = event.currentTarget;
     select.disabled = true;
-    const { error } = await db.from("students")
+    const { error } = await db.from("website_students")
       .update({ status: select.value })
       .eq("id", select.dataset.studentId);
     select.disabled = false;
@@ -512,7 +489,7 @@
         ? Math.round(Number(row.score) / Number(row.max_score) * 100)
         : 0;
       return `<tr>
-        <td>${escapeHtml(row.students?.student_name || "Student")}</td>
+        <td>${escapeHtml(row.website_students?.student_name || "Student")}</td>
         <td>${escapeHtml(row.subject)}</td>
         <td><strong>${escapeHtml(row.test_name)}</strong><small>${new Date(row.test_date).toLocaleDateString()}</small></td>
         <td>${escapeHtml(row.score)}/${escapeHtml(row.max_score)} (${percentage}%)</td>
@@ -523,7 +500,8 @@
 
   $("#performanceForm").addEventListener("submit", async (event) => {
     event.preventDefault();
-    const values = Object.fromEntries(new FormData(event.currentTarget));
+    const form = event.currentTarget;
+    const values = Object.fromEntries(new FormData(form));
     const status = $("#performanceStatus");
     const score = Number(values.score);
     const maximum = Number(values.max_score);
@@ -533,7 +511,7 @@
       return;
     }
 
-    const { error } = await db.from("performance").insert({
+    const { error } = await db.from("website_performance").insert({
       student_id: values.student_id,
       subject: values.subject.trim(),
       test_name: values.test_name.trim(),
@@ -547,7 +525,7 @@
       setStatus(status, "Performance could not be saved.", true);
       return;
     }
-    event.currentTarget.reset();
+    form.reset();
     setStatus(status, "Performance saved successfully.");
     await loadDashboard();
   });
