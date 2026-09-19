@@ -1554,3 +1554,300 @@ th:last-child{border-radius:0 11px 0 0}
   .trust-mission.brand-tagline{font-size:1.38rem!important}
   .footer-brand>.brand-tagline{font-size:1.25rem!important}
 }
+
+
+/* === Infinite Tutorial logo-theme experience (v44) === */
+:root{
+  --navy:#102f5b;
+  --navy2:#174c8f;
+  --brand-blue:#0879d9;
+  --brand-cyan:#27b8f2;
+  --gold:#f4ad27;
+  --gold-deep:#b97808;
+  --gold-soft:#fff2cf;
+  --ink:#10233e;
+  --muted:#62718a;
+  --soft:#f3f8fe;
+  --line:#d9e5f2;
+  --shadow:0 24px 70px rgba(16,47,91,.14);
+}
+html{background:#fff}
+body{background:#fff;color:var(--ink)}
+body.intro-active{overflow:hidden}
+
+/* Supplied video becomes the complete opener. Its white field blends into this screen. */
+.intro.intro-video-screen{
+  position:fixed!important;
+  z-index:1000!important;
+  inset:0!important;
+  display:grid!important;
+  place-items:center!important;
+  overflow:hidden!important;
+  padding:0!important;
+  background:
+    radial-gradient(circle at 50% 46%,rgba(39,184,242,.09),transparent 38%),
+    linear-gradient(180deg,#fff 0%,#f7fbff 100%)!important;
+  color:var(--navy)!important;
+  opacity:1;
+  visibility:visible;
+  transform:translate3d(0,0,0);
+  transition:transform .92s cubic-bezier(.77,0,.18,1),opacity .35s ease!important;
+  will-change:transform;
+}
+.intro.intro-video-screen.curtain{
+  transform:translate3d(0,-102%,0)!important;
+  opacity:1!important;
+  visibility:visible!important;
+  pointer-events:none;
+}
+.intro.intro-video-screen.exit{opacity:0!important;visibility:hidden!important;pointer-events:none}
+.intro-video-halo{
+  position:absolute;
+  width:min(88vw,900px);
+  aspect-ratio:1;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(31,167,235,.10),rgba(244,173,39,.045) 38%,transparent 69%);
+  filter:blur(10px);
+  animation:introHalo 5s ease-in-out infinite;
+}
+.intro-video{
+  position:relative;
+  z-index:1;
+  display:block;
+  width:min(100vw,1280px);
+  height:min(100vh,720px);
+  max-width:100%;
+  object-fit:contain;
+  background:transparent;
+  filter:drop-shadow(0 18px 44px rgba(16,47,91,.08));
+}
+.intro-skip{
+  position:absolute;
+  z-index:3;
+  right:max(18px,calc((100vw - 1240px)/2));
+  bottom:24px;
+  min-height:42px;
+  padding:0 17px;
+  border:1px solid rgba(16,47,91,.18);
+  border-radius:999px;
+  background:rgba(255,255,255,.9);
+  color:var(--navy);
+  box-shadow:0 10px 30px rgba(16,47,91,.10);
+  backdrop-filter:blur(12px);
+  font-weight:800;
+  cursor:pointer;
+  transition:transform .2s ease,border-color .2s ease,background .2s ease;
+}
+.intro-skip:hover{transform:translateY(-2px);border-color:var(--brand-blue);background:#fff}
+@keyframes introHalo{0%,100%{transform:scale(.94);opacity:.65}50%{transform:scale(1.04);opacity:1}}
+
+/* White, high-contrast navigation using the same blue and gold identity. */
+.site-header,
+.site-header.scrolled{
+  background:rgba(255,255,255,.97)!important;
+  color:var(--navy)!important;
+  border-bottom:1px solid rgba(16,47,91,.09);
+  backdrop-filter:blur(16px) saturate(1.15);
+}
+.site-header nav a:not(.button),
+.site-header .nav-login{color:var(--navy)!important}
+.site-header nav a:not(.button):hover,
+.site-header .nav-login:hover{color:var(--brand-blue)!important}
+.site-header .button{background:linear-gradient(135deg,#ffc84d,var(--gold));color:#102a50}
+.menu-toggle{color:var(--navy)!important}
+.site-header>.brand-image{animation-duration:5.8s}
+
+/* Student-led hero */
+.hero{
+  position:relative!important;
+  isolation:isolate;
+  min-height:calc(100svh - 84px)!important;
+  grid-template-columns:minmax(0,1.02fr) minmax(390px,.98fr)!important;
+  gap:clamp(42px,6vw,86px)!important;
+  background:
+    radial-gradient(circle at 92% 12%,rgba(39,184,242,.15),transparent 31%),
+    radial-gradient(circle at 8% 86%,rgba(244,173,39,.12),transparent 26%),
+    linear-gradient(135deg,#fff 0%,#f7fbff 54%,#eef7ff 100%)!important;
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:auto -8% -34% 38%;
+  height:58%;
+  border:1px solid rgba(8,121,217,.12);
+  border-radius:50% 50% 0 0;
+  transform:rotate(-7deg);
+}
+.hero>.hero-ambient{position:absolute!important;inset:0!important;pointer-events:none;z-index:-1}
+.hero .eyebrow{color:var(--gold-deep)!important}
+.hero h1{color:var(--navy)!important}
+.hero h1>.text-reveal-inner>.oxygen-word{color:var(--navy)!important}
+.hero h1>.text-reveal-inner>span:not(.oxygen-word) .oxygen-word{color:var(--gold-deep)!important}
+.hero h1>span{color:var(--gold-deep)}
+.hero-text{color:var(--muted)!important}
+.text-link{color:var(--navy)}
+.text-link:hover{color:var(--brand-blue)}
+
+.hero-panel.hero-student-panel{
+  position:relative;
+  display:block;
+  margin:0;
+  padding:12px;
+  border:1px solid rgba(8,121,217,.17);
+  border-radius:32px;
+  background:rgba(255,255,255,.92);
+  color:var(--navy);
+  box-shadow:26px 28px 0 rgba(255,239,198,.92),0 30px 80px rgba(16,47,91,.18);
+  overflow:visible;
+  transform:translateY(var(--panel-y,0));
+}
+.hero-student-panel:before{
+  content:"";
+  position:absolute;
+  inset:-18px;
+  z-index:-1;
+  border:1px solid rgba(8,121,217,.13);
+  border-radius:42px;
+  animation:studentOrbit 8s ease-in-out infinite;
+}
+.student-visual{
+  position:relative;
+  min-height:480px;
+  overflow:hidden;
+  border-radius:23px;
+  background:#eaf5ff;
+}
+.student-visual:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(180deg,transparent 57%,rgba(8,31,64,.28));
+}
+.student-visual>img{
+  width:100%;
+  height:100%;
+  min-height:480px;
+  display:block;
+  object-fit:cover;
+  object-position:55% center;
+  animation:studentBreath 7s ease-in-out infinite;
+}
+.student-chip{
+  position:absolute;
+  z-index:2;
+  display:grid;
+  min-width:145px;
+  padding:11px 14px;
+  border:1px solid rgba(255,255,255,.72);
+  border-radius:15px;
+  background:rgba(255,255,255,.91);
+  color:var(--navy);
+  box-shadow:0 16px 34px rgba(16,47,91,.17);
+  backdrop-filter:blur(12px);
+}
+.student-chip b{font:800 .88rem/1.2 "Manrope",sans-serif}
+.student-chip small{margin-top:3px;color:var(--muted);font-size:.7rem}
+.chip-maths{top:24px;left:-26px;animation:chipFloat 5.4s ease-in-out infinite}
+.chip-science{top:42%;right:-28px;animation:chipFloat 6s ease-in-out .7s infinite reverse}
+.chip-progress{right:22px;bottom:22px;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;animation:chipFloat 5.8s ease-in-out .35s infinite}
+.chip-progress small{color:#cfe6ff}
+.hero-student-panel figcaption{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  margin:0!important;
+  padding:18px 14px 10px!important;
+  border:0!important;
+  color:var(--navy)!important;
+}
+.hero-student-panel figcaption span{
+  padding:7px 10px;
+  border-radius:999px;
+  background:var(--gold-soft);
+  color:var(--gold-deep);
+  font-size:.72rem;
+  font-weight:800;
+  white-space:nowrap;
+}
+.hero-student-panel figcaption strong{font:700 .94rem/1.35 "Manrope",sans-serif;text-align:right}
+@keyframes studentBreath{0%,100%{transform:scale(1.01) translateY(0)}50%{transform:scale(1.035) translateY(-5px)}}
+@keyframes chipFloat{0%,100%{transform:translateY(0) rotate(-.4deg)}50%{transform:translateY(-10px) rotate(.7deg)}}
+@keyframes studentOrbit{0%,100%{transform:translate(0,0);border-color:rgba(8,121,217,.13)}50%{transform:translate(6px,-5px);border-color:rgba(244,173,39,.22)}}
+
+/* Uniform section palette and components */
+.section{position:relative}
+.about{background:#fff}
+.classes{background:linear-gradient(180deg,#f3f8fe 0%,#eef6ff 100%)!important}
+.class-card{
+  border-color:#d7e5f4!important;
+  border-top:4px solid var(--brand-blue)!important;
+  box-shadow:0 14px 38px rgba(16,47,91,.08);
+}
+.class-card>span{color:var(--brand-blue)!important;opacity:1!important}
+.class-card.featured{
+  background:linear-gradient(145deg,var(--navy),var(--navy2))!important;
+  border-color:transparent!important;
+  border-top-color:var(--gold)!important;
+  box-shadow:0 22px 54px rgba(16,47,91,.2);
+}
+.class-card.featured>span{color:var(--gold)!important}
+.approach{background:#fff}
+.steps article{transition:background .3s ease,transform .3s ease}
+.steps article:hover{background:#f5f9fe;transform:translateY(-4px)}
+.steps span{color:var(--brand-blue)!important}
+.achievements{
+  background:
+    radial-gradient(circle at 82% 18%,rgba(39,184,242,.14),transparent 26%),
+    linear-gradient(135deg,#0d2b54,#123d73 72%,#174f8e)!important;
+}
+.trust-points article{
+  border-color:rgba(114,195,255,.22)!important;
+  background:rgba(255,255,255,.075)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.06);
+}
+.trust-points span,.trust-mission.brand-tagline{color:#ffc44d!important}
+.registration{background:linear-gradient(145deg,#f7fbff,#edf6ff)!important}
+.form-card{border-top:4px solid var(--brand-blue)!important}
+input:focus,select:focus,textarea:focus{border-color:var(--brand-blue)!important;box-shadow:0 0 0 3px rgba(8,121,217,.14)!important}
+.footer{background:linear-gradient(135deg,#091e3b,#102f5b)!important}
+.footer-brand>.brand-tagline{color:#ffc95b!important}
+
+@media(max-width:980px){
+  .hero{grid-template-columns:1fr 1fr!important;gap:34px!important}
+  .student-visual,.student-visual>img{min-height:410px}
+  .student-chip{min-width:128px}
+}
+@media(max-width:760px){
+  .site-header nav,
+  .site-header.scrolled nav{background:#fff!important;border-color:#d9e5f2!important}
+  .hero{
+    grid-template-columns:1fr!important;
+    min-height:auto!important;
+    padding-top:58px!important;
+    padding-bottom:88px!important;
+  }
+  .hero>div:first-of-type{position:relative;z-index:2}
+  .hero-panel.hero-student-panel{width:min(100%,540px);margin:0 auto;box-shadow:14px 17px 0 rgba(255,239,198,.95),0 22px 60px rgba(16,47,91,.16)}
+  .student-visual,.student-visual>img{min-height:430px}
+  .chip-maths{left:12px;top:16px}
+  .chip-science{right:12px;top:46%}
+  .intro-video{width:100vw;height:auto;max-height:100vh}
+  .intro-skip{right:16px;bottom:max(18px,env(safe-area-inset-bottom))}
+}
+@media(max-width:480px){
+  .student-visual,.student-visual>img{min-height:360px}
+  .student-visual>img{object-position:58% center}
+  .student-chip{min-width:112px;padding:9px 11px}
+  .student-chip b{font-size:.78rem}
+  .student-chip small{font-size:.63rem}
+  .chip-progress{right:12px;bottom:14px}
+  .hero-student-panel figcaption{align-items:flex-start;flex-direction:column}
+  .hero-student-panel figcaption strong{text-align:left}
+}
+@media(prefers-reduced-motion:reduce){
+  .intro-video-halo,.student-visual>img,.student-chip,.hero-student-panel:before{animation:none!important}
+  .intro.intro-video-screen{transition-duration:.25s!important}
+}
