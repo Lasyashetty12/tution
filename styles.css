@@ -2738,3 +2738,121 @@ input:focus,select:focus,textarea:focus{border-color:var(--brand-blue)!important
   .intro-legacy-logo,
   .student-visual>img{animation:none!important}
 }
+
+
+/* v52 — infinity-first intro, flatter original logo and fully visible student artwork */
+.intro-legacy-screen{
+  background:
+    radial-gradient(circle at 50% 46%,rgba(255,255,255,.99) 0 18%,rgba(239,249,255,.98) 43%,rgba(255,252,244,.97) 68%,#eef7fc 100%)!important;
+}
+.intro-legacy-stage{
+  width:min(92vw,680px);
+  min-height:430px;
+  align-content:center;
+  gap:0;
+}
+.intro-legacy-stage:before{
+  width:min(58vw,500px);
+  background:
+    radial-gradient(circle,rgba(255,255,255,.98) 0 21%,rgba(31,163,235,.16) 43%,rgba(220,159,25,.12) 59%,transparent 73%);
+  animation:legacyGlowPulse 4.4s ease-in-out infinite!important;
+  opacity:.76;
+  transform:scale(1);
+}
+.intro-legacy-stage:after{display:none!important}
+
+.intro-infinity-trace{
+  position:absolute;
+  z-index:3;
+  width:min(48vw,330px);
+  overflow:visible;
+  opacity:1;
+  animation:introInfinityFade 1.55s ease forwards;
+}
+.intro-infinity-trace path{
+  fill:none;
+  stroke:url(#introInfinityStroke);
+  stroke-width:13;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-dasharray:1;
+  stroke-dashoffset:1;
+  filter:url(#introInfinityGlow);
+  animation:introInfinityDraw 1.05s cubic-bezier(.2,.75,.25,1) forwards;
+}
+.intro-legacy-logo{
+  z-index:2;
+  width:min(68vw,440px)!important;
+  max-height:none!important;
+  margin:0;
+  opacity:0;
+  background:transparent!important;
+  mix-blend-mode:multiply;
+  transform:none!important;
+  filter:saturate(1.08) contrast(1.04)!important;
+  animation:introLogoCalmReveal .9s ease 1.12s forwards!important;
+}
+.intro-legacy-tagline{
+  margin-top:-26px;
+  font-size:clamp(1.15rem,2.2vw,1.65rem);
+  opacity:0;
+  animation:legacyTaglineReveal .65s ease 1.75s forwards!important;
+}
+@keyframes introInfinityDraw{
+  from{stroke-dashoffset:1}
+  to{stroke-dashoffset:0}
+}
+@keyframes introInfinityFade{
+  0%,68%{opacity:1;transform:scale(.94)}
+  100%{opacity:0;transform:scale(1.04)}
+}
+@keyframes introLogoCalmReveal{
+  from{opacity:0;transform:scale(.90);filter:saturate(1.05) contrast(1.03) brightness(1.08)}
+  to{opacity:1;transform:scale(1);filter:saturate(1.08) contrast(1.04) brightness(1)}
+}
+
+/* Use the source image at its natural 4:3 ratio so no part is cropped. */
+.student-visual{
+  min-height:0!important;
+  aspect-ratio:auto!important;
+  overflow:hidden;
+}
+.student-visual>img{
+  display:block;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+  animation:none!important;
+}
+.chip-maths{left:18px!important;top:20px!important}
+.chip-science{right:18px!important;top:42%!important}
+.chip-progress{right:18px!important;bottom:18px!important}
+.hero-panel.hero-student-panel{
+  width:100%;
+  max-width:620px;
+  justify-self:end;
+}
+@media(max-width:760px){
+  .intro-legacy-stage{min-height:360px}
+  .intro-infinity-trace{width:min(64vw,280px)}
+  .intro-legacy-logo{width:min(78vw,390px)!important}
+  .intro-legacy-tagline{margin-top:-18px}
+  .hero-panel.hero-student-panel{max-width:560px;justify-self:center}
+}
+@media(max-width:480px){
+  .intro-legacy-stage{min-height:320px}
+  .intro-infinity-trace{width:min(70vw,245px)}
+  .intro-legacy-logo{width:min(84vw,340px)!important}
+  .chip-maths{left:12px!important;top:12px!important}
+  .chip-science{right:12px!important}
+  .chip-progress{right:12px!important;bottom:12px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .intro-infinity-trace,.intro-infinity-trace path,.intro-legacy-logo,.intro-legacy-tagline{animation:none!important}
+  .intro-infinity-trace{display:none}
+  .intro-legacy-logo,.intro-legacy-tagline{opacity:1}
+}
