@@ -251,15 +251,26 @@
     counterElements.forEach((element) => counterObserver.observe(element));
   }
 
+  const closeMainNav = () => {
+    $("#mainNav").classList.remove("open");
+    $("#menuToggle").setAttribute("aria-expanded", "false");
+    $("#menuToggle").setAttribute("aria-label", "Open menu");
+  };
   $("#menuToggle").addEventListener("click", () => {
     const nav = $("#mainNav");
     const open = nav.classList.toggle("open");
     $("#menuToggle").setAttribute("aria-expanded", String(open));
+    $("#menuToggle").setAttribute("aria-label", open ? "Close menu" : "Open menu");
   });
-  $$("#mainNav a").forEach((link) => link.addEventListener("click", () => {
-    $("#mainNav").classList.remove("open");
-    $("#menuToggle").setAttribute("aria-expanded", "false");
-  }));
+  $("#mainNav a, #mainNav button").forEach((option) => {
+    option.addEventListener("click", closeMainNav);
+  });
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".site-header")) closeMainNav();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeMainNav();
+  });
 
   function setStatus(element, message, isError = false) {
     element.textContent = message;
@@ -359,10 +370,20 @@
     if (!whatsappWindow) window.location.href = whatsappUrl;
   });
 
-  const closeLogin = () => $("#adminLogin").classList.add("hidden");
+  const closeLogin = () => {
+    const panel = $("#adminLogin");
+    panel.classList.add("hidden");
+    panel.hidden = true;
+    panel.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+  };
   $("#openAdmin").addEventListener("click", () => {
-    $("#adminLogin").classList.remove("hidden");
-    $("#loginForm input").focus();
+    const panel = $("#adminLogin");
+    panel.hidden = false;
+    panel.classList.remove("hidden");
+    panel.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+    window.setTimeout(() => $("#loginForm input").focus(), 80);
   });
   $("#closeAdmin").addEventListener("click", closeLogin);
   $("#adminLogin").addEventListener("click", (event) => {
@@ -409,9 +430,14 @@
   });
 
   async function showAdmin(user) {
+    closeLogin();
+    const adminApp = $("#adminApp");
     $("#publicApp").classList.add("hidden");
-    $("#adminApp").classList.remove("hidden");
+    adminApp.hidden = false;
+    adminApp.classList.remove("hidden");
+    adminApp.setAttribute("aria-hidden", "false");
     $("#adminEmail").textContent = user.email || "Admin";
+    window.scrollTo(0, 0);
     await loadDashboard();
   }
 
@@ -423,9 +449,13 @@
 
   $("#logoutButton").addEventListener("click", async () => {
     if (db) await db.auth.signOut();
-    $("#adminApp").classList.add("hidden");
+    const adminApp = $("#adminApp");
+    adminApp.classList.add("hidden");
+    adminApp.hidden = true;
+    adminApp.setAttribute("aria-hidden", "true");
     $("#publicApp").classList.remove("hidden");
-    location.hash = "home";
+    history.replaceState(null, "", location.pathname + location.search + "#home");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
   async function loadDashboard() {
