@@ -1437,7 +1437,7 @@ th:last-child{border-radius:0 11px 0 0}
 /* Gentle dancing motion for the public header logo */
 .site-header>.brand-image{
   transform-origin:50% 58%;
-  animation:headerLogoDance 4.8s ease-in-out infinite;
+  animation:headerLogoDance 3.6s cubic-bezier(.45,.05,.55,.95) infinite;
   will-change:transform;
 }
 @media(hover:hover){
@@ -1446,10 +1446,11 @@ th:last-child{border-radius:0 11px 0 0}
   }
 }
 @keyframes headerLogoDance{
-  0%,100%{transform:translate3d(0,0,0) rotate(0)}
-  25%{transform:translate3d(0,-2px,0) rotate(-.7deg)}
-  50%{transform:translate3d(0,1px,0) rotate(.5deg)}
-  75%{transform:translate3d(0,-1px,0) rotate(.8deg)}
+  0%,100%{transform:translate3d(0,0,0) rotate(0deg) scale(1)}
+  18%{transform:translate3d(-2px,-6px,0) rotate(-2.2deg) scale(1.025)}
+  38%{transform:translate3d(2px,2px,0) rotate(1.8deg) scale(1.01)}
+  58%{transform:translate3d(-1px,-5px,0) rotate(-1.4deg) scale(1.03)}
+  78%{transform:translate3d(2px,1px,0) rotate(2deg) scale(1.012)}
 }
 @keyframes headerLogoWiggle{
   0%,100%{transform:translate3d(0,0,0) rotate(0) scale(1)}
@@ -1482,7 +1483,7 @@ th:last-child{border-radius:0 11px 0 0}
   text-shadow:0 2px 12px rgba(0,0,0,.35);
 }
 @media(max-width:640px){
-  .site-header>.brand-image{animation-duration:5.4s}
+  .site-header>.brand-image{animation-duration:4.1s}
   .intro-loading-text{font-size:1.12rem;padding:0 18px}
   .hero-logo-panel>p{font-size:1.5rem}
 }
