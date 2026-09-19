@@ -1405,3 +1405,30 @@ th:last-child{border-radius:0 11px 0 0}
   font-style:italic;
   letter-spacing:.015em;
 }
+
+
+/* Handwritten tagline style matched to the logo identity */
+.intro-loading-text,
+.hero-logo-panel>p,
+.footer-brand>p{
+  font-family:"Dancing Script","Segoe Script","Brush Script MT",cursive;
+  font-weight:700;
+  text-transform:none;
+  letter-spacing:.02em;
+}
+.intro-loading-text{
+  color:#f7ca62;
+  font-size:clamp(1rem,2vw,1.35rem);
+  line-height:1.25;
+  text-shadow:0 6px 18px rgba(0,0,0,.22);
+}
+.hero-logo-panel>p{
+  color:var(--navy);
+  font-size:clamp(1.35rem,2.2vw,1.8rem);
+  line-height:1.25;
+}
+.footer-brand>p{
+  color:var(--gold);
+  font-size:clamp(1.25rem,2vw,1.65rem);
+  line-height:1.3;
+}
