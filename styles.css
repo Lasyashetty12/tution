@@ -2324,3 +2324,84 @@ input:focus,select:focus,textarea:focus{border-color:var(--brand-blue)!important
   .intro-no-cap .intro-generated-tagline.brand-tagline{width:92vw;margin-top:-8px}
 }
 @media(prefers-reduced-motion:reduce){.cap-doodle,.intro-no-cap .generated-emblem{animation:none!important}}
+
+
+/* === Restored full logo build + education doodle system (v48) === */
+.intro.intro-generated-screen:not(.intro-no-cap){
+  background:
+    radial-gradient(circle at 50% 45%,rgba(39,184,242,.10),transparent 32%),
+    radial-gradient(circle at 50% 58%,rgba(244,173,39,.06),transparent 27%),
+    #fff!important;
+}
+.intro-generated-screen:not(.intro-no-cap) .intro-generated-stage{width:min(86vw,980px)}
+.intro-generated-screen:not(.intro-no-cap) .intro-generated-logo{width:100%}
+.intro-generated-screen:not(.intro-no-cap) .generated-cap{animation:generatedCapDrop .78s cubic-bezier(.2,.9,.25,1.3) 1.38s forwards,restoredCapFloat 2.8s ease-in-out 2.35s infinite}
+@keyframes restoredCapFloat{0%,100%{translate:0 0}50%{translate:0 -5px}}
+
+/* Low-contrast drawings fill only open areas and never compete with content. */
+.education-doodles{
+  position:absolute!important;
+  z-index:0;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+.section>.education-doodles~*{position:relative;z-index:1}
+.edu-doodle{
+  position:absolute;
+  display:block;
+  fill:none;
+  stroke:#0b67bd;
+  stroke-width:3;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  opacity:.075;
+  filter:drop-shadow(0 7px 14px rgba(16,47,91,.06));
+  animation:educationDoodleFloat 8s ease-in-out infinite;
+}
+.edu-gold-stroke{stroke:#e6a022}
+.edu-formula{
+  position:absolute;
+  color:#0b67bd;
+  font:700 clamp(1.7rem,3vw,3rem)/1 "Manrope",sans-serif;
+  letter-spacing:.03em;
+  opacity:.055;
+  transform:rotate(-8deg);
+  animation:educationFormulaDrift 9s ease-in-out infinite;
+}
+
+/* About section: atom, open book and a light mathematics note. */
+.education-doodles-about .edu-atom{right:-38px;top:14%;width:clamp(190px,20vw,310px);animation-delay:-1.4s}
+.education-doodles-about .edu-book{left:47%;bottom:4%;width:clamp(130px,14vw,210px);opacity:.055;transform:rotate(-5deg);animation-delay:-4.2s}
+.education-doodles-about .edu-formula{right:24%;top:11%;animation-delay:-2.2s}
+
+/* Teaching process: familiar pencil and ruler outlines. */
+.education-doodles-approach .edu-pencil{right:3%;top:7%;width:clamp(145px,15vw,230px);transform:rotate(-8deg);animation-delay:-2.8s}
+.education-doodles-approach .edu-ruler{left:-32px;bottom:8%;width:clamp(130px,13vw,205px);transform:rotate(9deg);opacity:.06;animation-delay:-5.3s}
+
+/* Registration: a small calculator and science formula in unused space. */
+.education-doodles-registration .edu-calculator{left:3%;bottom:3%;width:clamp(90px,9vw,138px);opacity:.065;transform:rotate(-6deg);animation-delay:-1.8s}
+.education-doodles-registration .edu-formula-small{left:35%;top:7%;font-size:clamp(1.4rem,2.3vw,2.25rem);animation-delay:-4.5s}
+
+@keyframes educationDoodleFloat{
+  0%,100%{translate:0 0}
+  38%{translate:0 -10px}
+  70%{translate:6px -4px}
+}
+@keyframes educationFormulaDrift{
+  0%,100%{translate:0 0;rotate:0deg}
+  50%{translate:4px -9px;rotate:2deg}
+}
+@media(max-width:760px){
+  .intro-generated-screen:not(.intro-no-cap) .intro-generated-stage{width:100vw}
+  .education-doodles-about .edu-atom{right:-70px;top:8%;width:210px}
+  .education-doodles-about .edu-book{left:auto;right:5%;bottom:2%;width:130px}
+  .education-doodles-about .edu-formula{right:22%;top:4%;font-size:1.45rem}
+  .education-doodles-approach .edu-pencil{right:-35px;top:4%;width:150px}
+  .education-doodles-approach .edu-ruler{left:-45px;bottom:3%;width:140px}
+  .education-doodles-registration .edu-calculator{left:-20px;bottom:2%;width:95px}
+  .education-doodles-registration .edu-formula-small{left:auto;right:5%;top:3%;font-size:1.3rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .edu-doodle,.edu-formula,.intro-generated-screen:not(.intro-no-cap) .generated-cap{animation:none!important}
+}
