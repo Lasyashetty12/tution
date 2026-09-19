@@ -44,7 +44,7 @@
     document.body.classList.add("intro-active");
 
     const finishIntro = () => {
-      const remaining = Math.max(4300 - (performance.now() - introStarted), 0);
+      const remaining = Math.max(4800 - (performance.now() - introStarted), 0);
       window.setTimeout(() => {
         // Reveal the real page immediately as the opening screen starts moving.
         document.body.classList.remove("intro-active");
