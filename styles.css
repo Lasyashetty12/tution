@@ -1489,3 +1489,67 @@ th:last-child{border-radius:0 11px 0 0}
 @media(prefers-reduced-motion:reduce){
   .site-header>.brand-image{animation:none!important}
 }
+
+
+/* Stable Infinite Tutorial tagline system
+   One loaded typeface is used everywhere so the brand does not change between devices. */
+.brand-tagline,
+.intro-loading-text.brand-tagline,
+.hero-logo-panel>.brand-tagline,
+.trust-mission.brand-tagline,
+.footer-brand>.brand-tagline{
+  font-family:"Dancing Script","Segoe Script",cursive!important;
+  font-weight:600!important;
+  font-style:normal!important;
+  font-synthesis:none;
+  font-optical-sizing:auto;
+  text-transform:none!important;
+  letter-spacing:.015em!important;
+  line-height:1.22!important;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* Opening tagline — proportioned to the compact logo reveal. */
+.intro-loading-text.brand-tagline{
+  width:min(88vw,620px);
+  padding-inline:16px;
+  color:#f6c85f;
+  font-size:clamp(1rem,1.65vw,1.35rem)!important;
+  text-align:center;
+  white-space:normal;
+  text-shadow:0 3px 14px rgba(0,0,0,.28);
+}
+
+/* Main logo-panel tagline — restrained so the logo remains dominant. */
+.hero-logo-panel>.brand-tagline{
+  margin-top:12px;
+  color:#9b6a08;
+  font-size:clamp(1.2rem,1.75vw,1.55rem)!important;
+  text-align:center;
+  text-shadow:none;
+}
+
+/* Section mission tagline — same brand handwriting, scaled with its section. */
+.trust-mission.brand-tagline{
+  margin-top:24px;
+  color:var(--gold);
+  font-size:clamp(1.28rem,1.9vw,1.7rem)!important;
+  text-shadow:0 6px 20px rgba(242,189,64,.13);
+}
+
+/* Footer tagline — same typography, slightly compact for the footer grid. */
+.footer-brand>.brand-tagline{
+  max-width:300px;
+  margin-top:16px;
+  color:#f6c85f;
+  font-size:clamp(1.15rem,1.6vw,1.45rem)!important;
+  text-shadow:0 2px 12px rgba(0,0,0,.22);
+}
+
+@media(max-width:640px){
+  .intro-loading-text.brand-tagline{font-size:1.02rem!important}
+  .hero-logo-panel>.brand-tagline{font-size:1.3rem!important}
+  .trust-mission.brand-tagline{font-size:1.38rem!important}
+  .footer-brand>.brand-tagline{font-size:1.25rem!important}
+}
