@@ -2405,3 +2405,25 @@ input:focus,select:focus,textarea:focus{border-color:var(--brand-blue)!important
 @media(prefers-reduced-motion:reduce){
   .edu-doodle,.edu-formula,.intro-generated-screen:not(.intro-no-cap) .generated-cap{animation:none!important}
 }
+
+
+/* v49 — visible section copy and logo-accurate blue wordmark */
+.intro-generated-screen .generated-word-infinite,
+.intro-generated-screen .generated-word-tutorial{
+  fill:url(#generatedWordGradient)!important;
+  stroke:rgba(7,48,112,.16);
+  stroke-width:.7px;
+  paint-order:stroke fill;
+  filter:drop-shadow(0 5px 5px rgba(7,42,96,.18));
+}
+.intro-generated-screen .generated-cap,
+.intro-generated-screen .generated-bulb,
+.intro-generated-screen .generated-frame-bottom{
+  filter:drop-shadow(0 4px 5px rgba(226,147,18,.16));
+}
+.about > div:not(.education-doodles),
+.registration > div:not(.education-doodles),
+.registration > .form-card{
+  position:relative;
+  z-index:2;
+}
