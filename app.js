@@ -413,13 +413,14 @@
 
   $("#loginForm").addEventListener("submit", async (event) => {
     event.preventDefault();
+    const form = event.currentTarget;
     const status = $("#loginStatus");
     if (!db) {
       setStatus(status, "Secure admin access is not configured yet.", true);
       return;
     }
 
-    const values = Object.fromEntries(new FormData(event.currentTarget));
+    const values = Object.fromEntries(new FormData(form));
     const button = event.submitter;
     button.disabled = true;
     button.textContent = "Signing in…";
@@ -447,7 +448,7 @@
     }
 
     setStatus(status, "Opening dashboard…");
-    event.currentTarget.reset();
+    form.reset();
     await showAdmin(data.user);
     button.disabled = false;
     button.textContent = "Sign in securely";
@@ -618,7 +619,8 @@
 
   $("#performanceForm").addEventListener("submit", async (event) => {
     event.preventDefault();
-    const values = Object.fromEntries(new FormData(event.currentTarget));
+    const form = event.currentTarget;
+    const values = Object.fromEntries(new FormData(form));
     const status = $("#performanceStatus");
     const score = Number(values.score);
     const maximum = Number(values.max_score);
@@ -642,7 +644,7 @@
       setStatus(status, "Performance could not be saved.", true);
       return;
     }
-    event.currentTarget.reset();
+    form.reset();
     setStatus(status, "Performance saved successfully.");
     await loadDashboard();
   });
