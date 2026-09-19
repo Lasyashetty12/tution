@@ -32,8 +32,8 @@
 
   $("#year").textContent = new Date().getFullYear();
 
-  // Image-free SVG opening sequence: the infinity and bulb are drawn first,
-  // then the wordmark, frame and tagline assemble before the page is revealed.
+  // Full SVG logo sequence: infinity, graduation cap and bulb assemble first,
+  // followed by the wordmark, frame and tagline before the page is revealed.
   const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches || false;
   const intro = $("#intro");
   const skipIntro = $("#skipIntro");
