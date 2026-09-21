@@ -2507,3 +2507,19 @@ html, body {
     font-size: 1.15rem;
   }
 }
+
+
+/* Opening video: fast 0.25s reveal/exit */
+.intro {
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s ease;
+}
+
+.intro.exit {
+  opacity: 0;
+  transform: scale(1);
+  visibility: hidden;
+  pointer-events: none;
+}
