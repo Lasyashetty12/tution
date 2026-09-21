@@ -2342,3 +2342,26 @@ html, body {
 .intro.exit {
   transition: none;
 }
+
+
+/* Full-screen mobile opening video — no white letterboxing */
+@media (max-width: 768px) and (orientation: portrait) {
+  .intro,
+  .intro-video-container {
+    background: #000;
+    width: 100vw;
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow: hidden;
+  }
+
+  .intro-video {
+    display: block;
+    width: 100vw;
+    height: 100dvh;
+    min-width: 100vw;
+    min-height: 100dvh;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
