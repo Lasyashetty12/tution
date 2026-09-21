@@ -58,15 +58,14 @@
 
     if (introVideo) {
       introVideo.play().catch(() => {});
-      introVideo.addEventListener("ended", finishIntro);
-      introVideo.addEventListener("timeupdate", () => {
-        if (introVideo.duration && introVideo.currentTime >= introVideo.duration - 0.2) {
-          finishIntro();
-        }
-      });
-    }
 
-    intro.finishTimer = window.setTimeout(finishIntro, 5000);
+      // Do not dismiss the opening screen based on a guessed duration.
+      // The video must actually finish, then remain visible for 2 seconds.
+      introVideo.addEventListener("ended", () => {
+        window.clearTimeout(intro.finishTimer);
+        intro.finishTimer = window.setTimeout(finishIntro, 2000);
+      }, { once: true });
+    }
   } else {
     document.body.classList.remove("intro-active");
     intro?.remove();
