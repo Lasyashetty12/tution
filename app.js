@@ -387,7 +387,7 @@
     panel.setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
   };
-  $("#openAdmin").addEventListener("click", async () => {
+  async function openAdminLogin() {
     if (db) {
       const { data } = await db.auth.getUser();
       if (data.user && await verifyAdmin(data.user)) {
@@ -401,7 +401,32 @@
     panel.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
     window.setTimeout(() => $("#loginForm input").focus(), 80);
-  });
+  }
+
+  // Hidden admin access: triple-click the main header logo.
+  // The normal logo click continues to behave as a Home link.
+  const headerLogo = $(".site-header .brand-image");
+  if (headerLogo) {
+    let logoClickCount = 0;
+    let logoClickTimer = null;
+
+    headerLogo.addEventListener("click", async (event) => {
+      logoClickCount += 1;
+      window.clearTimeout(logoClickTimer);
+
+      if (logoClickCount === 3) {
+        event.preventDefault();
+        event.stopPropagation();
+        logoClickCount = 0;
+        await openAdminLogin();
+        return;
+      }
+
+      logoClickTimer = window.setTimeout(() => {
+        logoClickCount = 0;
+      }, 550);
+    });
+  }
   $("#closeAdmin").addEventListener("click", closeLogin);
   $("#adminLogin").addEventListener("click", (event) => {
     if (event.target === $("#adminLogin")) closeLogin();
