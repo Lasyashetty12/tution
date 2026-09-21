@@ -1720,3 +1720,66 @@ html, body {
     max-height: 44px;
   }
 }
+
+
+/* ==========================================================================
+   FINAL HEADER LOGO SIZE FIX
+   Restore the larger dancing-logo appearance from the original logo treatment.
+   Do not constrain the logo by mobile max-width rules.
+   ========================================================================== */
+
+.site-header > .brand-image {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: none;
+  overflow: visible;
+}
+
+.site-header > .brand-image img {
+  display: block;
+  width: auto;
+  height: 64px;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .site-header > .brand-image {
+    width: auto;
+    max-width: none;
+  }
+
+  .site-header > .brand-image img {
+    width: auto;
+    height: 58px;
+    max-width: none;
+    max-height: none;
+  }
+}
+
+@media (max-width: 430px) {
+  .site-header {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .site-header > .brand-image img {
+    height: 54px;
+    max-width: none;
+    max-height: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .site-header > .brand-image img {
+    height: 50px;
+    max-width: none;
+    max-height: none;
+  }
+}
