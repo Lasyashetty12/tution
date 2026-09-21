@@ -3372,3 +3372,22 @@ input:focus,select:focus,textarea:focus{border-color:var(--brand-blue)!important
 @media(prefers-reduced-motion:reduce){
   .admission-banner,.admission-dot,.hero-doodle{animation:none!important}
 }
+
+
+/* v57 — add more small student-learning doodles; keep the existing doodle sizes */
+.hero-book{width:62px;height:44px;left:18%;top:52%;stroke:#168fda;stroke-width:3;animation:doodleFloat 6s ease-in-out -2s infinite}
+.hero-lightbulb{width:46px;height:58px;right:18%;top:53%;stroke:#f2bd40;stroke-width:3;animation:doodleBob 4.7s ease-in-out -1s infinite,doodleTwinkle 3s ease-in-out infinite}
+.hero-ruler{width:78px;height:26px;left:27%;bottom:5%;stroke:#2aaee9;stroke-width:3;transform:rotate(-7deg);animation:doodleFloat 6.2s ease-in-out -3s infinite}
+.hero-plus{width:32px;height:32px;right:31%;bottom:16%;stroke:#f2bd40;stroke-width:4;animation:doodleBob 4.2s ease-in-out -2s infinite}
+.hero-formula{width:76px;height:35px;right:5%;top:28%;stroke:#168fda;stroke-width:2.5;animation:doodleFloat 5.8s ease-in-out -1.8s infinite}
+.hero-circle{width:34px;height:34px;left:31%;top:30%;stroke:#f2bd40;stroke-width:2.5;animation:doodleSpin 15s linear infinite}
+
+@media(max-width:760px){
+  /* More doodles, same compact sizes — distributed around the student image. */
+  .hero-book{width:52px;height:37px;left:16%;top:54%}
+  .hero-lightbulb{width:38px;height:48px;right:15%;top:57%}
+  .hero-ruler{width:65px;height:22px;left:25%;bottom:4%}
+  .hero-plus{width:27px;height:27px;right:29%;bottom:15%}
+  .hero-formula{width:64px;height:30px;right:3%;top:30%}
+  .hero-circle{width:30px;height:30px;left:30%;top:31%}
+}
