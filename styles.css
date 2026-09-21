@@ -1783,3 +1783,160 @@ html, body {
     max-height: none;
   }
 }
+
+
+/* ==========================================================================
+   CROPPED LOGO + FINAL MOBILE NAVIGATION FIX
+   UI ONLY — no business logic changes
+   ========================================================================== */
+
+/* The uploaded cropped logo has much less empty canvas, so let it render
+   larger without changing the header structure. */
+.site-header > .brand-image {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible;
+}
+
+.site-header > .brand-image img {
+  display: block;
+  width: auto;
+  height: 82px;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* Keep the header compact when the page is scrolled, but do not make the
+   cropped logo look tiny. */
+.site-header.scrolled > .brand-image img {
+  height: 70px;
+}
+
+/* A clear, correctly sized mobile menu button. */
+@media (max-width: 768px) {
+  .site-header {
+    height: 88px;
+    min-height: 88px;
+    padding: 0 18px;
+    gap: 12px;
+  }
+
+  .site-header.scrolled {
+    height: 82px;
+  }
+
+  .site-header > .brand-image {
+    min-width: 0;
+    max-width: calc(100% - 64px);
+  }
+
+  .site-header > .brand-image img,
+  .site-header.scrolled > .brand-image img {
+    width: auto;
+    height: 72px;
+    max-width: none;
+    max-height: none;
+  }
+
+  .menu-toggle {
+    flex: 0 0 50px;
+    width: 50px;
+    height: 50px;
+    margin-left: auto;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(8,43,104,.12);
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(8,43,104,.10);
+    border-radius: 12px;
+  }
+
+  .hamburger-box,
+  .hamburger-inner,
+  .hamburger-inner::before,
+  .hamburger-inner::after {
+    width: 28px;
+  }
+
+  .hamburger-box {
+    height: 20px;
+  }
+
+  .hamburger-inner,
+  .hamburger-inner::before,
+  .hamburger-inner::after {
+    height: 3px;
+  }
+
+  .site-header nav {
+    left: 14px;
+    right: 14px;
+    top: calc(100% + 8px);
+    padding: 14px;
+    gap: 6px;
+    border-radius: 16px;
+    max-height: calc(100vh - 104px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .site-header nav a:not(.button) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 14px;
+    font-size: 1rem;
+  }
+
+  .site-header nav .nav-register-btn {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 430px) {
+  .site-header {
+    height: 84px;
+    min-height: 84px;
+    padding: 0 12px;
+  }
+
+  .site-header > .brand-image {
+    max-width: calc(100% - 60px);
+  }
+
+  .site-header > .brand-image img,
+  .site-header.scrolled > .brand-image img {
+    height: 66px;
+  }
+
+  .menu-toggle {
+    flex-basis: 46px;
+    width: 46px;
+    height: 46px;
+  }
+
+  .hamburger-box,
+  .hamburger-inner,
+  .hamburger-inner::before,
+  .hamburger-inner::after {
+    width: 26px;
+  }
+}
+
+@media (max-width: 360px) {
+  .site-header > .brand-image img,
+  .site-header.scrolled > .brand-image img {
+    height: 60px;
+  }
+}
