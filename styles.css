@@ -1940,3 +1940,123 @@ html, body {
     height: 60px;
   }
 }
+
+
+/* ==========================================================================
+   FINAL HEADER BALANCE — mobile screenshot correction
+   ========================================================================== */
+
+/* Use the cropped artwork, but keep the visible logo at a natural header size. */
+.site-header > .brand-image img,
+.site-header.scrolled > .brand-image img {
+  height: 64px;
+  width: auto;
+  max-width: none;
+  max-height: none;
+}
+
+/* Mobile: logo + simple hamburger, without the oversized boxed control. */
+@media (max-width: 768px) {
+  .site-header {
+    height: 78px;
+    min-height: 78px;
+    padding: 0 18px;
+  }
+
+  .site-header.scrolled {
+    height: 74px;
+  }
+
+  .site-header > .brand-image {
+    max-width: calc(100% - 58px);
+  }
+
+  .site-header > .brand-image img,
+  .site-header.scrolled > .brand-image img {
+    height: 56px;
+    width: auto;
+    max-width: none;
+    max-height: none;
+  }
+
+  .menu-toggle {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    margin-left: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .hamburger-box,
+  .hamburger-inner,
+  .hamburger-inner::before,
+  .hamburger-inner::after {
+    width: 30px;
+  }
+
+  .hamburger-box {
+    height: 20px;
+  }
+
+  .hamburger-inner,
+  .hamburger-inner::before,
+  .hamburger-inner::after {
+    height: 3px;
+  }
+
+  .site-header nav {
+    left: 12px;
+    right: 12px;
+    top: calc(100% + 8px);
+    padding: 12px;
+    gap: 5px;
+    border-radius: 14px;
+  }
+
+  .site-header nav a:not(.button) {
+    min-height: 46px;
+    padding: 11px 14px;
+  }
+
+  .site-header nav .nav-register-btn {
+    min-height: 48px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .site-header {
+    height: 74px;
+    min-height: 74px;
+    padding: 0 12px;
+  }
+
+  .site-header > .brand-image img,
+  .site-header.scrolled > .brand-image img {
+    height: 52px;
+  }
+
+  .menu-toggle {
+    flex-basis: 42px;
+    width: 42px;
+    height: 42px;
+  }
+
+  .hamburger-box,
+  .hamburger-inner,
+  .hamburger-inner::before,
+  .hamburger-inner::after {
+    width: 28px;
+  }
+}
+
+@media (max-width: 360px) {
+  .site-header > .brand-image img,
+  .site-header.scrolled > .brand-image img {
+    height: 48px;
+  }
+}
