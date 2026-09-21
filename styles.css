@@ -2135,8 +2135,7 @@ html, body {
   }
 }
 
-/* The cropped source is intentionally used; avoid CSS enlargement that makes
-   a low-resolution source look softer than necessary. */
+/* Keep the original high-resolution logo rendering clean and unmodified. */
 .site-header > .brand-image img {
   image-rendering: auto;
 }
