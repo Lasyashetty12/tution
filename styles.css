@@ -2365,3 +2365,145 @@ html, body {
     object-position: center center;
   }
 }
+
+
+/* ==========================================================================
+   ADMISSION BANNER TEXT LAYOUT — clear, readable website content
+   ========================================================================== */
+.admission-banner-premium {
+  display: grid;
+  grid-template-columns: 150px minmax(220px, 1fr) minmax(220px, 1fr) 34px;
+  align-items: center;
+  gap: 22px;
+  width: min(100%, 860px);
+  min-height: 92px;
+  padding: 10px 18px 10px 10px;
+  box-sizing: border-box;
+}
+
+.admission-ribbon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 72px;
+  padding: 8px 14px;
+  text-align: center;
+  line-height: 1.05;
+  white-space: normal;
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
+}
+
+.admission-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.admission-main strong {
+  display: block;
+  font-size: clamp(1.35rem, 2.6vw, 2.1rem);
+  line-height: 1.05;
+  white-space: nowrap;
+}
+
+.admission-main small {
+  display: block;
+  font-size: clamp(1.05rem, 2vw, 1.55rem);
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.admission-spark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+@media (max-width: 900px) {
+  .admission-banner-premium {
+    grid-template-columns: 125px minmax(170px, 1fr) minmax(170px, 1fr) 28px;
+    gap: 12px;
+    min-height: 78px;
+    padding-right: 12px;
+  }
+
+  .admission-ribbon {
+    min-height: 60px;
+    font-size: 1rem;
+  }
+
+  .admission-main strong {
+    font-size: clamp(1.05rem, 3.2vw, 1.5rem);
+  }
+
+  .admission-main small {
+    font-size: clamp(.88rem, 2.7vw, 1.15rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .admission-banner-premium {
+    grid-template-columns: 92px 1fr 28px;
+    width: 100%;
+    min-height: 68px;
+    gap: 9px;
+    padding: 7px 10px 7px 7px;
+  }
+
+  .admission-ribbon {
+    min-height: 52px;
+    font-size: .82rem;
+    padding: 6px 8px;
+  }
+
+  .admission-main {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .admission-main strong {
+    font-size: clamp(1rem, 4.5vw, 1.35rem);
+    white-space: normal;
+  }
+
+  .admission-main small {
+    font-size: clamp(.82rem, 3.6vw, 1rem);
+    white-space: normal;
+  }
+
+  .admission-spark {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 430px) {
+  .admission-banner-premium {
+    grid-template-columns: 82px minmax(0, 1fr) 22px;
+    gap: 7px;
+    min-height: 64px;
+    padding: 6px 7px 6px 6px;
+  }
+
+  .admission-ribbon {
+    min-height: 50px;
+    font-size: .72rem;
+  }
+
+  .admission-main strong {
+    font-size: 1rem;
+  }
+
+  .admission-main small {
+    font-size: .78rem;
+  }
+
+  .admission-spark {
+    font-size: 1.15rem;
+  }
+}
