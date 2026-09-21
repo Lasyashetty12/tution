@@ -2140,3 +2140,37 @@ html, body {
 .site-header > .brand-image img {
   image-rendering: auto;
 }
+
+
+/* ==========================================================================
+   FINAL LOGO + MOBILE PORTRAIT INTRO
+   ========================================================================== */
+
+/* Use the original high-resolution logo artwork exactly; do not soften it. */
+.site-header > .brand-image img,
+.site-header.scrolled > .brand-image img,
+.footer .brand-image img,
+.login-brand img,
+.admin-brand img {
+  image-rendering: auto;
+  filter: none;
+}
+
+/* On phones in portrait orientation, use the same opening MP4 as a full
+   portrait-screen presentation. The source remains the existing MP4. */
+@media (max-width: 768px) and (orientation: portrait) {
+  .intro,
+  .intro-video-container {
+    width: 100%;
+    height: 100dvh;
+    min-height: 100dvh;
+  }
+
+  .intro-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+  }
+}
