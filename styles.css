@@ -2173,3 +2173,133 @@ html, body {
     display: block;
   }
 }
+
+
+/* ==========================================================================
+   FINAL MOBILE HEADER — LOCK HAMBURGER TO RIGHT EDGE
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .site-header {
+    position: sticky;
+    width: 100%;
+    padding-left: 14px;
+    padding-right: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: visible;
+  }
+
+  .site-header > .brand-image {
+    flex: 0 1 auto;
+    width: auto;
+    min-width: 0;
+    max-width: calc(100% - 64px);
+    overflow: hidden;
+  }
+
+  .site-header > .brand-image img,
+  .site-header.scrolled > .brand-image img {
+    display: block;
+    width: auto;
+    height: 56px;
+    max-width: 100%;
+    max-height: 56px;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  .site-header > .menu-toggle {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    z-index: 5;
+    flex: 0 0 44px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+  }
+
+  .site-header > .menu-toggle .hamburger-box {
+    position: relative;
+    display: block;
+    width: 28px;
+    height: 22px;
+    flex: 0 0 28px;
+    margin: 0;
+  }
+
+  .site-header > .menu-toggle .hamburger-inner,
+  .site-header > .menu-toggle .hamburger-inner::before,
+  .site-header > .menu-toggle .hamburger-inner::after {
+    position: absolute;
+    left: 0;
+    width: 28px;
+    height: 3px;
+    margin: 0;
+    border-radius: 999px;
+    background: var(--deep-blue);
+  }
+
+  .site-header > .menu-toggle .hamburger-inner {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .site-header > .menu-toggle .hamburger-inner::before {
+    content: "";
+    top: -9px;
+  }
+
+  .site-header > .menu-toggle .hamburger-inner::after {
+    content: "";
+    bottom: -9px;
+  }
+}
+
+@media (max-width: 430px) {
+  .site-header {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .site-header > .brand-image {
+    max-width: calc(100% - 58px);
+  }
+
+  .site-header > .brand-image img,
+  .site-header.scrolled > .brand-image img {
+    height: 52px;
+    max-height: 52px;
+  }
+
+  .site-header > .menu-toggle {
+    right: 8px;
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+  }
+
+  .site-header > .menu-toggle .hamburger-box,
+  .site-header > .menu-toggle .hamburger-inner,
+  .site-header > .menu-toggle .hamburger-inner::before,
+  .site-header > .menu-toggle .hamburger-inner::after {
+    width: 27px;
+  }
+}
+
+@media (max-width: 360px) {
+  .site-header > .brand-image img,
+  .site-header.scrolled > .brand-image img {
+    height: 48px;
+    max-height: 48px;
+  }
+}
