@@ -3793,3 +3793,116 @@ input:focus,select:focus,textarea:focus{border-color:var(--brand-blue)!important
 @media(prefers-reduced-motion:reduce){
   .hero:after,.admission-banner-premium,.admission-spark,.hero-learning-doodle,.doodle-formula{animation:none!important}
 }
+
+
+/* v59 — restore the clean light hero; reserve richer colors for the learning sections */
+.hero{
+  grid-template-columns:minmax(0,1fr) minmax(390px,.96fr)!important;
+  gap:clamp(38px,5vw,78px)!important;
+  color:var(--ink)!important;
+  background:
+    radial-gradient(circle at 84% 18%,rgba(39,184,242,.13),transparent 28%),
+    radial-gradient(circle at 8% 78%,rgba(244,173,39,.08),transparent 25%),
+    linear-gradient(135deg,#f5faff 0%,#ffffff 58%,#f4faff 100%)!important;
+}
+.hero:after{display:none!important}
+.hero .hero-copy{
+  grid-column:1!important;
+  grid-row:1!important;
+  align-self:center;
+}
+.hero .hero-panel.hero-student-panel{
+  grid-column:2!important;
+  grid-row:1!important;
+  align-self:center;
+  justify-self:end;
+  width:min(100%,590px);
+  background:#fff!important;
+  border:1px solid #b8dff5!important;
+  box-shadow:14px 17px 0 rgba(244,173,39,.52),0 24px 65px rgba(16,47,91,.14)!important;
+}
+.hero-copy h1{
+  color:#102f5b!important;
+  text-shadow:none!important;
+}
+.hero-copy h1>span{
+  color:#f0a51e!important;
+}
+.hero-tagline{
+  color:#1686c9!important;
+}
+.admission-banner-premium{
+  background:linear-gradient(100deg,#fff7dc,#ffe6a1,#ffd05b)!important;
+  border-color:#f0b52e!important;
+  box-shadow:0 10px 28px rgba(240,165,30,.20),0 0 0 4px rgba(244,173,39,.06)!important;
+}
+.admission-main strong{color:#073b83!important}
+.admission-main small{color:#1375b9!important}
+.hero .hero-actions .button{
+  background:linear-gradient(135deg,#0879d9,#16a8ef)!important;
+  color:#fff!important;
+}
+.hero .hero-actions .text-link{color:#0d4e91!important}
+.hero .hero-actions .text-link:hover{color:#e69a14!important}
+.hero .student-visual{background:#eaf7ff!important}
+.hero .chip-progress{
+  background:linear-gradient(135deg,#073477,#0879d9)!important;
+  border-color:#ffd05b!important;
+}
+
+/* Keep hero visually calm; the playful doodle system belongs to the content sections. */
+.hero-learning-doodles{display:none!important}
+
+/* Give the learning sections distinct brand colors instead of repeating the hero palette. */
+.about{
+  background:linear-gradient(180deg,#ffffff 0%,#fffdf7 100%)!important;
+}
+.classes{
+  background:
+    radial-gradient(circle at 90% 15%,rgba(39,184,242,.14),transparent 25%),
+    linear-gradient(180deg,#eef9ff 0%,#f7fcff 100%)!important;
+}
+.approach{
+  background:
+    radial-gradient(circle at 8% 20%,rgba(244,173,39,.10),transparent 24%),
+    linear-gradient(180deg,#fffaf0 0%,#ffffff 100%)!important;
+}
+.achievements{
+  background:
+    radial-gradient(circle at 80% 20%,rgba(39,184,242,.20),transparent 25%),
+    radial-gradient(circle at 12% 82%,rgba(244,173,39,.12),transparent 24%),
+    linear-gradient(135deg,#082b68,#0a4f99 62%,#116da9)!important;
+}
+.registration{
+  background:
+    radial-gradient(circle at 15% 20%,rgba(244,173,39,.13),transparent 25%),
+    linear-gradient(145deg,#fffaf0,#f2f9ff)!important;
+}
+.contact-strip{
+  background:linear-gradient(90deg,#eaf8ff,#fff8e7)!important;
+}
+
+/* Doodles in content sections use blue, cyan, gold and orange accents. */
+.education-doodles svg{
+  filter:drop-shadow(0 5px 10px rgba(8,121,217,.10));
+}
+.education-doodles .doodle-blue,
+.education-doodles .doodle-cyan{stroke:#19a8e8!important}
+.education-doodles .doodle-gold,
+.education-doodles .doodle-orange{stroke:#f0a51e!important}
+
+@media(max-width:900px){
+  .hero{
+    grid-template-columns:1fr!important;
+    background:linear-gradient(145deg,#f4faff,#fff 62%,#fff9ec)!important;
+  }
+  .hero .hero-copy,
+  .hero .hero-panel.hero-student-panel{
+    grid-column:1!important;
+    grid-row:auto!important;
+    justify-self:center;
+    width:min(100%,620px);
+  }
+  .hero .hero-copy{order:1}
+  .hero .hero-panel.hero-student-panel{order:2}
+}
