@@ -3535,3 +3535,261 @@ input:focus,select:focus,textarea:focus{border-color:var(--brand-blue)!important
   .hero-copy h1{font-size:2.25rem!important}
   .student-chip{padding:7px 9px!important}
 }
+
+
+/* v58 — royal-blue / light-blue / gold student hero with engaging learning doodles */
+.hero{
+  grid-template-columns:minmax(0,1fr) minmax(390px,.96fr)!important;
+  gap:clamp(34px,5vw,78px)!important;
+  color:#fff!important;
+  background:
+    radial-gradient(circle at 12% 18%,rgba(34,177,255,.24),transparent 30%),
+    radial-gradient(circle at 78% 80%,rgba(255,183,45,.18),transparent 28%),
+    linear-gradient(135deg,#082a68 0%,#064b9d 48%,#0877c9 100%)!important;
+  overflow:hidden;
+}
+.hero:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(110deg,transparent 25%,rgba(125,220,255,.10) 48%,transparent 70%);
+  transform:translateX(-100%);
+  animation:heroLightSweep 7s ease-in-out infinite;
+}
+.hero .hero-copy{grid-column:1!important;grid-row:1!important;align-self:center;max-width:640px}
+.hero .hero-panel.hero-student-panel{
+  grid-column:2!important;
+  grid-row:1!important;
+  align-self:center;
+  justify-self:end;
+  width:min(100%,590px);
+  background:rgba(255,255,255,.10)!important;
+  border:1px solid rgba(157,229,255,.48)!important;
+  box-shadow:18px 20px 0 rgba(255,183,45,.72),0 30px 80px rgba(0,19,62,.34)!important;
+}
+.hero .hero-panel.hero-student-panel:before{
+  border-color:rgba(130,219,255,.34)!important;
+}
+.hero .hero-ambient i{
+  background:rgba(80,210,255,.18)!important;
+}
+.hero .eyebrow{color:#ffe08a!important}
+.hero-copy h1{
+  color:#fff!important;
+  text-shadow:0 8px 30px rgba(0,24,71,.28);
+}
+.hero-copy h1>span,
+.hero-copy h1>.text-reveal-inner>span:not(.oxygen-word) .oxygen-word{
+  color:#ffd05b!important;
+}
+.hero-tagline{
+  display:inline-block;
+  margin:0 0 22px;
+  padding:0!important;
+  border:0!important;
+  background:none!important;
+  color:#bfeaff!important;
+  font:600 clamp(1rem,1.6vw,1.18rem)/1.5 "Manrope",sans-serif!important;
+  letter-spacing:.01em;
+}
+.admission-banner-premium{
+  width:max-content!important;
+  min-width:300px;
+  display:flex!important;
+  align-items:center;
+  gap:13px!important;
+  padding:9px 15px 9px 9px!important;
+  margin:0 0 20px!important;
+  border:1px solid rgba(255,224,138,.72)!important;
+  border-radius:17px!important;
+  background:linear-gradient(100deg,#fff3c8 0%,#ffe39a 48%,#ffd05b 100%)!important;
+  color:#07316d!important;
+  box-shadow:0 12px 32px rgba(255,184,45,.28),0 0 0 5px rgba(255,208,91,.09)!important;
+  animation:admissionFloat 3.2s ease-in-out infinite!important;
+}
+.admission-ribbon{
+  display:grid;
+  place-items:center;
+  min-width:82px;
+  padding:9px 10px;
+  border-radius:11px;
+  background:linear-gradient(135deg,#ef8c17,#ffb82d);
+  color:#fff!important;
+  font:900 .68rem/1 "Manrope",sans-serif;
+  letter-spacing:.08em;
+  box-shadow:0 7px 16px rgba(216,113,0,.25);
+}
+.admission-main{display:grid;gap:2px}
+.admission-main strong{
+  color:#063b83!important;
+  font:900 1rem/1.15 "Manrope",sans-serif;
+  letter-spacing:.02em;
+  text-transform:uppercase;
+}
+.admission-main small{
+  color:#1267aa!important;
+  font:800 .78rem/1.25 "Manrope",sans-serif;
+}
+.admission-spark{
+  margin-left:auto;
+  color:#e7840c;
+  font-size:1.35rem;
+  animation:sparkSpin 2.2s ease-in-out infinite;
+}
+.hero .student-visual{
+  background:#bde9ff!important;
+}
+.hero .student-chip{
+  border-color:rgba(255,255,255,.8)!important;
+  background:rgba(255,255,255,.93)!important;
+}
+.hero .chip-progress{
+  background:linear-gradient(135deg,#073477,#0b72c7)!important;
+  border-color:#ffd05b!important;
+}
+.hero .hero-actions .button{
+  background:linear-gradient(135deg,#ffd15b,#f19a1c)!important;
+  color:#082d67!important;
+  border:1px solid rgba(255,255,255,.45);
+}
+.hero .hero-actions .text-link{color:#fff!important}
+.hero .hero-actions .text-link:hover{color:#ffd15b!important}
+
+/* Student-engaging doodles: placed around the composition, not over the face. */
+.hero-learning-doodles{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+}
+.hero-learning-doodle{
+  position:absolute;
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  vector-effect:non-scaling-stroke;
+}
+.doodle-star-one{
+  width:48px;height:48px;left:5%;top:17%;
+  stroke:#ffd15b;stroke-width:4;
+  animation:doodleFloatOne 4.5s ease-in-out infinite,doodleGlow 2.8s ease-in-out infinite;
+}
+.doodle-pencil{
+  width:125px;height:50px;left:39%;top:7%;
+  stroke:#82dcff;stroke-width:4;
+  transform:rotate(-8deg);
+  animation:doodlePencil 6s ease-in-out infinite;
+}
+.doodle-atom{
+  width:68px;height:68px;left:7%;bottom:13%;
+  stroke:#7fddff;stroke-width:3;
+  animation:doodleAtom 10s linear infinite;
+}
+.doodle-formula{
+  position:absolute;
+  left:44%;
+  bottom:9%;
+  color:#ffe08a;
+  font:800 1rem/1 "Manrope",sans-serif;
+  transform:rotate(-5deg);
+  text-shadow:0 4px 16px rgba(0,0,0,.2);
+  animation:doodleFormula 3.5s ease-in-out infinite;
+}
+.doodle-star-two{
+  width:35px;height:35px;right:45%;top:18%;
+  stroke:#ffb52c;stroke-width:4;
+  animation:doodleFloatTwo 3.8s ease-in-out infinite;
+}
+@keyframes heroLightSweep{
+  0%,62%{transform:translateX(-100%);opacity:0}
+  70%{opacity:1}
+  88%,100%{transform:translateX(100%);opacity:0}
+}
+@keyframes admissionFloat{
+  0%,100%{transform:translateY(0) rotate(0)}
+  50%{transform:translateY(-4px) rotate(-.4deg)}
+}
+@keyframes sparkSpin{
+  0%,100%{transform:rotate(0) scale(1)}
+  50%{transform:rotate(20deg) scale(1.2)}
+}
+@keyframes doodleFloatOne{
+  0%,100%{transform:translate(0,0) rotate(0)}
+  50%{transform:translate(5px,-10px) rotate(7deg)}
+}
+@keyframes doodleFloatTwo{
+  0%,100%{transform:translateY(0) scale(1)}
+  50%{transform:translateY(-8px) scale(1.15)}
+}
+@keyframes doodlePencil{
+  0%,100%{transform:translate(0,0) rotate(-8deg)}
+  50%{transform:translate(13px,-8px) rotate(-3deg)}
+}
+@keyframes doodleAtom{to{transform:rotate(360deg)}}
+@keyframes doodleFormula{
+  0%,100%{opacity:.5;transform:rotate(-5deg) translateY(0)}
+  50%{opacity:1;transform:rotate(2deg) translateY(-6px)}
+}
+@keyframes doodleGlow{
+  0%,100%{opacity:.45;filter:drop-shadow(0 0 0 rgba(255,208,91,0))}
+  50%{opacity:1;filter:drop-shadow(0 0 12px rgba(255,208,91,.65))}
+}
+
+@media(max-width:900px){
+  .hero{
+    grid-template-columns:1fr!important;
+    background:
+      radial-gradient(circle at 85% 12%,rgba(54,195,255,.28),transparent 34%),
+      linear-gradient(160deg,#082b6d 0%,#075ba9 62%,#0b7fc9 100%)!important;
+  }
+  .hero .hero-copy,
+  .hero .hero-panel.hero-student-panel{
+    grid-column:1!important;
+    grid-row:auto!important;
+    justify-self:center;
+    width:min(100%,620px);
+  }
+  .hero .hero-copy{order:1}
+  .hero .hero-panel.hero-student-panel{order:2}
+}
+@media(max-width:760px){
+  .hero{
+    padding:28px 16px 58px!important;
+    gap:24px!important;
+  }
+  .admission-banner-premium{
+    width:100%!important;
+    min-width:0;
+    justify-content:flex-start;
+    padding:8px 10px!important;
+    gap:9px!important;
+    margin-bottom:15px!important;
+  }
+  .admission-ribbon{min-width:72px;padding:8px 7px;font-size:.61rem}
+  .admission-main strong{font-size:.84rem}
+  .admission-main small{font-size:.7rem}
+  .admission-spark{font-size:1.05rem}
+  .hero-tagline{
+    margin-bottom:16px!important;
+    font-size:.9rem!important;
+    color:#c9eeff!important;
+  }
+  .hero-copy h1{
+    font-size:clamp(2.45rem,11vw,3.5rem)!important;
+    line-height:.99!important;
+  }
+  .hero .hero-panel.hero-student-panel{
+    width:100%;
+    padding:8px!important;
+    box-shadow:9px 11px 0 rgba(255,183,45,.72),0 20px 46px rgba(0,19,62,.3)!important;
+  }
+  .hero-learning-doodles .doodle-pencil{width:80px;left:auto;right:3%;top:5%}
+  .hero-learning-doodles .doodle-star-one{width:34px;height:34px;left:3%;top:7%}
+  .hero-learning-doodles .doodle-atom{width:45px;height:45px;left:2%;bottom:20%}
+  .hero-learning-doodles .doodle-formula{left:auto;right:8%;bottom:7%;font-size:.78rem}
+  .hero-learning-doodles .doodle-star-two{right:4%;top:32%;width:27px;height:27px}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero:after,.admission-banner-premium,.admission-spark,.hero-learning-doodle,.doodle-formula{animation:none!important}
+}
