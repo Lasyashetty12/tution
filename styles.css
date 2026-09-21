@@ -1400,3 +1400,242 @@ th { color: var(--muted-text); font-size: 0.78rem; text-transform: uppercase; le
     animation: none;
   }
 }
+
+
+/* ==========================================================================
+   MOBILE-FIRST REFINEMENT + HIDDEN TRIPLE-CLICK ADMIN ACCESS
+   ========================================================================== */
+
+/* Keep the public website visually consistent with desktop while adapting
+   dimensions, spacing and interactions for touch screens. */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.site-header .brand-image {
+  flex-shrink: 0;
+  touch-action: manipulation;
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .site-header .brand-image img {
+    max-width: min(180px, 58vw);
+    height: auto;
+    max-height: 50px;
+    object-fit: contain;
+  }
+
+  .site-header nav {
+    max-height: calc(100vh - 92px);
+    overflow-y: auto;
+  }
+
+  .site-header nav a,
+  .site-header nav button {
+    min-height: 44px;
+  }
+
+  .hero {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .hero-copy,
+  .hero-panel {
+    min-width: 0;
+  }
+
+  .hero-panel img {
+    width: 100%;
+    height: auto;
+  }
+
+  .section,
+  .registration {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .form-card {
+    width: 100%;
+    min-width: 0;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    max-width: 100%;
+  }
+
+  /* Admin dashboard: preserve the desktop information hierarchy on phones. */
+  .admin-shell {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+    min-width: 0;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .admin-sidebar .admin-brand {
+    flex: 0 0 auto;
+  }
+
+  .admin-sidebar .admin-brand img {
+    max-width: 150px;
+    height: auto;
+  }
+
+  .admin-sidebar-label {
+    display: none;
+  }
+
+  .admin-sidebar nav {
+    flex: 1 1 100%;
+    width: 100%;
+    min-width: 0;
+    scrollbar-width: none;
+  }
+
+  .admin-sidebar nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .admin-sidebar nav button {
+    flex: 1 0 auto;
+    min-height: 44px;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .logout-button {
+    margin: 0 0 0 auto;
+    min-height: 44px;
+    white-space: nowrap;
+  }
+
+  .admin-header {
+    height: auto;
+    min-height: 82px;
+    padding: 18px 20px;
+    gap: 16px;
+  }
+
+  .admin-header h1 {
+    font-size: clamp(1.4rem, 5vw, 1.8rem);
+  }
+
+  .admin-user {
+    max-width: 48%;
+    min-width: 0;
+  }
+
+  .admin-user span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .admin-main > main {
+    padding: 20px 16px 40px;
+  }
+
+  .metric-grid,
+  .chart-grid,
+  .performance-layout {
+    width: 100%;
+  }
+
+  .admin-card {
+    min-width: 0;
+    overflow: hidden;
+    padding: 20px;
+  }
+
+  .chart-box {
+    min-height: 220px;
+    height: 220px;
+  }
+
+  .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    min-width: 720px;
+  }
+
+  .compact-form .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .login-card {
+    width: min(440px, calc(100vw - 32px));
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    padding: 30px 22px;
+  }
+}
+
+@media (max-width: 430px) {
+  .site-header {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .site-header .brand-image img {
+    max-width: 155px;
+  }
+
+  .site-header nav {
+    left: 10px;
+    right: 10px;
+    padding: 18px;
+  }
+
+  .hero {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .form-card {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .admin-sidebar {
+    padding: 12px 14px;
+  }
+
+  .admin-header {
+    padding: 16px 14px;
+  }
+
+  .admin-main > main {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .admin-card {
+    padding: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header .brand-image {
+    animation: none !important;
+  }
+}
