@@ -2060,3 +2060,83 @@ html, body {
     height: 48px;
   }
 }
+
+
+/* ==========================================================================
+   FINAL MOBILE HAMBURGER + LOGO CLARITY
+   ========================================================================== */
+
+/* Keep the hamburger itself fully inside the header instead of relying on
+   inherited absolute positioning. */
+@media (max-width: 768px) {
+  .menu-toggle {
+    position: relative;
+    flex: 0 0 44px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    margin-left: auto;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+  }
+
+  .menu-toggle .hamburger-box {
+    position: relative;
+    display: block;
+    flex: 0 0 30px;
+    width: 30px;
+    height: 22px;
+    margin: 0;
+  }
+
+  .menu-toggle .hamburger-inner,
+  .menu-toggle .hamburger-inner::before,
+  .menu-toggle .hamburger-inner::after {
+    position: absolute;
+    display: block;
+    left: 0;
+    width: 30px;
+    height: 3px;
+    margin: 0;
+    border-radius: 999px;
+    background: var(--deep-blue);
+  }
+
+  .menu-toggle .hamburger-inner {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .menu-toggle .hamburger-inner::before {
+    content: "";
+    top: -9px;
+    left: 0;
+  }
+
+  .menu-toggle .hamburger-inner::after {
+    content: "";
+    bottom: -9px;
+    left: 0;
+  }
+
+  .menu-toggle[aria-expanded="true"] .hamburger-inner {
+    background: transparent;
+  }
+
+  .menu-toggle[aria-expanded="true"] .hamburger-inner::before {
+    transform: translateY(9px) rotate(45deg);
+  }
+
+  .menu-toggle[aria-expanded="true"] .hamburger-inner::after {
+    transform: translateY(-9px) rotate(-45deg);
+  }
+}
+
+/* The cropped source is intentionally used; avoid CSS enlargement that makes
+   a low-resolution source look softer than necessary. */
+.site-header > .brand-image img {
+  image-rendering: auto;
+}
