@@ -3171,3 +3171,204 @@ input:focus,select:focus,textarea:focus{border-color:var(--brand-blue)!important
     animation:none!important;
   }
 }
+
+
+/* v56 — student-first mobile layout, playful learning doodles and admission emphasis */
+.admission-banner{
+  width:max-content;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:0 0 18px;
+  padding:10px 15px;
+  border:1px solid rgba(242,189,64,.62);
+  border-radius:999px;
+  background:linear-gradient(135deg,#fff7dc,#fffdf5);
+  color:#12345f;
+  box-shadow:0 10px 28px rgba(242,189,64,.18);
+  animation:admissionPulse 2.8s ease-in-out infinite;
+}
+.admission-banner strong{
+  color:#a66a00;
+  font-size:.78rem;
+  letter-spacing:.09em;
+}
+.admission-banner>span:last-child{
+  padding-left:10px;
+  border-left:1px solid #e7c86e;
+  color:#0874cf;
+  font-weight:800;
+  font-size:.84rem;
+}
+.admission-dot{
+  width:9px;
+  height:9px;
+  flex:none;
+  border-radius:50%;
+  background:#20b96b;
+  box-shadow:0 0 0 5px rgba(32,185,107,.12),0 0 14px rgba(32,185,107,.55);
+  animation:admissionDot 1.5s ease-in-out infinite;
+}
+.hero-copy{position:relative;z-index:3}
+.hero-student-doodles{
+  position:absolute;
+  z-index:1;
+  inset:0;
+  pointer-events:none;
+}
+.hero-doodle{
+  position:absolute;
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  opacity:.42;
+  filter:drop-shadow(0 5px 12px rgba(8,116,207,.10));
+}
+.hero-doodle path,.hero-doodle ellipse,.hero-doodle circle{vector-effect:non-scaling-stroke}
+.hero-star{
+  width:54px;height:54px;
+  left:7%;top:18%;
+  stroke:#f2bd40;stroke-width:4;
+  animation:doodleBob 4s ease-in-out infinite,doodleTwinkle 2.6s ease-in-out infinite;
+}
+.hero-pencil{
+  width:125px;height:50px;
+  left:38%;top:8%;
+  stroke:#168fda;stroke-width:4;
+  transform:rotate(-8deg);
+  animation:doodleFloat 5.5s ease-in-out -1.4s infinite;
+}
+.hero-atom{
+  width:72px;height:72px;
+  right:7%;top:11%;
+  stroke:#2aaee9;stroke-width:3;
+  animation:doodleSpin 12s linear infinite;
+}
+.hero-spark{
+  width:42px;height:42px;
+  left:45%;bottom:10%;
+  stroke:#f2bd40;stroke-width:4;
+  animation:doodleBob 3.8s ease-in-out -.8s infinite,doodleTwinkle 2.1s ease-in-out infinite;
+}
+.hero .hero-panel{
+  z-index:3;
+}
+.student-visual{
+  position:relative;
+}
+.student-chip{
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.chip-progress{
+  border:1px solid rgba(255,211,106,.75)!important;
+  box-shadow:0 10px 30px rgba(7,49,99,.22),0 0 22px rgba(242,189,64,.16);
+}
+@keyframes admissionPulse{
+  0%,100%{transform:translateY(0);box-shadow:0 10px 28px rgba(242,189,64,.18)}
+  50%{transform:translateY(-2px);box-shadow:0 14px 34px rgba(242,189,64,.28)}
+}
+@keyframes admissionDot{
+  0%,100%{transform:scale(1);opacity:.9}
+  50%{transform:scale(1.28);opacity:1}
+}
+@keyframes doodleBob{
+  0%,100%{translate:0 0 rotate(0)}
+  50%{translate:0 -9px rotate(4deg)}
+}
+@keyframes doodleFloat{
+  0%,100%{translate:0 0}
+  50%{translate:10px -8px}
+}
+@keyframes doodleSpin{
+  to{rotate:360deg}
+}
+@keyframes doodleTwinkle{
+  0%,100%{opacity:.28}
+  50%{opacity:.7}
+}
+
+/* Mobile: prioritize the admission message, readable type and a complete student image. */
+@media(max-width:760px){
+  .hero{
+    padding:42px 18px 68px!important;
+    gap:30px!important;
+  }
+  .hero-copy{width:100%}
+  .admission-banner{
+    width:100%;
+    justify-content:center;
+    padding:11px 12px;
+    margin-bottom:16px;
+    font-size:.78rem;
+  }
+  .admission-banner strong{font-size:.72rem}
+  .admission-banner>span:last-child{font-size:.78rem;padding-left:8px}
+  .hero h1{
+    font-size:clamp(2.45rem,12vw,3.45rem)!important;
+    line-height:.98!important;
+    letter-spacing:-.055em!important;
+  }
+  .hero-text{
+    font-size:1rem!important;
+    line-height:1.65;
+  }
+  .hero-actions{
+    flex-direction:column!important;
+    gap:12px!important;
+    margin:24px 0 12px!important;
+  }
+  .hero-actions .button{
+    width:100%;
+    text-align:center;
+    padding:15px 18px;
+  }
+  .hero-actions .text-link{
+    align-self:center;
+  }
+  .hero-panel.hero-student-panel{
+    width:100%;
+    padding:10px!important;
+    border-radius:22px!important;
+    box-shadow:8px 11px 0 rgba(255,239,198,.92),0 20px 48px rgba(16,47,91,.15)!important;
+  }
+  .student-visual{
+    border-radius:16px!important;
+    overflow:hidden!important;
+    aspect-ratio:4/3!important;
+    min-height:0!important;
+  }
+  .student-visual>img{
+    width:100%!important;
+    height:100%!important;
+    min-height:0!important;
+    object-fit:cover!important;
+    object-position:center 45%!important;
+  }
+  .student-chip{
+    min-width:0!important;
+    padding:9px 11px!important;
+    border-radius:13px!important;
+  }
+  .student-chip b{font-size:.78rem!important}
+  .student-chip small{font-size:.66rem!important}
+  .chip-maths{left:8px!important;top:8px!important}
+  .chip-science{right:8px!important;top:43%!important}
+  .chip-progress{right:8px!important;bottom:8px!important}
+  .hero-student-doodles .hero-pencil{left:auto;right:2%;top:29%;width:82px}
+  .hero-student-doodles .hero-atom{right:1%;top:70%;width:48px}
+  .hero-student-doodles .hero-star{left:2%;top:38%;width:36px}
+  .hero-student-doodles .hero-spark{left:4%;bottom:5%;width:30px}
+}
+@media(max-width:390px){
+  .hero{padding-left:14px!important;padding-right:14px!important}
+  .admission-banner{gap:7px}
+  .admission-banner>span:last-child{padding-left:7px}
+  .hero h1{font-size:2.35rem!important}
+  .hero-panel.hero-student-panel{padding:7px!important}
+  .student-chip{padding:7px 9px!important}
+  .student-chip small{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .admission-banner,.admission-dot,.hero-doodle{animation:none!important}
+}
