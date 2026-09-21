@@ -3391,3 +3391,147 @@ input:focus,select:focus,textarea:focus{border-color:var(--brand-blue)!important
   .hero-formula{width:64px;height:30px;right:3%;top:30%}
   .hero-circle{width:30px;height:30px;left:30%;top:31%}
 }
+
+
+/* v57 — clean student-first hero: photo left, message right, doodles reserved for learning sections */
+.hero{
+  grid-template-columns:minmax(390px,.98fr) minmax(0,1.02fr)!important;
+  gap:clamp(38px,5vw,76px)!important;
+}
+.hero-panel.hero-student-panel{
+  grid-column:1!important;
+  grid-row:1!important;
+  align-self:center;
+  width:min(100%,590px);
+  justify-self:start;
+}
+.hero-copy{
+  grid-column:2!important;
+  grid-row:1!important;
+  align-self:center;
+  max-width:590px;
+  justify-self:start;
+}
+.hero-tagline{
+  margin:0 0 20px;
+  display:inline-flex;
+  align-items:center;
+  padding:9px 14px;
+  border-left:4px solid var(--gold);
+  border-radius:0 12px 12px 0;
+  background:linear-gradient(90deg,rgba(255,244,207,.95),rgba(255,250,235,.55));
+  color:var(--gold-deep);
+  font:800 clamp(.9rem,1.5vw,1.08rem)/1.35 "Manrope",sans-serif;
+  letter-spacing:.01em;
+}
+.hero-copy .admission-banner{
+  margin-bottom:14px;
+}
+.hero-copy h1{
+  margin-top:0;
+  font-size:clamp(3.3rem,5.3vw,5.3rem)!important;
+  line-height:.98!important;
+  letter-spacing:-.055em;
+}
+.hero-actions{
+  margin-top:30px!important;
+  gap:18px!important;
+}
+.hero-actions .button{
+  min-width:160px;
+  padding:15px 23px;
+  box-shadow:0 12px 26px rgba(8,116,207,.18);
+}
+.hero-actions .button:hover{
+  transform:translateY(-3px);
+  box-shadow:0 16px 32px rgba(8,116,207,.24);
+}
+.hero-actions .text-link{
+  font-weight:800;
+}
+
+/* Keep the learning doodles around the educational sections, not over the hero copy. */
+.hero-student-doodles{display:none!important}
+
+@media(max-width:900px){
+  .hero{
+    grid-template-columns:1fr!important;
+    gap:34px!important;
+  }
+  .hero-panel.hero-student-panel,
+  .hero-copy{
+    grid-column:1!important;
+    grid-row:auto!important;
+    justify-self:center;
+    width:min(100%,620px);
+  }
+  .hero-panel.hero-student-panel{order:1}
+  .hero-copy{order:2}
+  .hero-copy h1{
+    font-size:clamp(2.9rem,8vw,4.3rem)!important;
+  }
+}
+@media(max-width:760px){
+  .hero{
+    padding:28px 18px 60px!important;
+    gap:26px!important;
+  }
+  .hero-panel.hero-student-panel{
+    width:100%;
+    max-width:590px;
+    padding:9px!important;
+    border-radius:25px!important;
+    box-shadow:10px 13px 0 rgba(255,239,198,.92),0 20px 46px rgba(16,47,91,.16)!important;
+  }
+  .student-visual{
+    aspect-ratio:4/3!important;
+    min-height:0!important;
+    border-radius:18px!important;
+  }
+  .student-visual>img{
+    height:100%!important;
+    min-height:0!important;
+    object-fit:cover!important;
+    object-position:54% center!important;
+  }
+  .hero-copy{
+    width:100%;
+    max-width:590px;
+  }
+  .admission-banner{
+    width:100%;
+    margin-bottom:13px!important;
+    justify-content:center;
+  }
+  .hero-tagline{
+    margin-bottom:16px;
+    font-size:.92rem;
+  }
+  .hero-copy h1{
+    font-size:clamp(2.5rem,11vw,3.5rem)!important;
+    line-height:1!important;
+  }
+  .hero-actions{
+    margin-top:22px!important;
+    flex-direction:column!important;
+    gap:11px!important;
+  }
+  .hero-actions .button{
+    width:100%;
+    text-align:center;
+    min-width:0;
+  }
+  .hero-actions .text-link{
+    align-self:center;
+    padding:6px;
+  }
+  .chip-maths{left:9px!important;top:9px!important}
+  .chip-science{right:9px!important}
+  .chip-progress{right:9px!important;bottom:9px!important}
+}
+@media(max-width:390px){
+  .hero{padding-left:13px!important;padding-right:13px!important}
+  .hero-tagline{font-size:.84rem}
+  .hero-copy h1{font-size:2.25rem!important}
+  .student-chip{padding:7px 9px!important}
+}
