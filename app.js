@@ -59,12 +59,8 @@
     if (introVideo) {
       introVideo.play().catch(() => {});
 
-      // Do not dismiss the opening screen based on a guessed duration.
-      // The video must actually finish, then remain visible for 2 seconds.
-      introVideo.addEventListener("ended", () => {
-        window.clearTimeout(intro.finishTimer);
-        intro.finishTimer = window.setTimeout(finishIntro, 2000);
-      }, { once: true });
+      // Dismiss the opening screen as soon as the video actually finishes.
+      introVideo.addEventListener("ended", finishIntro, { once: true });
     }
   } else {
     document.body.classList.remove("intro-active");
