@@ -32,9 +32,10 @@
 
   $("#year").textContent = new Date().getFullYear();
 
-  // Opening sequence: draw the 489b880-style infinity, then pop in the official logo.
+  // Opening sequence: animated video playback with depth effect and smooth homepage reveal
   const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches || false;
   const intro = $("#intro");
+  const introVideo = $("#introVideo");
   document.documentElement.classList.add("motion-ready");
 
   if (intro && !reduceMotion) {
@@ -46,7 +47,6 @@
       introFinished = true;
       window.clearTimeout(intro.finishTimer);
 
-      // Make the homepage live as the opening screen begins to move away.
       document.body.classList.remove("intro-active");
       window.dispatchEvent(new Event("vision:intro-complete"));
       requestAnimationFrame(() => intro.classList.add("curtain"));
@@ -56,7 +56,17 @@
       }, 980);
     };
 
-    intro.finishTimer = window.setTimeout(finishIntro, 4200);
+    if (introVideo) {
+      introVideo.play().catch(() => {});
+      introVideo.addEventListener("ended", finishIntro);
+      introVideo.addEventListener("timeupdate", () => {
+        if (introVideo.duration && introVideo.currentTime >= introVideo.duration - 0.2) {
+          finishIntro();
+        }
+      });
+    }
+
+    intro.finishTimer = window.setTimeout(finishIntro, 5000);
   } else {
     document.body.classList.remove("intro-active");
     intro?.remove();

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Infinite Tutorial in Davangere provides focused tuition and academic guidance for students in Classes 9 and 10.">
   <meta name="robots" content="index,follow,max-image-preview:large">
-  <meta name="theme-color" content="#132b4f">
+  <meta name="theme-color" content="#082B68">
   <link rel="canonical" href="https://tution-lemon.vercel.app/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_IN">
@@ -21,10 +21,10 @@
   <title>Infinite Tutorial Davangere | Classes 9–10 Tuition</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Dancing+Script:wght@600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400..800&family=Manrope:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="assets/infinite-tutorial-logo.png">
   <link rel="preload" href="assets/single-student-learning.webp?v=44" as="image" type="image/webp">
-  <link rel="stylesheet" href="styles.css?v=58">
+  <link rel="stylesheet" href="styles.css?v=63">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -49,52 +49,41 @@
   </script>
 </head>
 <body>
-<div class="intro intro-reference-infinity" id="intro" aria-hidden="true">
-  <div class="intro-ambient intro-ambient-one" aria-hidden="true"></div>
-  <div class="intro-ambient intro-ambient-two" aria-hidden="true"></div>
-  <div class="intro-stage intro-reference-stage">
-    <svg class="intro-infinity" viewBox="0 0 640 300" role="presentation" aria-hidden="true">
-      <defs>
-        <linearGradient id="infinityGradient" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#8cecff"></stop>
-          <stop offset=".52" stop-color="#28a9ff"></stop>
-          <stop offset="1" stop-color="#f49a25"></stop>
-        </linearGradient>
-        <filter id="infinityGlow" x="-30%" y="-50%" width="160%" height="200%">
-          <feGaussianBlur stdDeviation="8" result="blur"></feGaussianBlur>
-          <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
-        </filter>
-      </defs>
-      <path class="infinity-shadow" pathLength="1" d="M72 150C72 60 186 48 258 112L382 188C454 252 568 240 568 150C568 60 454 48 382 112L258 188C186 252 72 240 72 150"></path>
-      <path class="infinity-line" pathLength="1" d="M72 150C72 60 186 48 258 112L382 188C454 252 568 240 568 150C568 60 454 48 382 112L258 188C186 252 72 240 72 150"></path>
-      <path class="infinity-shine" pathLength="1" d="M72 150C72 60 186 48 258 112L382 188C454 252 568 240 568 150C568 60 454 48 382 112L258 188C186 252 72 240 72 150"></path>
-    </svg>
-    <div class="intro-particles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="intro-popup-logo" aria-label="Infinite Tutorial">
-      <img src="assets/infinite-tutorial-logo.png" alt="Infinite Tutorial">
-    </div>
+<!-- Opening Screen: Full-width animated video with matching background -->
+<div class="intro" id="intro" aria-label="Infinite Tutorial opening animation">
+  <div class="intro-video-container">
+    <video id="introVideo" class="intro-video" autoplay muted playsinline preload="auto">
+      <source src="assets/infinite-opening-animation.mp4" type="video/mp4">
+    </video>
   </div>
 </div>
+
 <div id="publicApp">
   <header class="site-header">
     <a class="brand brand-image" href="#home" aria-label="Infinite Tutorial home"><img src="assets/infinite-tutorial-logo.png" alt="Infinite Tutorial"></a>
-    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+      <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+    </button>
     <nav id="mainNav" aria-label="Main navigation">
-      <a href="#about">About</a><a href="#classes">Classes</a><a href="#achievements">Why us</a><a href="#contact">Contact</a>
+      <a href="#about">About</a>
+      <a href="#classes">Classes</a>
+      <a href="#achievements">Why us</a>
+      <a href="#contact">Contact</a>
       <button class="nav-login" id="openAdmin">Admin login</button>
-      <a class="button button-small" href="#register">Register now</a>
+      <a class="button button-small nav-register-btn" href="#register">Register now</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero" id="home"><div class="hero-ambient" aria-hidden="true"><i></i><i></i><i></i><span></span></div>
+    <section class="hero" id="home">
+      <div class="hero-ambient" aria-hidden="true"><i></i><i></i><i></i><span></span></div>
       <div class="hero-learning-doodles" aria-hidden="true">
-        <svg class="hero-learning-doodle doodle-star-one" viewBox="0 0 70 70"><path d="M35 4L41 28L66 35L41 42L35 66L29 42L4 35L29 28Z"/></svg>
-        <svg class="hero-learning-doodle doodle-pencil" viewBox="0 0 180 70"><path d="M14 47L125 13L153 27L42 61Z"/><path d="M125 13L139 7L166 21L153 27Z"/><path d="M25 44L40 58"/></svg>
-        <svg class="hero-learning-doodle doodle-atom" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="39" ry="15"/><ellipse cx="50" cy="50" rx="39" ry="15" transform="rotate(60 50 50)"/><ellipse cx="50" cy="50" rx="39" ry="15" transform="rotate(120 50 50)"/><circle cx="50" cy="50" r="5"/></svg>
-        <span class="doodle-formula">x² + y²</span>
-        <svg class="hero-learning-doodle doodle-star-two" viewBox="0 0 70 70"><path d="M35 5L43 27L65 35L43 43L35 65L27 43L5 35L27 27Z"/></svg>
+        <svg class="hero-learning-doodle doodle-pencil" viewBox="0 0 100 100"><path d="M20 85L80 25L75 20L15 80Z" stroke="currentColor" stroke-width="3" fill="none"/><path d="M15 80L10 90L20 85Z" stroke="currentColor" stroke-width="3" fill="currentColor"/></svg>
+        <svg class="hero-learning-doodle doodle-star-one" viewBox="0 0 50 50"><path d="M25 5L30 18L45 25L30 32L25 45L20 32L5 25L20 18Z" fill="currentColor"/></svg>
+        <svg class="hero-learning-doodle doodle-infinity" viewBox="0 0 80 40"><path d="M15 20C15 10 28 10 40 20C52 30 65 30 65 20C65 10 52 10 40 20C28 30 15 30 15 20Z" fill="none" stroke="currentColor" stroke-width="3.5"/></svg>
+        <svg class="hero-learning-doodle doodle-star-two" viewBox="0 0 70 70"><path d="M35 5L43 27L65 35L43 43L35 65L27 43L5 35L27 27Z" fill="currentColor"/></svg>
       </div>
+      
       <div class="hero-copy">
         <div class="admission-banner admission-banner-premium" role="status">
           <span class="admission-ribbon">NOW OPEN</span>
@@ -103,8 +92,12 @@
         </div>
         <p class="hero-tagline">Where learning is infinity for a better tomorrow</p>
         <h1>Strong concepts.<br><span>Confident results.</span></h1>
-        <div class="hero-actions"><a class="button" href="#register">Register now</a><a class="text-link" href="#classes">Explore classes →</a></div>
+        <div class="hero-actions">
+          <a class="button button-hero-primary" href="#register">Register now</a>
+          <a class="text-link button-hero-secondary" href="#classes">Explore classes →</a>
+        </div>
       </div>
+
       <figure class="hero-panel hero-student-panel" id="heroPanel">
         <div class="student-visual">
           <img src="assets/single-student-learning.webp?v=44" alt="A secondary school student studying confidently at a desk" width="1456" height="1092">
@@ -112,157 +105,391 @@
           <span class="student-chip chip-science"><b>Science</b><small>Learn clearly</small></span>
           <span class="student-chip chip-progress"><b>9th &amp; 10th</b><small>Focused guidance</small></span>
         </div>
-        <figcaption><span>Personal attention</span><strong>Confidence grows with every concept.</strong></figcaption>
       </figure>
     </section>
 
-    <section class="section about" id="about"><div class="education-doodles education-doodles-about" aria-hidden="true">
-        <svg class="edu-doodle edu-atom" viewBox="0 0 180 180">
-          <ellipse cx="90" cy="90" rx="72" ry="28"></ellipse><ellipse cx="90" cy="90" rx="72" ry="28" transform="rotate(60 90 90)"></ellipse>
-          <ellipse cx="90" cy="90" rx="72" ry="28" transform="rotate(120 90 90)"></ellipse><circle cx="90" cy="90" r="8"></circle>
-        </svg>
-        <svg class="edu-doodle edu-book" viewBox="0 0 200 120">
-          <path d="M14 24Q57 12 96 34V105Q57 83 14 94Z"></path><path d="M186 24Q143 12 104 34V105Q143 83 186 94Z"></path>
-          <path class="edu-gold-stroke" d="M100 34V106M31 43Q59 35 82 45M169 43Q141 35 118 45"></path>
-        </svg>
-        <span class="edu-formula">x² + y²</span>
+    <section class="section about" id="about">
+      <div class="education-doodles education-doodles-about" aria-hidden="true">
+        <svg class="edu-doodle edu-book" viewBox="0 0 100 60"><path d="M10 15Q30 5 50 18V55Q30 42 10 50Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M90 15Q70 5 50 18V55Q70 42 90 50Z" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        <svg class="edu-doodle edu-infinity-about" viewBox="0 0 80 40"><path d="M15 20C15 10 28 10 40 20C52 30 65 30 65 20C65 10 52 10 40 20C28 30 15 30 15 20Z" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        <svg class="edu-doodle edu-stars" viewBox="0 0 50 50"><path d="M25 5L29 17L42 25L29 33L25 45L21 33L8 25L21 17Z" fill="currentColor"/></svg>
       </div>
-      <div><p class="eyebrow">About Infinite Tutorial</p><h2>Tuition that sees the whole student</h2></div>
-      <div class="about-copy"><p>Infinite Tutorial helps Class 9 and Class 10 students build clear fundamentals, disciplined study habits and exam confidence.</p><p>Regular practice and individual feedback help teachers identify learning gaps and guide each student with care.</p></div>
+      <div>
+        <p class="eyebrow">About Infinite Tutorial</p>
+        <h2>Tuition that sees the whole student</h2>
+      </div>
+      <div class="about-copy">
+        <p>Infinite Tutorial helps Class 9 and Class 10 students build clear fundamentals, disciplined study habits and exam confidence.</p>
+        <p>Regular practice and individual feedback help teachers identify learning gaps and guide each student with care.</p>
+      </div>
     </section>
 
     <section class="section classes" id="classes">
-      <div class="section-heading"><div><p class="eyebrow">Classes 9–10</p><h2>Focused support for these important years</h2></div><p>Structured teaching for school examinations and Class 10 board preparation.</p></div>
+      <div class="education-doodles education-doodles-classes" aria-hidden="true">
+        <svg class="edu-doodle edu-ruler" viewBox="0 0 120 40"><rect x="5" y="5" width="110" height="30" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><path d="M20 5V18M35 5V14M50 5V18M65 5V14M80 5V18M95 5V14" stroke="currentColor" stroke-width="2.5"/></svg>
+        <svg class="edu-doodle edu-pencil-cls" viewBox="0 0 60 60"><path d="M15 45L45 15L50 20L20 50Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M15 45L10 52L17 50Z" fill="currentColor"/></svg>
+      </div>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Classes 9–10</p>
+          <h2>Focused support for these important years</h2>
+        </div>
+        <p>Structured teaching for school examinations and Class 10 board preparation.</p>
+      </div>
       <div class="class-grid">
-        <article class="class-card"><span>09</span><h3>Class 9</h3><p>Foundation building, school exam preparation and confident problem-solving.</p><ul><li>Mathematics</li><li>Science</li><li>English</li></ul></article>
-        <article class="class-card featured"><span>10</span><h3>Class 10</h3><p>Board-focused revision, regular mock tests and personalised improvement plans.</p><ul><li>Mathematics</li><li>Science</li><li>English</li></ul></article>
+        <article class="class-card">
+          <div class="class-header">
+            <span class="class-num">09</span>
+            <div class="class-title-wrap">
+              <h3>Class 9</h3>
+              <p class="class-subtitle">Build Your Foundation</p>
+            </div>
+          </div>
+          <p>Foundation building, school exam preparation and confident problem-solving.</p>
+          <ul>
+            <li>Mathematics</li>
+            <li>Science</li>
+            <li>English</li>
+          </ul>
+        </article>
+        <article class="class-card featured">
+          <div class="class-badge">BOARD PREP</div>
+          <div class="class-header">
+            <span class="class-num">10</span>
+            <div class="class-title-wrap">
+              <h3>Class 10</h3>
+              <p class="class-subtitle">Prepare With Confidence</p>
+            </div>
+          </div>
+          <p>Board-focused revision, regular mock tests and personalised improvement plans.</p>
+          <ul>
+            <li>Mathematics</li>
+            <li>Science</li>
+            <li>English</li>
+          </ul>
+        </article>
       </div>
     </section>
 
-    <section class="section approach"><div class="education-doodles education-doodles-approach" aria-hidden="true">
-        <svg class="approach-infinity-mark" viewBox="0 0 640 300" aria-hidden="true">
-          <defs>
-            <linearGradient id="approachInfinityGradient" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#8cecff"></stop>
-              <stop offset=".52" stop-color="#28a9ff"></stop>
-              <stop offset="1" stop-color="#f2bd40"></stop>
-            </linearGradient>
-            <filter id="approachInfinityGlow" x="-30%" y="-50%" width="160%" height="200%">
-              <feGaussianBlur stdDeviation="7" result="blur"></feGaussianBlur>
-              <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
-            </filter>
-          </defs>
-          <path class="approach-infinity-shadow" pathLength="1" d="M72 150C72 60 186 48 258 112L382 188C454 252 568 240 568 150C568 60 454 48 382 112L258 188C186 252 72 240 72 150"></path>
-          <path class="approach-infinity-line" pathLength="1" d="M72 150C72 60 186 48 258 112L382 188C454 252 568 240 568 150C568 60 454 48 382 112L258 188C186 252 72 240 72 150"></path>
-          <path class="approach-infinity-shine" pathLength="1" d="M72 150C72 60 186 48 258 112L382 188C454 252 568 240 568 150C568 60 454 48 382 112L258 188C186 252 72 240 72 150"></path>
-        </svg>
-        <svg class="edu-doodle edu-ruler" viewBox="0 0 180 58">
-          <rect x="6" y="8" width="168" height="42" rx="8"></rect><path d="M30 8V26M52 8V20M74 8V26M96 8V20M118 8V26M140 8V20"></path>
-        </svg>
+    <section class="section approach">
+      <div class="education-doodles education-doodles-approach" aria-hidden="true">
+        <svg class="edu-doodle edu-checklist" viewBox="0 0 60 60"><rect x="10" y="10" width="40" height="45" rx="5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M18 22L24 28L34 18" fill="none" stroke="currentColor" stroke-width="3"/><line x1="18" y1="36" x2="42" y2="36" stroke="currentColor" stroke-width="3"/><line x1="18" y1="44" x2="36" y2="44" stroke="currentColor" stroke-width="3"/></svg>
+        <svg class="edu-doodle edu-bulb" viewBox="0 0 50 60"><path d="M25 5C15 5 10 15 10 25C10 32 15 37 18 42H32C35 37 40 32 40 25C40 15 35 5 25 5Z" fill="none" stroke="currentColor" stroke-width="3"/><line x1="18" y1="48" x2="32" y2="48" stroke="currentColor" stroke-width="3"/><line x1="20" y1="54" x2="30" y2="54" stroke="currentColor" stroke-width="3"/></svg>
+        <svg class="edu-doodle edu-arrow" viewBox="0 0 60 40"><path d="M5 30L25 15L40 22L55 8" fill="none" stroke="currentColor" stroke-width="3"/><path d="M45 8H55V18" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        <svg class="edu-doodle edu-inf-teach" viewBox="0 0 60 30"><path d="M10 15C10 7 20 7 30 15C40 23 50 23 50 15C50 7 40 7 30 15C20 23 10 23 10 15Z" fill="none" stroke="currentColor" stroke-width="3"/></svg>
       </div>
-      <div class="section-heading"><div><p class="eyebrow">How we teach</p><h2>A clear path from doubt to mastery</h2></div></div>
-      <div class="steps"><article><span>01</span><h3>Understand</h3><p>Simple explanations connect new ideas to what students already know.</p></article><article><span>02</span><h3>Practise</h3><p>Guided worksheets strengthen speed and accuracy.</p></article><article><span>03</span><h3>Measure</h3><p>Regular tests reveal progress and learning gaps.</p></article><article><span>04</span><h3>Improve</h3><p>Personal feedback turns every result into a practical next step.</p></article></div>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">How we teach</p>
+          <h2>A clear path from doubt to mastery</h2>
+        </div>
+      </div>
+      <div class="steps-journey-line" aria-hidden="true"></div>
+      <div class="steps">
+        <article class="step-card">
+          <div class="step-badge">
+            <span class="step-num">01</span>
+          </div>
+          <h3>Understand</h3>
+          <p>Simple explanations connect new ideas to what students already know.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-badge">
+            <span class="step-num">02</span>
+          </div>
+          <h3>Practise</h3>
+          <p>Guided worksheets strengthen speed and accuracy.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-badge">
+            <span class="step-num">03</span>
+          </div>
+          <h3>Measure</h3>
+          <p>Regular tests reveal progress and learning gaps.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-badge">
+            <span class="step-num">04</span>
+          </div>
+          <h3>Improve</h3>
+          <p>Personal feedback turns every result into a practical next step.</p>
+        </article>
+      </div>
     </section>
 
     <section class="section achievements trust-section six-service-section" id="achievements">
-      <div class="trust-intro"><p class="eyebrow light">Why Infinite Tutorial</p><h2>Complete support for every student</h2><p class="soft-text">Learning, regular evaluation, personal guidance and parent involvement work together to support student progress.</p><div class="trust-mission brand-tagline" aria-label="Your success, our mission">Your Success, Our Mission</div></div>
+      <div class="education-doodles education-doodles-whyus" aria-hidden="true">
+        <svg class="edu-doodle edu-trophy" viewBox="0 0 60 60"><path d="M15 10H45V25C45 34 37 40 30 40C23 40 15 34 15 25V10Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M15 15H8C8 25 15 27 15 27M45 15H52C52 25 45 27 45 27" fill="none" stroke="currentColor" stroke-width="3"/><line x1="30" y1="40" x2="30" y2="50" stroke="currentColor" stroke-width="3"/><line x1="20" y1="50" x2="40" y2="50" stroke="currentColor" stroke-width="3"/></svg>
+        <svg class="edu-doodle edu-target" viewBox="0 0 60 60"><circle cx="30" cy="30" r="22" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="30" cy="30" r="14" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="30" cy="30" r="5" fill="currentColor"/></svg>
+        <svg class="edu-doodle edu-grad" viewBox="0 0 60 50"><path d="M30 8L55 20L30 32L5 20Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M14 25.5V36C14 41 21 44 30 44C39 44 46 41 46 36V25.5" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+        <svg class="edu-doodle edu-graph" viewBox="0 0 60 50"><rect x="10" y="30" width="8" height="15" rx="2" fill="currentColor"/><rect x="24" y="20" width="8" height="25" rx="2" fill="currentColor"/><rect x="38" y="10" width="8" height="35" rx="2" fill="currentColor"/><path d="M8 26L24 16L38 6L52 2" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+      </div>
+      <div class="trust-intro">
+        <p class="eyebrow light">Why Infinite Tutorial</p>
+        <h2>Complete support for every student</h2>
+        <p class="soft-text">Learning, regular evaluation, personal guidance and parent involvement work together to support student progress.</p>
+        <div class="trust-mission brand-tagline" aria-label="Your success, our mission">Your Success, Our Mission</div>
+      </div>
       <div class="trust-points service-points">
-        <article>
-          <span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16v10H4zM8 20l4-6 4 6M8 8h8M8 11h5"></path></svg></span>
-          <h3>Experienced Faculties</h3><p>Learn from experts who care.</p>
+        <article class="service-card">
+          <span class="trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16v10H4zM8 20l4-6 4 6M8 8h8M8 11h5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <h3>Experienced Faculties</h3>
+          <p>Learn from experts who care.</p>
         </article>
-        <article>
-          <span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2zM7 2v4M17 2v4M3 9h18M8 14l2 2 5-5"></path></svg></span>
-          <h3>Weekend Examination</h3><p>Regular tests for better performance.</p>
+        <article class="service-card">
+          <span class="trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2zM7 2v4M17 2v4M3 9h18M8 14l2 2 5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <h3>Weekend Examination</h3>
+          <p>Regular tests for better performance.</p>
         </article>
-        <article>
-          <span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM16 12a3 3 0 1 0 0-6M2 21v-3a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v3M15 14h2a5 5 0 0 1 5 5v2"></path></svg></span>
-          <h3>Parent Teacher Meetings</h3><p>Stay informed, stay involved.</p>
+        <article class="service-card">
+          <span class="trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM16 12a3 3 0 1 0 0-6M2 21v-3a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v3M15 14h2a5 5 0 0 1 5 5v2" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <h3>Parent Teacher Meetings</h3>
+          <p>Stay informed, stay involved.</p>
         </article>
-        <article>
-          <span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM2 21v-3a5 5 0 0 1 5-5h1M13 5h8v7h-4l-3 3v-3h-1zM16 8h2"></path></svg></span>
-          <h3>Individual Student Counselling</h3><p>Personal attention for every student.</p>
+        <article class="service-card">
+          <span class="trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M7 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM2 21v-3a5 5 0 0 1 5-5h1M13 5h8v7h-4l-3 3v-3h-1zM16 8h2" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <h3>Individual Student Counselling</h3>
+          <p>Personal attention for every student.</p>
         </article>
-        <article>
-          <span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 5.5A4.5 4.5 0 0 1 7.5 3H11v16H7.5A4.5 4.5 0 0 0 3 21zM21 5.5A4.5 4.5 0 0 0 16.5 3H13v16h3.5A4.5 4.5 0 0 1 21 21z"></path></svg></span>
-          <h3>Excellent Study Materials</h3><p>By experienced faculties.</p>
+        <article class="service-card">
+          <span class="trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 5.5A4.5 4.5 0 0 1 7.5 3H11v16H7.5A4.5 4.5 0 0 0 3 21zM21 5.5A4.5 4.5 0 0 0 16.5 3H13v16h3.5A4.5 4.5 0 0 1 21 21z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <h3>Excellent Study Materials</h3>
+          <p>By experienced faculties.</p>
         </article>
-        <article>
-          <span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V5M16 20v-8M2 20h20M4 7l6-4 6 5 5-5M18 3h3v3"></path></svg></span>
-          <h3>Student Analysis</h3><p>Track progress, identify strengths, improve performance.</p>
+        <article class="service-card">
+          <span class="trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V5M16 20v-8M2 20h20M4 7l6-4 6 5 5-5M18 3h3v3" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <h3>Student Analysis</h3>
+          <p>Track progress, identify strengths, improve performance.</p>
         </article>
       </div>
     </section>
 
-    <section class="section registration" id="register"><div class="education-doodles education-doodles-registration" aria-hidden="true">
-        <svg class="edu-doodle edu-calculator" viewBox="0 0 120 150">
-          <rect x="15" y="8" width="90" height="134" rx="14"></rect><rect x="29" y="24" width="62" height="26" rx="5"></rect>
-          <circle cx="37" cy="72" r="7"></circle><circle cx="60" cy="72" r="7"></circle><circle cx="83" cy="72" r="7"></circle>
-          <circle cx="37" cy="96" r="7"></circle><circle cx="60" cy="96" r="7"></circle><circle cx="83" cy="96" r="7"></circle>
-          <circle cx="37" cy="120" r="7"></circle><path class="edu-gold-stroke" d="M54 120H90"></path>
-        </svg>
-        <span class="edu-formula edu-formula-small">E = mc²</span>
+    <section class="section registration" id="register">
+      <div class="education-doodles education-doodles-registration" aria-hidden="true">
+        <svg class="edu-doodle edu-notebook" viewBox="0 0 60 70"><rect x="12" y="8" width="40" height="52" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><line x1="8" y1="16" x2="16" y2="16" stroke="currentColor" stroke-width="3"/><line x1="8" y1="28" x2="16" y2="28" stroke="currentColor" stroke-width="3"/><line x1="8" y1="40" x2="16" y2="40" stroke="currentColor" stroke-width="3"/><line x1="8" y1="52" x2="16" y2="52" stroke="currentColor" stroke-width="3"/><line x1="22" y1="22" x2="42" y2="22" stroke="currentColor" stroke-width="2.5"/><line x1="22" y1="32" x2="42" y2="32" stroke="currentColor" stroke-width="2.5"/><line x1="22" y1="42" x2="36" y2="42" stroke="currentColor" stroke-width="2.5"/></svg>
+        <svg class="edu-doodle edu-pencil-reg" viewBox="0 0 50 50"><path d="M10 40L38 12L43 17L15 45Z" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M10 40L5 47L12 45Z" fill="currentColor"/></svg>
+        <svg class="edu-doodle edu-check" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="3"/><path d="M15 25L22 32L35 18" fill="none" stroke="currentColor" stroke-width="3"/></svg>
       </div>
-      <div><p class="eyebrow">Student registration</p><h2>Begin with a conversation</h2><p class="muted">Complete the registration form below. When you submit, WhatsApp will open with your details ready to send securely to the admin.</p><div class="contact-strip"><span>Call us</span><a href="tel:+918073912005">+91 80-73912005</a></div></div>
-      <form id="registrationForm" class="form-card">
-        <div class="form-row"><label>Student name<input name="student_name" required maxlength="100" autocomplete="name"></label><label>Class<select name="class_level" required><option value="">Select class</option><option>9</option><option>10</option></select></label></div>
-        <div class="form-row"><label>Parent / guardian name<input name="parent_name" required maxlength="100"></label><label>Phone number<input name="phone" required maxlength="15" inputmode="tel" pattern="[0-9+() -]{7,15}" autocomplete="tel"></label></div>
-        <div class="form-row"><label>Email address<input name="email" type="email" maxlength="150" autocomplete="email"></label><label>School<input name="school" maxlength="150"></label></div>
-        <div class="previous-result">
-          <div class="result-heading"><span>Previous academic result</span><small>Helps us plan the right level of support</small></div>
-          <div class="form-row"><label>Previous class<select name="previous_class" required><option value="">Select class</option><option>8</option><option>9</option></select></label><label>Board / syllabus<select name="board" required><option value="">Select board</option><option>State Board</option><option>CBSE</option><option>ICSE</option><option>Other</option></select></label></div>
-          <div class="form-row"><label>Last examination<input name="previous_exam" required maxlength="100" placeholder="Example: Annual examination"></label><label>Result percentage<input name="previous_percentage" type="number" min="0" max="100" step=".01" required placeholder="Example: 82.5"></label></div>
+      <div>
+        <p class="eyebrow">Student registration</p>
+        <h2>Begin with a conversation</h2>
+        <p class="muted">Complete the registration form below. When you submit, WhatsApp will open with your details ready to send securely to the admin.</p>
+        <div class="contact-strip">
+          <span>Call us for quick enquiry</span>
+          <a href="tel:+918073912005" class="phone-link">
+            <svg class="phone-icon" viewBox="0 0 24 24" width="20" height="20"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+            +91 80-73912005
+          </a>
         </div>
-        <label>Subjects interested in<input name="subjects" required maxlength="200" placeholder="Example: Mathematics, Science"></label>
-        <label>Preferred batch<select name="preferred_batch"><option value="">No preference</option><option>Weekday evening</option><option>Weekend morning</option><option>Weekend evening</option></select></label>
-        <label>Message (optional)<textarea name="message" maxlength="500" rows="3" placeholder="Tell us how we can help"></textarea></label>
-        <button class="button button-full whatsapp-submit" type="submit">Submit registration</button><p class="whatsapp-note"><strong>How submission works:</strong> After completing your response, WhatsApp will open with a prepared message; review it and tap Send to deliver the registration to the admin.</p><p class="form-status" id="registrationStatus" role="status"></p>
+      </div>
+
+      <form id="registrationForm" class="form-card">
+        <!-- Visual Group 01: Student details -->
+        <div class="form-section">
+          <div class="form-section-header">
+            <span class="group-num">01</span>
+            <h3 class="group-title">Student details</h3>
+          </div>
+          <div class="form-section-divider"></div>
+          <div class="form-row">
+            <label>Student name<input name="student_name" required maxlength="100" autocomplete="name" placeholder="Enter student's full name"></label>
+            <label>Class<select name="class_level" required><option value="">Select class</option><option>9</option><option>10</option></select></label>
+          </div>
+          <label>School<input name="school" maxlength="150" placeholder="Enter school name"></label>
+        </div>
+
+        <!-- Visual Group 02: Parent details -->
+        <div class="form-section">
+          <div class="form-section-header">
+            <span class="group-num">02</span>
+            <h3 class="group-title">Parent / Guardian details</h3>
+          </div>
+          <div class="form-section-divider"></div>
+          <div class="form-row">
+            <label>Parent / guardian name<input name="parent_name" required maxlength="100" placeholder="Enter parent's full name"></label>
+            <label>Phone number<input name="phone" required maxlength="15" inputmode="tel" pattern="[0-9+() -]{7,15}" autocomplete="tel" placeholder="Mobile / WhatsApp number"></label>
+          </div>
+          <label>Email address<input name="email" type="email" maxlength="150" autocomplete="email" placeholder="Optional email address"></label>
+        </div>
+
+        <!-- Visual Group 03: Academic details -->
+        <div class="form-section">
+          <div class="form-section-header">
+            <span class="group-num">03</span>
+            <h3 class="group-title">Academic details</h3>
+          </div>
+          <div class="form-section-divider"></div>
+          
+          <div class="previous-result">
+            <div class="result-heading">
+              <span class="result-title">Previous academic result</span>
+              <span class="result-subtitle">Helps us plan the right level of support</span>
+            </div>
+            <div class="form-row">
+              <label>Previous class<select name="previous_class" required><option value="">Select class</option><option>8</option><option>9</option></select></label>
+              <label>Board / syllabus<select name="board" required><option value="">Select board</option><option>State Board</option><option>CBSE</option><option>ICSE</option><option>Other</option></select></label>
+            </div>
+            <div class="form-row">
+              <label>Last examination<input name="previous_exam" required maxlength="100" placeholder="Example: Annual examination"></label>
+              <label>Result percentage<input name="previous_percentage" type="number" min="0" max="100" step=".01" required placeholder="Example: 82.5"></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual Group 04: Preferences -->
+        <div class="form-section">
+          <div class="form-section-header">
+            <span class="group-num">04</span>
+            <h3 class="group-title">Preferences</h3>
+          </div>
+          <div class="form-section-divider"></div>
+          <label>Subjects interested in<input name="subjects" required maxlength="200" placeholder="Example: Mathematics, Science, English"></label>
+          <label>Preferred batch<select name="preferred_batch"><option value="">No preference</option><option>Weekday evening</option><option>Weekend morning</option><option>Weekend evening</option></select></label>
+          <label>Message (optional)<textarea name="message" maxlength="500" rows="3" placeholder="Tell us how we can help your child succeed"></textarea></label>
+        </div>
+
+        <button class="button button-full whatsapp-submit" type="submit">
+          <svg class="whatsapp-btn-icon" viewBox="0 0 24 24" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c0-5.445 4.43-9.874 9.877-9.874 2.637 0 5.116 1.028 6.98 2.894A9.81 9.81 0 0122 12.053c0 5.447-4.429 9.875-9.877 9.875m0-18.067c-4.516 0-8.193 3.676-8.193 8.193 0 1.442.377 2.85 1.093 4.09l.17.295-.648 2.368 2.423-.636.284.169a8.14 8.14 0 004.869 1.57h.004c4.515 0 8.192-3.677 8.192-8.194 0-2.187-.852-4.243-2.401-5.792A8.13 8.13 0 0012.051 3.718" fill="currentColor"/></svg>
+          Submit registration
+        </button>
+        <p class="whatsapp-note"><strong>How submission works:</strong> After completing your response, WhatsApp will open with a prepared message; review it and tap Send to deliver the registration to the admin.</p>
+        <p class="form-status" id="registrationStatus" role="status"></p>
       </form>
     </section>
   </main>
 
   <footer class="footer" id="contact">
-    <div class="footer-brand"><a class="brand brand-image brand-footer-logo" href="#home" aria-label="Infinite Tutorial home"><img src="assets/infinite-tutorial-logo.png" alt="Infinite Tutorial"></a><p class="brand-tagline">Where learning is infinity for better Tomorrow</p></div>
-    <div><h3>Contact</h3><a href="tel:+918073912005">+91 80-73912005</a><a href="https://www.instagram.com/p/DdQdt0cP1zy/?stkn=YjZvcG11cXZhNGY0" target="_blank" rel="noopener noreferrer">Instagram</a></div>
-    <div class="footer-location"><h3>Visit us</h3><p>#352/58 Sainik Building<br>7th Cross, DR Circle<br>SS Hospital Road, Ambika Nagara<br>Davanagere, Karnataka 577002</p>
-      <div class="footer-map">
-        <iframe
-          title="Infinite Tutorial location on Google Maps"
-          src="https://maps.google.com/maps?q=Infinite%20Tutorial%2C%20352%2F58%20Sainik%20Building%2C%207th%20Cross%2C%20DR%20Circle%2C%20SS%20Hospital%20Road%2C%20Ambika%20Nagara%2C%20Davanagere%2C%20Karnataka%20577002&z=18&output=embed&iwloc=near"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          allowfullscreen>
-        </iframe>
+    <div class="footer-container">
+      <div class="footer-col footer-col-brand">
+        <a class="brand brand-image brand-footer-logo" href="#home" aria-label="Infinite Tutorial home"><img src="assets/infinite-tutorial-logo.png" alt="Infinite Tutorial"></a>
+        <p class="brand-tagline">Where learning is infinity for a better tomorrow</p>
       </div>
-      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Infinite%20Tutorial%2C%20352%2F58%20Sainik%20Building%2C%207th%20Cross%2C%20DR%20Circle%2C%20SS%20Hospital%20Road%2C%20Ambika%20Nagara%2C%20Davanagere%2C%20Karnataka%20577002" target="_blank" rel="noopener noreferrer">Open in Google Maps →</a>
+      <div class="footer-col footer-col-contact">
+        <h3>Contact</h3>
+        <a href="tel:+918073912005" class="footer-contact-link">+91 80-73912005</a>
+        <a href="https://www.instagram.com/p/DdQdt0cP1zy/?stkn=YjZvcG11cXZhNGY0" target="_blank" rel="noopener noreferrer" class="footer-contact-link">Instagram</a>
+      </div>
+      <div class="footer-col footer-col-visit">
+        <h3>Visit us</h3>
+        <p class="footer-address">#352/58 Sainik Building<br>7th Cross, DR Circle<br>SS Hospital Road, Ambika Nagara<br>Davanagere, Karnataka 577002</p>
+        <div class="footer-map">
+          <iframe
+            title="Infinite Tutorial location on Google Maps"
+            src="https://maps.google.com/maps?q=Infinite%20Tutorial%2C%20352%2F58%20Sainik%20Building%2C%207th%20Cross%2C%20DR%20Circle%2C%20SS%20Hospital%20Road%2C%20Ambika%20Nagara%2C%20Davanagere%2C%20Karnataka%20577002&z=18&output=embed&iwloc=near"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Infinite%20Tutorial%2C%20352%2F58%20Sainik%20Building%2C%207th%20Cross%2C%20DR%20Circle%2C%20SS%20Hospital%20Road%2C%20Ambika%20Nagara%2C%20Davanagere%2C%20Karnataka%20577002" target="_blank" rel="noopener noreferrer">Open in Google Maps →</a>
+      </div>
     </div>
-    <p class="copyright">© <span id="year"></span> Infinite Tutorial. All rights reserved.</p>
+    <div class="footer-bottom-divider"></div>
+    <div class="footer-bottom">
+      <p class="copyright">© <span id="year"></span> Infinite Tutorial. All rights reserved.</p>
+    </div>
   </footer>
 </div>
 
 <section id="adminLogin" class="admin-login hidden" aria-labelledby="loginTitle" aria-hidden="true" hidden>
-  <div class="login-card admin-surface"><button class="close-button" id="closeAdmin" aria-label="Close admin sign in">×</button><a class="brand brand-image login-brand" href="#home" aria-label="Infinite Tutorial home"><img src="assets/infinite-tutorial-logo.png" alt="Infinite Tutorial"></a><p class="eyebrow">Protected area</p><h2 id="loginTitle">Admin sign in</h2><p class="muted">Use your authorised Infinite Tutorial account.</p>
-    <form id="loginForm"><label>Email<input name="email" type="email" required autocomplete="username"></label><label>Password<input name="password" type="password" required autocomplete="current-password"></label><button class="button button-full" type="submit">Sign in securely</button><p class="form-status" id="loginStatus" role="status"></p></form>
+  <div class="login-card admin-surface">
+    <button class="close-button" id="closeAdmin" aria-label="Close admin sign in">×</button>
+    <a class="brand brand-image login-brand" href="#home" aria-label="Infinite Tutorial home"><img src="assets/infinite-tutorial-logo.png" alt="Infinite Tutorial"></a>
+    <p class="eyebrow">Protected area</p>
+    <h2 id="loginTitle">Admin sign in</h2>
+    <p class="muted">Use your authorised Infinite Tutorial account.</p>
+    <form id="loginForm">
+      <label>Email<input name="email" type="email" required autocomplete="username"></label>
+      <label>Password<input name="password" type="password" required autocomplete="current-password"></label>
+      <button class="button button-full" type="submit">Sign in securely</button>
+      <p class="form-status" id="loginStatus" role="status"></p>
+    </form>
   </div>
 </section>
 
 <section id="adminApp" class="admin-shell hidden" aria-hidden="true" hidden>
-  <aside class="admin-sidebar"><a class="brand brand-image admin-brand" href="#overview" aria-label="Infinite Tutorial admin dashboard"><img src="assets/infinite-tutorial-logo.png" alt="Infinite Tutorial"></a><p class="admin-sidebar-label">Admin workspace</p><nav aria-label="Admin dashboard navigation"><button class="active" data-admin-view="overview">Overview</button><button data-admin-view="students">Students</button><button data-admin-view="performance">Performance</button></nav><button class="logout-button" id="logoutButton">Sign out</button></aside>
+  <aside class="admin-sidebar">
+    <a class="brand brand-image admin-brand" href="#overview" aria-label="Infinite Tutorial admin dashboard"><img src="assets/infinite-tutorial-logo.png" alt="Infinite Tutorial"></a>
+    <p class="admin-sidebar-label">Admin workspace</p>
+    <nav aria-label="Admin dashboard navigation">
+      <button class="active" data-admin-view="overview">Overview</button>
+      <button data-admin-view="students">Students</button>
+      <button data-admin-view="performance">Performance</button>
+    </nav>
+    <button class="logout-button" id="logoutButton">Sign out</button>
+  </aside>
   <div class="admin-main">
-    <header class="admin-header"><div><p class="eyebrow">Admin dashboard</p><h1 id="adminPageTitle">Overview</h1></div><div class="admin-user"><span id="adminEmail"></span><i>A</i></div></header>
+    <header class="admin-header">
+      <div>
+        <p class="eyebrow">Admin dashboard</p>
+        <h1 id="adminPageTitle">Overview</h1>
+      </div>
+      <div class="admin-user"><span id="adminEmail"></span><i>A</i></div>
+    </header>
     <main>
       <section id="overviewView" class="admin-view">
-        <div class="metric-grid"><article><span>Registered students</span><strong id="totalStudents">0</strong><small>All active records</small></article><article><span>Average score</span><strong id="averageScore">—</strong><small>Across recorded tests</small></article><article><span>Average attendance</span><strong id="averageAttendance">—</strong><small>Across performance entries</small></article><article><span>Pending enquiries</span><strong id="pendingStudents">0</strong><small>Awaiting follow-up</small></article></div>
-        <div class="chart-grid"><article class="admin-card"><div class="card-heading"><h2>Students by class</h2></div><div class="chart-box"><canvas id="classChart"></canvas></div></article><article class="admin-card"><div class="card-heading"><h2>Average subject score</h2></div><div class="chart-box"><canvas id="subjectChart"></canvas></div></article></div>
-        <article class="admin-card"><div class="card-heading"><h2>Recent registrations</h2><button class="text-button" data-jump="students">View all</button></div><div class="table-wrap"><table><thead><tr><th>Student</th><th>Class</th><th>Parent</th><th>Phone</th><th>Status</th></tr></thead><tbody id="recentStudents"></tbody></table></div></article>
+        <div class="metric-grid">
+          <article><span>Registered students</span><strong id="totalStudents">0</strong><small>All active records</small></article>
+          <article><span>Average score</span><strong id="averageScore">—</strong><small>Across recorded tests</small></article>
+          <article><span>Average attendance</span><strong id="averageAttendance">—</strong><small>Across performance entries</small></article>
+          <article><span>Pending enquiries</span><strong id="pendingStudents">0</strong><small>Awaiting follow-up</small></article>
+        </div>
+        <div class="chart-grid">
+          <article class="admin-card"><div class="card-heading"><h2>Students by class</h2></div><div class="chart-box"><canvas id="classChart"></canvas></div></article>
+          <article class="admin-card"><div class="card-heading"><h2>Average subject score</h2></div><div class="chart-box"><canvas id="subjectChart"></canvas></div></article>
+        </div>
+        <article class="admin-card">
+          <div class="card-heading"><h2>Recent registrations</h2><button class="text-button" data-jump="students">View all</button></div>
+          <div class="table-wrap"><table><thead><tr><th>Student</th><th>Class</th><th>Parent</th><th>Phone</th><th>Status</th></tr></thead><tbody id="recentStudents"></tbody></table></div>
+        </article>
       </section>
 
-      <section id="studentsView" class="admin-view hidden"><article class="admin-card"><div class="card-heading responsive-heading"><div><h2>Registered students</h2><p>Private registration records</p></div><select id="classFilter" aria-label="Filter by class"><option value="">All classes</option><option>9</option><option>10</option></select></div><div class="table-wrap"><table><thead><tr><th>Student</th><th>Class</th><th>Parent</th><th>Contact</th><th>Subjects</th><th>Previous result</th><th>Status</th></tr></thead><tbody id="studentsTable"></tbody></table></div></article></section>
+      <section id="studentsView" class="admin-view hidden">
+        <article class="admin-card">
+          <div class="card-heading responsive-heading">
+            <div><h2>Registered students</h2><p>Private registration records</p></div>
+            <select id="classFilter" aria-label="Filter by class"><option value="">All classes</option><option>9</option><option>10</option></select>
+          </div>
+          <div class="table-wrap"><table><thead><tr><th>Student</th><th>Class</th><th>Parent</th><th>Contact</th><th>Subjects</th><th>Previous result</th><th>Status</th></tr></thead><tbody id="studentsTable"></tbody></table></div>
+        </article>
+      </section>
 
-      <section id="performanceView" class="admin-view hidden"><div class="performance-layout">
-        <article class="admin-card"><div class="card-heading"><div><h2>Add performance</h2><p>Record a test result and attendance</p></div></div><form id="performanceForm" class="compact-form"><label>Student<select name="student_id" id="performanceStudent" required><option value="">Select student</option></select></label><label>Subject<input name="subject" required maxlength="80"></label><label>Test name<input name="test_name" required maxlength="100"></label><div class="form-row"><label>Score<input name="score" type="number" min="0" step=".01" required></label><label>Maximum score<input name="max_score" type="number" min="1" step=".01" required></label></div><label>Attendance %<input name="attendance" type="number" min="0" max="100" step=".1" required></label><label>Test date<input name="test_date" type="date" required></label><button class="button button-full" type="submit">Save performance</button><p class="form-status" id="performanceStatus" role="status"></p></form></article>
-        <article class="admin-card"><div class="card-heading"><div><h2>Recent performance</h2><p>Latest test records</p></div></div><div class="table-wrap"><table><thead><tr><th>Student</th><th>Subject</th><th>Test</th><th>Score</th><th>Attendance</th></tr></thead><tbody id="performanceTable"></tbody></table></div></article>
-      </div></section>
+      <section id="performanceView" class="admin-view hidden">
+        <div class="performance-layout">
+          <article class="admin-card">
+            <div class="card-heading"><div><h2>Add performance</h2><p>Record a test result and attendance</p></div></div>
+            <form id="performanceForm" class="compact-form">
+              <label>Student<select name="student_id" id="performanceStudent" required><option value="">Select student</option></select></label>
+              <label>Subject<input name="subject" required maxlength="80"></label>
+              <label>Test name<input name="test_name" required maxlength="100"></label>
+              <div class="form-row">
+                <label>Score<input name="score" type="number" min="0" step=".01" required></label>
+                <label>Maximum score<input name="max_score" type="number" min="1" step=".01" required></label>
+              </div>
+              <label>Attendance %<input name="attendance" type="number" min="0" max="100" step=".1" required></label>
+              <label>Test date<input name="test_date" type="date" required></label>
+              <button class="button button-full" type="submit">Save performance</button>
+              <p class="form-status" id="performanceStatus" role="status"></p>
+            </form>
+          </article>
+          <article class="admin-card">
+            <div class="card-heading"><div><h2>Recent performance</h2><p>Latest test records</p></div></div>
+            <div class="table-wrap"><table><thead><tr><th>Student</th><th>Subject</th><th>Test</th><th>Score</th><th>Attendance</th></tr></thead><tbody id="performanceTable"></tbody></table></div>
+          </article>
+        </div>
+      </section>
     </main>
   </div>
 </section>
@@ -271,6 +498,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script src="supabase-config.js?v=28"></script>
-<script src="app.js?v=52"></script>
+<script src="app.js?v=54"></script>
 </body>
 </html>
