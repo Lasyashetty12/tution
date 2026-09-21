@@ -49,11 +49,8 @@
 
       document.body.classList.remove("intro-active");
       window.dispatchEvent(new Event("vision:intro-complete"));
-      requestAnimationFrame(() => intro.classList.add("curtain"));
-      window.setTimeout(() => {
-        intro.classList.add("exit");
-        intro.remove();
-      }, 980);
+      intro.classList.add("exit");
+      intro.remove();
     };
 
     if (introVideo) {
